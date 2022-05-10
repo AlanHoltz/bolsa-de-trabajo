@@ -1,14 +1,19 @@
 ﻿using System;
-using Utils;
+using System.Collections.Generic;
 
-namespace Consola
+namespace Bolsa.Consola
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("test");
-            Console.WriteLine(Singleton.GetInstance().connectDB());
+            List<Entities.User> users = Business.User.GetAll();
+
+            foreach(Entities.User user in users)
+            {
+                Console.WriteLine(user.Name);
+                Console.WriteLine(user);
+            }
         }
     }
 }
