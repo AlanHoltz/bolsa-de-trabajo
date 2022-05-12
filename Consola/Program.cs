@@ -7,13 +7,7 @@ namespace Bolsa.Consola
     {
         static void Main(string[] args)
         {
-            List<Entities.User> users = Business.User.GetAll();
 
-            foreach(Entities.User user in users)
-            {
-                Console.WriteLine(user.Name);
-                Console.WriteLine(user);
-            }
         }
     }
 }
