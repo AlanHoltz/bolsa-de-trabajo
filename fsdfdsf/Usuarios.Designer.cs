@@ -30,11 +30,11 @@ namespace Escritorio
         private void InitializeComponent()
         {
             this.tcUsuarios = new System.Windows.Forms.ToolStripContainer();
-            this.tsUsuarios = new System.Windows.Forms.ToolStrip();
             this.tlUsuarios = new System.Windows.Forms.TableLayoutPanel();
             this.dgvUsuarios = new System.Windows.Forms.DataGridView();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.btnSalir = new System.Windows.Forms.Button();
+            this.tsUsuarios = new System.Windows.Forms.ToolStrip();
             this.tcUsuarios.ContentPanel.SuspendLayout();
             this.tcUsuarios.TopToolStripPanel.SuspendLayout();
             this.tcUsuarios.SuspendLayout();
@@ -48,25 +48,17 @@ namespace Escritorio
             // tcUsuarios.ContentPanel
             // 
             this.tcUsuarios.ContentPanel.Controls.Add(this.tlUsuarios);
-            this.tcUsuarios.ContentPanel.Size = new System.Drawing.Size(800, 425);
+            this.tcUsuarios.ContentPanel.Size = new System.Drawing.Size(982, 425);
             this.tcUsuarios.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tcUsuarios.Location = new System.Drawing.Point(0, 0);
             this.tcUsuarios.Name = "tcUsuarios";
-            this.tcUsuarios.Size = new System.Drawing.Size(800, 450);
+            this.tcUsuarios.Size = new System.Drawing.Size(982, 450);
             this.tcUsuarios.TabIndex = 0;
             this.tcUsuarios.Text = "toolStripContainer1";
             // 
             // tcUsuarios.TopToolStripPanel
             // 
             this.tcUsuarios.TopToolStripPanel.Controls.Add(this.tsUsuarios);
-            // 
-            // tsUsuarios
-            // 
-            this.tsUsuarios.Dock = System.Windows.Forms.DockStyle.None;
-            this.tsUsuarios.Location = new System.Drawing.Point(3, 0);
-            this.tsUsuarios.Name = "tsUsuarios";
-            this.tsUsuarios.Size = new System.Drawing.Size(111, 25);
-            this.tsUsuarios.TabIndex = 0;
             // 
             // tlUsuarios
             // 
@@ -82,7 +74,7 @@ namespace Escritorio
             this.tlUsuarios.RowCount = 2;
             this.tlUsuarios.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlUsuarios.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tlUsuarios.Size = new System.Drawing.Size(800, 425);
+            this.tlUsuarios.Size = new System.Drawing.Size(982, 425);
             this.tlUsuarios.TabIndex = 0;
             // 
             // dgvUsuarios
@@ -93,13 +85,13 @@ namespace Escritorio
             this.dgvUsuarios.Location = new System.Drawing.Point(3, 3);
             this.dgvUsuarios.Name = "dgvUsuarios";
             this.dgvUsuarios.RowTemplate.Height = 25;
-            this.dgvUsuarios.Size = new System.Drawing.Size(794, 390);
+            this.dgvUsuarios.Size = new System.Drawing.Size(976, 390);
             this.dgvUsuarios.TabIndex = 0;
             // 
             // btnActualizar
             // 
             this.btnActualizar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnActualizar.Location = new System.Drawing.Point(641, 399);
+            this.btnActualizar.Location = new System.Drawing.Point(823, 399);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(75, 23);
             this.btnActualizar.TabIndex = 1;
@@ -109,7 +101,7 @@ namespace Escritorio
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(722, 399);
+            this.btnSalir.Location = new System.Drawing.Point(904, 399);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(75, 23);
             this.btnSalir.TabIndex = 2;
@@ -117,11 +109,19 @@ namespace Escritorio
             this.btnSalir.UseVisualStyleBackColor = true;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
+            // tsUsuarios
+            // 
+            this.tsUsuarios.Dock = System.Windows.Forms.DockStyle.None;
+            this.tsUsuarios.Location = new System.Drawing.Point(3, 0);
+            this.tsUsuarios.Name = "tsUsuarios";
+            this.tsUsuarios.Size = new System.Drawing.Size(111, 25);
+            this.tsUsuarios.TabIndex = 0;
+            // 
             // Usuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(982, 450);
             this.Controls.Add(this.tcUsuarios);
             this.Name = "Usuarios";
             this.Text = "Usuarios";
