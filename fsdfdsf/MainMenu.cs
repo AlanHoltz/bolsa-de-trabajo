@@ -16,5 +16,11 @@ namespace Escritorio
         {
             InitializeComponent();
         }
+
+        private void btnUsuarios_Click(object sender, EventArgs e)
+        {
+            Usuarios u = new Usuarios();
+            u.Show();
+        }
     }
 }
