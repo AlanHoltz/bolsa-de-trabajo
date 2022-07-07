@@ -42,7 +42,7 @@ namespace Bolsa.Data
         {
             try
             {
-                string query1 = "INSERT INTO [users] (user_mail, user_password) OUTPUT Inserted.user_id VALUES (@EMAIL, @PASSWORD)";
+                string query1 = "INSERT INTO [users] (user_mail, user_password, user_status, user_signup_date) OUTPUT Inserted.user_id VALUES (@EMAIL, @PASSWORD, @STATUS, @FECHAREGISTRO)";
                 string query2 = "INSERT INTO [persons] (person_id, person_name, person_surname, person_is_admin, person_birth_date) VALUES (@ID, @NAME, @SURNAME, @IS_ADMIN, @BIRTH_DATE)";
                 using (SqlConnection conn = Singleton.GetInstance().Open())
                 {
@@ -50,6 +50,8 @@ namespace Bolsa.Data
                     {
                         cmd1.Parameters.Add("@EMAIL", SqlDbType.VarChar).Value = person.Mail;
                         cmd1.Parameters.Add("@PASSWORD", SqlDbType.VarChar).Value = person.Password;
+                        cmd1.Parameters.Add("@STATUS", SqlDbType.TinyInt).Value = 1;
+                        cmd1.Parameters.Add("@FECHAREGISTRO", SqlDbType.Date).Value = DateTime.Now.ToString("dd/MM/yyyy");
 
                         int id = (int)cmd1.ExecuteScalar();
 
