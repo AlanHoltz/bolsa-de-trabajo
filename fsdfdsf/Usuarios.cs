@@ -17,6 +17,7 @@ namespace Escritorio
         public Usuarios()
         {
             InitializeComponent();
+            dgvUsuarios.AutoGenerateColumns = false;
         }
 
         public void Listar()
@@ -37,6 +38,11 @@ namespace Escritorio
         private void btnSalir_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void dgvUsuarios_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
