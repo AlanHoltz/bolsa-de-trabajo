@@ -12,7 +12,7 @@ namespace Bolsa.Consola
 
         static void Menu()
         {
-            String resp = "";
+            /* String resp = "";
             int opcion = 0;
             do
             {
@@ -101,7 +101,7 @@ namespace Bolsa.Consola
                         break;
                 }
                 resp = Console.ReadLine();
-            } while (resp != "N");
+            } while (resp != "N"); */
         }
         
         static void Menu2(String name)

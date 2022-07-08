@@ -8,17 +8,8 @@ namespace Bolsa.Entities
 {
     public class Person : User
     {
-        public Person()
+        public Person(int id, String mail, String password, Boolean status, DateTime signupDate, String name, String surname, String photo, String cv, Boolean isAdmin, DateTime birthDate) : base(id, mail, password, status, signupDate)
         {
-
-        }
-        public Person(int id, String mail, String password, Boolean status, DateTime signupDate, String name, String surname, String photo, String cv, Boolean isAdmin, DateTime birthDate)
-        {
-            Id = id;
-            Mail = mail;
-            Password = password;
-            Status = Status;
-            Date = signupDate;
             Name = name;
             Surname = surname;
             Photo = photo;
@@ -26,11 +17,8 @@ namespace Bolsa.Entities
             IsAdmin = isAdmin;
             BirthDate = birthDate;
         }
-        public Person(String mail, String password, DateTime signupDate, String name, String surname, String photo, String cv, Boolean isAdmin, DateTime birthDate)
+        public Person(String mail, String password, Boolean status, DateTime signupDate, String name, String surname, String photo, String cv, Boolean isAdmin, DateTime birthDate) : base(mail, password, status, signupDate)
         {
-            Mail = mail;
-            Password = password;
-            Date = signupDate;
             Name = name;
             Surname = surname;
             Photo = photo;
@@ -38,9 +26,8 @@ namespace Bolsa.Entities
             IsAdmin = isAdmin;
             BirthDate = birthDate;
         }
-        public Person(int id, String password, String name, String surname)
+        public Person(int id, String password, String name, String surname) : base(id)
         {
-            Id = id;
             Password = password;
             Name = name;
             Surname = surname;

@@ -77,26 +77,18 @@ namespace Bolsa.Data
         {
             try
             {
-                string query1 = "UPDATE [users] SET user_password = @PASSWORD WHERE user_id = @ID";
-                string query2 = "UPDATE [persons] SET person_name = @NAME, person_surname = @SURNAME, person_photo = @PHOTO, person_cv = @CV WHERE person_id = @ID";
+                string query = "UPDATE [persons] SET person_name = @NAME, person_surname = @SURNAME, person_photo = @PHOTO, person_cv = @CV WHERE person_id = @ID";
                 using (SqlConnection conn = Singleton.GetInstance().Open())
                 {
-                    using (SqlCommand cmd1 = new SqlCommand(query1, conn))
+                    using (SqlCommand cmd1 = new SqlCommand(query, conn))
                     {
-                        cmd1.Parameters.Add("@PASSWORD", SqlDbType.VarChar).Value = person.Password;
-                        cmd1.Parameters.Add("@ID", SqlDbType.VarChar).Value = person.Id;
-
-                        using (SqlCommand cmd2 = new SqlCommand(query2, conn))
-                        {
-                            cmd2.Parameters.Add("@ID", SqlDbType.Int).Value = person.Id;
-                            cmd2.Parameters.Add("@NAME", SqlDbType.VarChar).Value = person.Name;
-                            cmd2.Parameters.Add("@SURNAME", SqlDbType.VarChar).Value = person.Surname;
-                            cmd2.Parameters.Add("@PHOTO", SqlDbType.VarChar).Value = person.Photo;
-                            cmd2.Parameters.Add("@CV", SqlDbType.VarChar).Value = person.Cv;
+                            cmd1.Parameters.Add("@ID", SqlDbType.Int).Value = person.Id;
+                            cmd1.Parameters.Add("@NAME", SqlDbType.VarChar).Value = person.Name;
+                            cmd1.Parameters.Add("@SURNAME", SqlDbType.VarChar).Value = person.Surname;
+                            cmd1.Parameters.Add("@PHOTO", SqlDbType.VarChar).Value = person.Photo;
+                            cmd1.Parameters.Add("@CV", SqlDbType.VarChar).Value = person.Cv;
 
                             cmd1.ExecuteNonQuery();
-                            cmd2.ExecuteNonQuery();
-                        }
                     }
                 }
             }
