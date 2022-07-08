@@ -23,6 +23,11 @@ namespace Bolsa.Entities
             Status = status;
             Date = signupDate;
         }
+        public User(String mail, String password)
+        {
+            Mail = mail;
+            Password = password;
+        }
         public int Id { get; set; }
         public String Mail { get; set; }
         public String Password { get; set; }

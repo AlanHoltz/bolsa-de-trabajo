@@ -37,6 +37,9 @@ namespace Bolsa.Entities
             ReferenceWorkOnCompany = referenceWorkOnCompany;
             Photo = photo;
         }
+        public Company(String mail, String password) : base(mail, password)
+        {
+        }
         public String Name { get; set; }
         public String Cuit { get; set; }
         public String Category { get; set; }

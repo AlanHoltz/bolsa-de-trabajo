@@ -50,6 +50,7 @@ namespace Escritorio
             this.Controls.Add(this.btnUsuarios);
             this.Name = "MainMenu";
             this.Text = "MainMenu";
+            this.Shown += new System.EventHandler(this.MainMenu_Shown);
             this.ResumeLayout(false);
 
         }

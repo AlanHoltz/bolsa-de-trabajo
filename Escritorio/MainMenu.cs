@@ -22,5 +22,14 @@ namespace Escritorio
             Usuarios u = new Usuarios();
             u.Show();
         }
+
+        private void MainMenu_Shown(object sender, EventArgs e)
+        {
+            Login login = new Login();
+            if (login.ShowDialog() != DialogResult.OK)
+            {
+                this.Dispose();
+            }
+        }
     }
 }

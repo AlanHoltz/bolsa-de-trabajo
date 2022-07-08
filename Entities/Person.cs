@@ -32,6 +32,9 @@ namespace Bolsa.Entities
             Name = name;
             Surname = surname;
         }
+        public Person(String mail, String password) : base(mail, password)
+        {
+        }
         public String Name { get; set; }
         public String Surname { get; set; }
         public String Photo { get; set; }
