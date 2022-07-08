@@ -23,8 +23,8 @@ namespace Bolsa.Data
                             {
                                 while(reader.Read())
                                 {
-                                    Entities.City user = new Entities.City(reader.GetString(0), reader.GetString(1), reader.GetInt32(2));
-                                    cities.Add(user);
+                                    Entities.City citie = new Entities.City(reader.GetString(0), reader.GetString(1), reader.GetInt32(2));
+                                    cities.Add(citie);
                                 }
                             }
                         }

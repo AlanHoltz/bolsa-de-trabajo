@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bolsa.Entities
 {
-    public class JobProfile
+    public abstract class JobProfile
     {
         public JobProfile()
         {

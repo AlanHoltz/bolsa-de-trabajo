@@ -23,8 +23,8 @@ namespace Bolsa.Data
                             {
                                 while(reader.Read())
                                 {
-                                    Entities.Province user = new Entities.Province(reader.GetInt32(0), reader.GetString(1));
-                                    provinces.Add(user);
+                                    Entities.Province province = new Entities.Province(reader.GetInt32(0), reader.GetString(1));
+                                    provinces.Add(province);
                                 }
                             }
                         }

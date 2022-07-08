@@ -27,9 +27,9 @@ namespace Bolsa.Data
             {
                 SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
 
-                builder.DataSource = "(localdb)\\MSSQLLocalDb"; 
-                builder.UserID = "net";            
-                builder.Password = "net";     
+                builder.DataSource = "localhost"; 
+                builder.UserID = "";            
+                builder.Password = "";     
                 builder.InitialCatalog = "bolsadetrabajo";
             
                 SqlConnection conn = new SqlConnection(builder.ConnectionString);

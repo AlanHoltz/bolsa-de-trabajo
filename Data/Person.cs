@@ -12,7 +12,7 @@ namespace Bolsa.Data
         try 
             { 
                 string query = "SELECT * FROM [users] u INNER JOIN [persons] p ON u.user_id = p.person_id WHERE u.user_status = 1";
-                var users = new List<Entities.Person>();
+                var people = new List<Entities.Person>();
                 using (SqlConnection conn = Singleton.GetInstance().Open())
                 {
                     using(SqlCommand cmd = new SqlCommand(query, conn))
@@ -23,14 +23,14 @@ namespace Bolsa.Data
                             {
                                 while(reader.Read())
                                 {
-                                    Entities.Person user = new Entities.Person(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), Convert.ToBoolean(reader.GetByte(3)), reader.GetDateTime(4), reader.GetString(6), reader.GetString(7), reader.IsDBNull(8) ? "" : reader.GetString(8), reader.IsDBNull(9) ? "" : reader.GetString(9), Convert.ToBoolean(reader.GetByte(10)), reader.GetDateTime(11));
-                                    users.Add(user);
+                                    Entities.Person person = new Entities.Person(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), Convert.ToBoolean(reader.GetByte(3)), reader.GetDateTime(4), reader.GetString(6), reader.GetString(7), reader.IsDBNull(8) ? "" : reader.GetString(8), reader.IsDBNull(9) ? "" : reader.GetString(9), Convert.ToBoolean(reader.GetByte(10)), reader.GetDateTime(11));
+                                    people.Add(person);
                                 }
                             }
                         }
                     }
                 }
-                return users;
+                return people;
             }
             catch (SqlException e)
             {
@@ -53,7 +53,7 @@ namespace Bolsa.Data
                         cmd1.Parameters.Add("@STATUS", SqlDbType.TinyInt).Value = 1;
                         cmd1.Parameters.Add("@FECHAREGISTRO", SqlDbType.Date).Value = DateTime.Now.ToString("dd/MM/yyyy");
 
-                        int id = (int)cmd1.ExecuteScalar();
+                        int id = (int) cmd1.ExecuteScalar();
 
                         using (SqlCommand cmd2 = new SqlCommand(query2, conn))
                         {
