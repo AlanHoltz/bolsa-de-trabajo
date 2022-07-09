@@ -31,5 +31,11 @@ namespace Escritorio
                 this.Dispose();
             }
         }
+
+        private void tsmListaUsuarios_Click(object sender, EventArgs e)
+        {
+            Usuarios u = new Usuarios();
+            u.Show();
+        }
     }
 }
