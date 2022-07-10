@@ -43,5 +43,17 @@ namespace Escritorio
             UserDesktop formUser = new UserDesktop(ApplicationForm.ModoForm.Alta);
             formUser.ShowDialog();
         }
+
+        private void tsmListaProvincias_Click(object sender, EventArgs e)
+        {
+            Provinces p = new Provinces();
+            p.Show();
+        }
+
+        private void tsmAgregarProvincias_Click(object sender, EventArgs e)
+        {
+            ProvinceDesktop formProvince = new ProvinceDesktop(ApplicationForm.ModoForm.Alta);
+            formProvince.ShowDialog();
+        }
     }
 }

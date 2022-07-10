@@ -39,6 +39,38 @@ namespace Bolsa.Data
             }
         }
 
+        public static Entities.Province GetOne(int ID)
+        {
+            Entities.Province province = new Entities.Province();
+            try
+            {
+                string query = "SELECT * FROM [provinces] WHERE province_id = @ID";
+                using (SqlConnection conn = Singleton.GetInstance().Open())
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader != null)
+                            {
+                                reader.Read();
+                                province.Id = ID;
+                                province.Name = reader.GetString(1);
+
+                            }
+                        }
+                    }
+                }
+                return province;
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.ToString());
+                return null;
+            }
+        }
+
         public static void Insert(Entities.Province province)
         {
             try
@@ -85,7 +117,7 @@ namespace Bolsa.Data
                 Console.WriteLine(e.ToString());
             }
         }
-        public static void Delete(Entities.Province province)
+        public static void Delete(int ID)
         {
             try
             {
@@ -94,7 +126,7 @@ namespace Bolsa.Data
                 {
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
-                        cmd.Parameters.Add("@ID", SqlDbType.VarChar).Value = province.Id;
+                        cmd.Parameters.Add("@ID", SqlDbType.VarChar).Value = ID;
 
                         cmd.ExecuteNonQuery();
                     }
@@ -104,6 +136,23 @@ namespace Bolsa.Data
             {
                 Console.WriteLine(e.ToString());
             }
+        }
+
+        public static void Save(Bolsa.Entities.Province province)
+        {
+            if (province.State == Bolsa.Entities.BusinessEntity.States.New)
+            {
+                Insert(province);
+            }
+            else if (province.State == Bolsa.Entities.BusinessEntity.States.Deleted)
+            {
+                Delete(province.Id);
+            }
+            else if (province.State == Bolsa.Entities.BusinessEntity.States.Modified)
+            {
+                Update(province);
+            }
+            province.State = Bolsa.Entities.BusinessEntity.States.Unmodified;
         }
     }
 }
