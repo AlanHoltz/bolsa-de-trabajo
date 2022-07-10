@@ -55,6 +55,7 @@ namespace Escritorio
         {
             CityDesktop formCity = new CityDesktop(ApplicationForm.ModoForm.Alta);
             formCity.ShowDialog();
+        }
 
         private void tsmListaProvincias_Click(object sender, EventArgs e)
         {
@@ -68,5 +69,6 @@ namespace Escritorio
             formProvince.ShowDialog();
 
         }
+
     }
 }
