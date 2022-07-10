@@ -127,14 +127,16 @@ namespace Escritorio
             // tsmListaCiudades
             // 
             this.tsmListaCiudades.Name = "tsmListaCiudades";
-            this.tsmListaCiudades.Size = new System.Drawing.Size(116, 22);
+            this.tsmListaCiudades.Size = new System.Drawing.Size(180, 22);
             this.tsmListaCiudades.Text = "Lista";
+            this.tsmListaCiudades.Click += new System.EventHandler(this.tsmListaCiudades_Click);
             // 
             // tsmAgregarCiudades
             // 
             this.tsmAgregarCiudades.Name = "tsmAgregarCiudades";
-            this.tsmAgregarCiudades.Size = new System.Drawing.Size(116, 22);
+            this.tsmAgregarCiudades.Size = new System.Drawing.Size(180, 22);
             this.tsmAgregarCiudades.Text = "Agregar";
+            this.tsmAgregarCiudades.Click += new System.EventHandler(this.tsmAgregarCiudades_Click);
             // 
             // tsmProvincias
             // 

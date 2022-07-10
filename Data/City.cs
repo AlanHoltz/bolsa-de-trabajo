@@ -23,7 +23,7 @@ namespace Bolsa.Data
                             {
                                 while(reader.Read())
                                 {
-                                    Entities.City citie = new Entities.City(reader.GetString(0), reader.GetString(1), reader.GetInt32(2));
+                                    Entities.City citie = new Entities.City(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2));
                                     cities.Add(citie);
                                 }
                             }
@@ -31,6 +31,38 @@ namespace Bolsa.Data
                     }
                 }
                 return cities;
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.ToString());
+                return null;
+            }
+        }
+
+        public static Entities.City GetOne(int zipCode)
+        {
+            Entities.City city = new Entities.City();
+            try
+            {
+                string query = "SELECT * FROM [cities] WHERE city_zip_code = @ZIP";
+                using (SqlConnection conn = Singleton.GetInstance().Open())
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, conn)) { 
+                        cmd.Parameters.Add("@ZIP", SqlDbType.Int).Value = zipCode;
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader != null)
+                            {
+                                reader.Read();
+                                city.ZipCode = reader.GetInt32(0);
+                                city.Name = reader.GetString(1);
+                                city.ProvinceId = reader.GetInt32(2);
+                            }
+                            return city;
+                        }
+                    }
+                }
+
             }
             catch (SqlException e)
             {
@@ -88,7 +120,7 @@ namespace Bolsa.Data
                 Console.WriteLine(e.ToString());
             }
         }
-        public static void Delete(Entities.City city)
+        public static void Delete(int zipCode)
         {
             try
             {
@@ -97,7 +129,7 @@ namespace Bolsa.Data
                 {
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
-                        cmd.Parameters.Add("@ZIP_CODE", SqlDbType.VarChar).Value = city.ZipCode;
+                        cmd.Parameters.Add("@ZIP_CODE", SqlDbType.VarChar).Value = zipCode;
 
                         cmd.ExecuteNonQuery();
                     }
@@ -107,6 +139,23 @@ namespace Bolsa.Data
             {
                 Console.WriteLine(e.ToString());
             }
+        }
+
+        public static void Save(Entities.City city)
+        {
+            if (city.State == Bolsa.Entities.BusinessEntity.States.New)
+            {
+                Insert(city);
+            }
+            else if (city.State == Bolsa.Entities.BusinessEntity.States.Deleted)
+            {
+                Delete(city.ZipCode);
+            }
+            else if (city.State == Bolsa.Entities.BusinessEntity.States.Modified)
+            {
+                Update(city);
+            }
+            city.State = Bolsa.Entities.BusinessEntity.States.Unmodified;
         }
     }
 }
