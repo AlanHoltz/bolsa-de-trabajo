@@ -23,7 +23,7 @@ namespace Bolsa.Data
                             {
                                 while(reader.Read())
                                 {
-                                    Entities.City citie = new Entities.City(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2));
+                                    Entities.City citie = new Entities.City(reader.GetString(0), reader.GetString(1), reader.GetInt32(2));
                                     cities.Add(citie);
                                 }
                             }
@@ -39,7 +39,7 @@ namespace Bolsa.Data
             }
         }
 
-        public static Entities.City GetOne(int zipCode)
+        public static Entities.City GetOne(String zipCode)
         {
             Entities.City city = new Entities.City();
             try
@@ -54,7 +54,7 @@ namespace Bolsa.Data
                             if (reader != null)
                             {
                                 reader.Read();
-                                city.ZipCode = reader.GetInt32(0);
+                                city.ZipCode = reader.GetString(0);
                                 city.Name = reader.GetString(1);
                                 city.ProvinceId = reader.GetInt32(2);
                             }
@@ -120,7 +120,7 @@ namespace Bolsa.Data
                 Console.WriteLine(e.ToString());
             }
         }
-        public static void Delete(int zipCode)
+        public static void Delete(String zipCode)
         {
             try
             {

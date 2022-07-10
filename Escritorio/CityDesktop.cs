@@ -37,7 +37,7 @@ namespace Escritorio
 
         }
 
-        public CityDesktop(int zipCode, ModoForm modo) : this()
+        public CityDesktop(String zipCode, ModoForm modo) : this()
         {
             CurrentCity = cl.GetOne(zipCode);
             MapearDeDatos();
@@ -77,7 +77,7 @@ namespace Escritorio
 
         public override void MapearADatos()
         {
-            this.CurrentCity.ZipCode = Int32.Parse(this.txtZipCode.Text);
+            this.CurrentCity.ZipCode = this.txtZipCode.Text;
             this.CurrentCity.Name = this.txtName.Text;
             this.CurrentCity.ProvinceId = Int32.Parse(this.txtProvinceId.Text);
             switch (Modo)
