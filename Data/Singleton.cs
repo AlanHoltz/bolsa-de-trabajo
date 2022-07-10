@@ -27,10 +27,10 @@ namespace Bolsa.Data
             {
                 SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
 
-                //builder.DataSource = "localhost";
-                builder.DataSource = "localhost\\SQLEXPRESS01"; //Juan
-                //builder.UserID = "";            
-                //builder.Password = "";     
+                builder.DataSource = "localhost";
+                //builder.DataSource = "localhost\\SQLEXPRESS01"; //Juan
+                builder.UserID = "";            
+                builder.Password = "";     
                 builder.InitialCatalog = "bolsadetrabajo";
                 builder.IntegratedSecurity = true; //Autenticacion de windows
 

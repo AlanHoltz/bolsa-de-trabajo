@@ -106,14 +106,16 @@ namespace Escritorio
             // tsmListaEmpresas
             // 
             this.tsmListaEmpresas.Name = "tsmListaEmpresas";
-            this.tsmListaEmpresas.Size = new System.Drawing.Size(116, 22);
+            this.tsmListaEmpresas.Size = new System.Drawing.Size(180, 22);
             this.tsmListaEmpresas.Text = "Lista";
+            this.tsmListaEmpresas.Click += new System.EventHandler(this.tsmListaEmpresas_Click);
             // 
             // tsmAgregarEmpresas
             // 
             this.tsmAgregarEmpresas.Name = "tsmAgregarEmpresas";
-            this.tsmAgregarEmpresas.Size = new System.Drawing.Size(116, 22);
+            this.tsmAgregarEmpresas.Size = new System.Drawing.Size(180, 22);
             this.tsmAgregarEmpresas.Text = "Agregar";
+            this.tsmAgregarEmpresas.Click += new System.EventHandler(this.tsmAgregarEmpresas_Click);
             // 
             // tsmCiudades
             // 

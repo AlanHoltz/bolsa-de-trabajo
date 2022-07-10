@@ -8,6 +8,10 @@ namespace Bolsa.Entities
 {
     public class Company : User
     {
+        public Company() : base()
+        {
+
+        }
         public Company(int id, String mail, String password, Boolean status, DateTime signupDate, String name, String cuit, String category, String address, String zipCode, String referenceName, String referencePhone, String referenceEmail, String referenceArea, Boolean referenceWorkOnCompany, String photo) : base(mail, password, status, signupDate)
         {
             Id = id;

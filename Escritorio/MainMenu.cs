@@ -43,5 +43,17 @@ namespace Escritorio
             UserDesktop formUser = new UserDesktop(ApplicationForm.ModoForm.Alta);
             formUser.ShowDialog();
         }
+
+        private void tsmListaEmpresas_Click(object sender, EventArgs e)
+        {
+            Companies em = new Companies();
+            em.Show();
+        }
+
+        private void tsmAgregarEmpresas_Click(object sender, EventArgs e)
+        {
+            CompanyDesktop formUser = new CompanyDesktop(ApplicationForm.ModoForm.Alta);
+            formUser.ShowDialog();
+        }
     }
 }
