@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bolsa.Entities
 {
-    public class Province
+    public class Province:BusinessEntity
     {
         public Province()
         {

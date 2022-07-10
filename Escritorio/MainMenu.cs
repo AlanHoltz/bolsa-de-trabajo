@@ -55,5 +55,31 @@ namespace Escritorio
             CompanyDesktop formUser = new CompanyDesktop(ApplicationForm.ModoForm.Alta);
             formUser.ShowDialog();
         }
+
+        private void tsmListaCiudades_Click(object sender, EventArgs e)
+        {
+            Cities c = new Cities();
+            c.Show();
+        }
+
+        private void tsmAgregarCiudades_Click(object sender, EventArgs e)
+        {
+            CityDesktop formCity = new CityDesktop(ApplicationForm.ModoForm.Alta);
+            formCity.ShowDialog();
+        }
+
+        private void tsmListaProvincias_Click(object sender, EventArgs e)
+        {
+            Provinces p = new Provinces();
+            p.Show();
+        }
+
+        private void tsmAgregarProvincias_Click(object sender, EventArgs e)
+        {
+            ProvinceDesktop formProvince = new ProvinceDesktop(ApplicationForm.ModoForm.Alta);
+            formProvince.ShowDialog();
+
+        }
+
     }
 }
