@@ -83,14 +83,14 @@ namespace Escritorio
             // tsmListaUsuarios
             // 
             this.tsmListaUsuarios.Name = "tsmListaUsuarios";
-            this.tsmListaUsuarios.Size = new System.Drawing.Size(180, 22);
+            this.tsmListaUsuarios.Size = new System.Drawing.Size(116, 22);
             this.tsmListaUsuarios.Text = "Lista";
             this.tsmListaUsuarios.Click += new System.EventHandler(this.tsmListaUsuarios_Click);
             // 
             // tsmAgregarUsuarios
             // 
             this.tsmAgregarUsuarios.Name = "tsmAgregarUsuarios";
-            this.tsmAgregarUsuarios.Size = new System.Drawing.Size(180, 22);
+            this.tsmAgregarUsuarios.Size = new System.Drawing.Size(116, 22);
             this.tsmAgregarUsuarios.Text = "Agregar";
             this.tsmAgregarUsuarios.Click += new System.EventHandler(this.tsmAgregarUsuarios_Click);
             // 
@@ -127,14 +127,16 @@ namespace Escritorio
             // tsmListaCiudades
             // 
             this.tsmListaCiudades.Name = "tsmListaCiudades";
-            this.tsmListaCiudades.Size = new System.Drawing.Size(116, 22);
+            this.tsmListaCiudades.Size = new System.Drawing.Size(180, 22);
             this.tsmListaCiudades.Text = "Lista";
+            this.tsmListaCiudades.Click += new System.EventHandler(this.tsmListaCiudades_Click);
             // 
             // tsmAgregarCiudades
             // 
             this.tsmAgregarCiudades.Name = "tsmAgregarCiudades";
-            this.tsmAgregarCiudades.Size = new System.Drawing.Size(116, 22);
+            this.tsmAgregarCiudades.Size = new System.Drawing.Size(180, 22);
             this.tsmAgregarCiudades.Text = "Agregar";
+            this.tsmAgregarCiudades.Click += new System.EventHandler(this.tsmAgregarCiudades_Click);
             // 
             // tsmProvincias
             // 

@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace Bolsa.Entities
 {
-    public class City
+    public class City:BusinessEntity
     {
         public City()
         {
-
         }
-        public City(String zipCode, String name, int provinceId)
+        public City(int zipCode, String name, int provinceId)
         {
             ZipCode = zipCode;
             Name = name;
@@ -24,7 +23,7 @@ namespace Bolsa.Entities
             Name = name;
             ProvinceId = provinceId;
         }
-        public String ZipCode { get; set; }
+        public int ZipCode { get; set; }
         public String Name { get; set; }
         public int ProvinceId { get; set; }
 

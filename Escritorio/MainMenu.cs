@@ -43,5 +43,17 @@ namespace Escritorio
             UserDesktop formUser = new UserDesktop(ApplicationForm.ModoForm.Alta);
             formUser.ShowDialog();
         }
+
+        private void tsmListaCiudades_Click(object sender, EventArgs e)
+        {
+            Cities c = new Cities();
+            c.Show();
+        }
+
+        private void tsmAgregarCiudades_Click(object sender, EventArgs e)
+        {
+            CityDesktop formCity = new CityDesktop(ApplicationForm.ModoForm.Alta);
+            formCity.ShowDialog();
+        }
     }
 }
