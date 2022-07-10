@@ -11,26 +11,24 @@ namespace Bolsa.Business
             return Data.Person.GetAll();
         }
 
-        public static void Insert(Entities.Person person)
+        public Entities.Person GetOne(int ID)
+        {
+            return Data.Person.GetOne(ID);
+        }
+
+        public void Insert(Entities.Person person)
         {
             Data.Person.Insert(person);
         }
 
-        public static void Update(Entities.Person person)
+        public static void Delete(int ID)
         {
-            /*
-             * TODO
-             * Faltaría hacer acá la subida de imágenes y cv y asignarle la url a
-             * person.Photo y person.Cv con los setters
-             */
-            person.Photo = "";
-            person.Cv = "";
-
-            Data.Person.Update(person);
+            Data.Person.Delete(ID);
         }
-        public static void Delete(Entities.Person person)
+
+        public void Save(Entities.Person person)
         {
-            Data.Person.Delete(person);
+            Data.Person.Save(person);
         }
     }
 }

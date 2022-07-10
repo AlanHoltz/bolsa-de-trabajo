@@ -38,6 +38,46 @@ namespace Bolsa.Data
                 return null;
             }
         }
+
+        public static Entities.Person GetOne(int ID)
+        {
+            Entities.Person person = new Entities.Person();
+            try
+            {
+                string query = "SELECT * FROM [users] u INNER JOIN [persons] p ON u.user_id = p.person_id WHERE u.user_status = 1 AND p.person_id = @ID";
+                using (SqlConnection conn = Singleton.GetInstance().Open())
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader != null)
+                            {
+                                reader.Read();
+                                person.Id = ID; //El 0 y el 6 son ID asique con uno alcanza.
+                                person.Mail = reader.GetString(1);
+                                person.Password = reader.GetString(2);
+                                person.Status = Convert.ToBoolean(reader.GetByte(3));
+                                person.Date = reader.GetDateTime(4);
+                                person.Name = reader.GetString(6);
+                                person.Surname = reader.GetString(7);
+                                person.Photo = reader.IsDBNull(8) ? "" : reader.GetString(8);
+                                person.Cv = reader.IsDBNull(9) ? "" : reader.GetString(9);
+                                person.IsAdmin = Convert.ToBoolean(reader.GetByte(10));
+                                person.BirthDate = reader.GetDateTime(11);
+                            }
+                        }
+                    }
+                }
+                return person;
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.ToString());
+                return null;
+            }
+        }
         public static void Insert(Entities.Person person)
         {
             try
@@ -77,7 +117,8 @@ namespace Bolsa.Data
         {
             try
             {
-                string query = "UPDATE [persons] SET person_name = @NAME, person_surname = @SURNAME, person_photo = @PHOTO, person_cv = @CV WHERE person_id = @ID";
+                //string query = "UPDATE [persons] SET person_name = @NAME, person_surname = @SURNAME, person_photo = @PHOTO, person_cv = @CV, person_is_admin = @ADMIN, person_birth_day = @BIRTHDAY,  WHERE person_id = @ID";
+                string query = "UPDATE [dbo].[persons] SET [person_name] = @NAME ,[person_surname] = @SURNAME ,[person_is_admin] = @ADMIN ,[person_birth_date] = @BIRTHDAY WHERE person_id = @ID";
                 using (SqlConnection conn = Singleton.GetInstance().Open())
                 {
                     using (SqlCommand cmd1 = new SqlCommand(query, conn))
@@ -85,19 +126,35 @@ namespace Bolsa.Data
                             cmd1.Parameters.Add("@ID", SqlDbType.Int).Value = person.Id;
                             cmd1.Parameters.Add("@NAME", SqlDbType.VarChar).Value = person.Name;
                             cmd1.Parameters.Add("@SURNAME", SqlDbType.VarChar).Value = person.Surname;
-                            cmd1.Parameters.Add("@PHOTO", SqlDbType.VarChar).Value = person.Photo;
-                            cmd1.Parameters.Add("@CV", SqlDbType.VarChar).Value = person.Cv;
-
+                            //cmd1.Parameters.Add("@PHOTO", SqlDbType.VarChar).Value = person.Photo; //Estos dos rompen el update
+                            //cmd1.Parameters.Add("@CV", SqlDbType.VarChar).Value = person.Cv;
+                            cmd1.Parameters.Add("@ADMIN", SqlDbType.TinyInt).Value = person.IsAdmin;
+                            cmd1.Parameters.Add("@BIRTHDAY", SqlDbType.Date).Value = person.BirthDate;
                             cmd1.ExecuteNonQuery();
                     }
                 }
+                string query2 = "UPDATE[dbo].[users] SET[user_mail] = @EMAIL, [user_password] = @PASSWORD WHERE user_id = @ID";
+
+                using (SqlConnection conn = Singleton.GetInstance().Open())
+                {
+                    using (SqlCommand cmd2 = new SqlCommand(query2, conn))
+                    {
+ 
+                        cmd2.Parameters.Add("@EMAIL", SqlDbType.VarChar).Value = person.Mail;
+                        cmd2.Parameters.Add("@PASSWORD", SqlDbType.VarChar).Value = person.Password;
+                        cmd2.Parameters.Add("@ID", SqlDbType.Int).Value = person.Id;
+                        cmd2.ExecuteNonQuery();
+                    }
+                }
+
+
             }
             catch (SqlException e)
             {
                 Console.WriteLine(e.ToString());
             }
         }
-        public static void Delete(Entities.Person person)
+        public static void Delete(int ID)
         {
             try
             {
@@ -107,7 +164,7 @@ namespace Bolsa.Data
                     using (SqlCommand cmd1 = new SqlCommand(query1, conn))
                     {
                         cmd1.Parameters.Add("@STATUS", SqlDbType.TinyInt).Value = 0;
-                        cmd1.Parameters.Add("@ID", SqlDbType.VarChar).Value = person.Id;
+                        cmd1.Parameters.Add("@ID", SqlDbType.VarChar).Value = ID;
 
                         cmd1.ExecuteNonQuery();
                     }
@@ -117,6 +174,23 @@ namespace Bolsa.Data
             {
                 Console.WriteLine(e.ToString());
             }
+        }
+
+        public static void Save(Bolsa.Entities.Person person)
+        {
+            if (person.State == Bolsa.Entities.BusinessEntity.States.New)
+            {
+                Insert(person);
+            }
+            else if (person.State == Bolsa.Entities.BusinessEntity.States.Deleted)
+            {
+                Delete(person.Id);
+            }
+            else if (person.State == Bolsa.Entities.BusinessEntity.States.Modified)
+            {
+                Update(person);
+            }
+            person.State = Bolsa.Entities.BusinessEntity.States.Unmodified;
         }
     }
 }

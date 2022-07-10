@@ -2,8 +2,12 @@
 
 namespace Bolsa.Entities
 {
-    public abstract class User
+    public abstract class User:BusinessEntity
     {
+        public User()
+        {
+
+        }
         public User(int id)
         {
             Id = id;

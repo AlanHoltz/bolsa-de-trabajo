@@ -77,21 +77,22 @@ namespace Escritorio
             this.tsmListaUsuarios,
             this.tsmAgregarUsuarios});
             this.tsmUsuarios.Name = "tsmUsuarios";
-            this.tsmUsuarios.Size = new System.Drawing.Size(128, 22);
+            this.tsmUsuarios.Size = new System.Drawing.Size(180, 22);
             this.tsmUsuarios.Text = "Usuarios";
             // 
             // tsmListaUsuarios
             // 
             this.tsmListaUsuarios.Name = "tsmListaUsuarios";
-            this.tsmListaUsuarios.Size = new System.Drawing.Size(116, 22);
+            this.tsmListaUsuarios.Size = new System.Drawing.Size(180, 22);
             this.tsmListaUsuarios.Text = "Lista";
             this.tsmListaUsuarios.Click += new System.EventHandler(this.tsmListaUsuarios_Click);
             // 
             // tsmAgregarUsuarios
             // 
             this.tsmAgregarUsuarios.Name = "tsmAgregarUsuarios";
-            this.tsmAgregarUsuarios.Size = new System.Drawing.Size(116, 22);
+            this.tsmAgregarUsuarios.Size = new System.Drawing.Size(180, 22);
             this.tsmAgregarUsuarios.Text = "Agregar";
+            this.tsmAgregarUsuarios.Click += new System.EventHandler(this.tsmAgregarUsuarios_Click);
             // 
             // tsmEmpresas
             // 
@@ -99,7 +100,7 @@ namespace Escritorio
             this.tsmListaEmpresas,
             this.tsmAgregarEmpresas});
             this.tsmEmpresas.Name = "tsmEmpresas";
-            this.tsmEmpresas.Size = new System.Drawing.Size(128, 22);
+            this.tsmEmpresas.Size = new System.Drawing.Size(180, 22);
             this.tsmEmpresas.Text = "Empresas";
             // 
             // tsmListaEmpresas
@@ -120,7 +121,7 @@ namespace Escritorio
             this.tsmListaCiudades,
             this.tsmAgregarCiudades});
             this.tsmCiudades.Name = "tsmCiudades";
-            this.tsmCiudades.Size = new System.Drawing.Size(128, 22);
+            this.tsmCiudades.Size = new System.Drawing.Size(180, 22);
             this.tsmCiudades.Text = "Ciudades";
             // 
             // tsmListaCiudades
@@ -141,7 +142,7 @@ namespace Escritorio
             this.tsmListaProvincias,
             this.tsmAgregarProvincias});
             this.tsmProvincias.Name = "tsmProvincias";
-            this.tsmProvincias.Size = new System.Drawing.Size(128, 22);
+            this.tsmProvincias.Size = new System.Drawing.Size(180, 22);
             this.tsmProvincias.Text = "Provincias";
             // 
             // tsmListaProvincias
