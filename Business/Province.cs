@@ -11,17 +11,27 @@ namespace Bolsa.Business
             return Data.Province.GetAll();
         }
 
-        public static void Insert(Entities.Province province)
+        public Entities.Province GetOne(int ID)
+        {
+            return Data.Province.GetOne(ID);
+        }
+
+        public void Insert(Entities.Province province)
         {
             Data.Province.Insert(province);
         }
-        public static void Update(Entities.Province province)
+        public void Update(Entities.Province province)
         {
             Data.Province.Update(province);
         }
-        public static void Delete(Entities.Province province)
+        public void Delete(int ID)
         {
-            Data.Province.Delete(province);
+            Data.Province.Delete(ID);
+        }
+
+        public void Save(Entities.Province province)
+        {
+            Data.Province.Save(province);
         }
     }
 }

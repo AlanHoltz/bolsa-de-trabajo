@@ -150,14 +150,16 @@ namespace Escritorio
             // tsmListaProvincias
             // 
             this.tsmListaProvincias.Name = "tsmListaProvincias";
-            this.tsmListaProvincias.Size = new System.Drawing.Size(116, 22);
+            this.tsmListaProvincias.Size = new System.Drawing.Size(180, 22);
             this.tsmListaProvincias.Text = "Lista";
+            this.tsmListaProvincias.Click += new System.EventHandler(this.tsmListaProvincias_Click);
             // 
             // tsmAgregarProvincias
             // 
             this.tsmAgregarProvincias.Name = "tsmAgregarProvincias";
-            this.tsmAgregarProvincias.Size = new System.Drawing.Size(116, 22);
+            this.tsmAgregarProvincias.Size = new System.Drawing.Size(180, 22);
             this.tsmAgregarProvincias.Text = "Agregar";
+            this.tsmAgregarProvincias.Click += new System.EventHandler(this.tsmAgregarProvincias_Click);
             // 
             // tsmPerfiles
             // 
