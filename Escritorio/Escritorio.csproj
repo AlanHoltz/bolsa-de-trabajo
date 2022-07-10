@@ -23,7 +23,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Usuarios.cs">
+    <Compile Update="Users.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

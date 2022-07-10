@@ -8,6 +8,9 @@ namespace Bolsa.Entities
 {
     public class Person : User
     {
+        public Person()
+        {
+        }
         public Person(int id, String mail, String password, Boolean status, DateTime signupDate, String name, String surname, String photo, String cv, Boolean isAdmin, DateTime birthDate) : base(id, mail, password, status, signupDate)
         {
             Name = name;

@@ -19,7 +19,7 @@ namespace Escritorio
 
         private void btnUsuarios_Click(object sender, EventArgs e)
         {
-            Usuarios u = new Usuarios();
+            Users u = new Users();
             u.Show();
         }
 
@@ -34,8 +34,14 @@ namespace Escritorio
 
         private void tsmListaUsuarios_Click(object sender, EventArgs e)
         {
-            Usuarios u = new Usuarios();
+            Users u = new Users();
             u.Show();
+        }
+
+        private void tsmAgregarUsuarios_Click(object sender, EventArgs e)
+        {
+            UserDesktop formUser = new UserDesktop(ApplicationForm.ModoForm.Alta);
+            formUser.ShowDialog();
         }
     }
 }
