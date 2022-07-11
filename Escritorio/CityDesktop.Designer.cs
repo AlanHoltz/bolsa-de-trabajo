@@ -38,6 +38,7 @@ namespace Escritorio
             this.txtZipCode = new System.Windows.Forms.TextBox();
             this.txtProvinceId = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
+            this.cbIdProvincias = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label2
@@ -116,6 +117,14 @@ namespace Escritorio
             this.txtName.Size = new System.Drawing.Size(144, 23);
             this.txtName.TabIndex = 13;
             // 
+            // cbIdProvincias
+            // 
+            this.cbIdProvincias.FormattingEnabled = true;
+            this.cbIdProvincias.Location = new System.Drawing.Point(50, 164);
+            this.cbIdProvincias.Name = "cbIdProvincias";
+            this.cbIdProvincias.Size = new System.Drawing.Size(121, 23);
+            this.cbIdProvincias.TabIndex = 14;
+            // 
             // CityDesktop
             // 
             this.AcceptButton = this.btnAceptar;
@@ -123,6 +132,7 @@ namespace Escritorio
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancelar;
             this.ClientSize = new System.Drawing.Size(510, 200);
+            this.Controls.Add(this.cbIdProvincias);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.txtProvinceId);
             this.Controls.Add(this.txtZipCode);
@@ -136,6 +146,7 @@ namespace Escritorio
             this.MinimizeBox = false;
             this.Name = "CityDesktop";
             this.Text = "City";
+            this.Load += new System.EventHandler(this.CityDesktop_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -151,5 +162,6 @@ namespace Escritorio
         private System.Windows.Forms.TextBox txtZipCode;
         private System.Windows.Forms.TextBox txtProvinceId;
         private System.Windows.Forms.TextBox txtName;
+        private System.Windows.Forms.ComboBox cbIdProvincias;
     }
 }

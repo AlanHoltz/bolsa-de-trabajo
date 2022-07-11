@@ -50,7 +50,7 @@ namespace Escritorio
 
         private void tbsEdit_Click(object sender, EventArgs e)
         {
-            int zipCode = ((Bolsa.Entities.City)this.dvgCities.SelectedRows[0].DataBoundItem).ZipCode;
+            String zipCode = ((Bolsa.Entities.City)this.dvgCities.SelectedRows[0].DataBoundItem).ZipCode;
             CityDesktop formCity = new CityDesktop(zipCode, ApplicationForm.ModoForm.Modificacion);
             formCity.ShowDialog();
             this.Listar();
@@ -58,7 +58,7 @@ namespace Escritorio
 
         private void tsbDelete_Click(object sender, EventArgs e)
         {
-            int zipCode = ((Bolsa.Entities.City)this.dvgCities.SelectedRows[0].DataBoundItem).ZipCode;
+            String zipCode = ((Bolsa.Entities.City)this.dvgCities.SelectedRows[0].DataBoundItem).ZipCode;
             CityDesktop formCity = new CityDesktop(zipCode, ApplicationForm.ModoForm.Baja);
             formCity.ShowDialog();
             this.Listar();
@@ -67,7 +67,7 @@ namespace Escritorio
 
         private void dgvCities_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            int zipCode = ((Bolsa.Entities.City)this.dvgCities.SelectedRows[0].DataBoundItem).ZipCode;
+            String zipCode = ((Bolsa.Entities.City)this.dvgCities.SelectedRows[0].DataBoundItem).ZipCode;
             CityDesktop formCity = new CityDesktop(zipCode, ApplicationForm.ModoForm.Consulta);
             formCity.ShowDialog();
             this.Listar();

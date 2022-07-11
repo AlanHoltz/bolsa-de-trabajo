@@ -11,7 +11,7 @@ namespace Bolsa.Business
             return Data.City.GetAll();
         }
 
-        public Entities.City GetOne(int zipCode)
+        public Entities.City GetOne(String zipCode)
         {
             return Data.City.GetOne(zipCode);
         }
@@ -24,7 +24,7 @@ namespace Bolsa.Business
         {
             Data.City.Update(city);
         }
-        public static void Delete(int zipCode)
+        public static void Delete(String zipCode)
         {
             Data.City.Delete(zipCode);
         }

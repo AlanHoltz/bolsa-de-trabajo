@@ -11,7 +11,7 @@ namespace Bolsa.Entities
         public City()
         {
         }
-        public City(int zipCode, String name, int provinceId)
+        public City(String zipCode, String name, int provinceId)
         {
             ZipCode = zipCode;
             Name = name;
@@ -23,7 +23,7 @@ namespace Bolsa.Entities
             Name = name;
             ProvinceId = provinceId;
         }
-        public int ZipCode { get; set; }
+        public String ZipCode { get; set; }
         public String Name { get; set; }
         public int ProvinceId { get; set; }
 

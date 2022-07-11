@@ -22,6 +22,7 @@ namespace Escritorio
 
         private Bolsa.Entities.City _CurrentCity;
         private Bolsa.Business.City cl = new Bolsa.Business.City();
+        private Bolsa.Business.Province pl = new Bolsa.Business.Province();
 
         public Bolsa.Entities.City CurrentCity
         {
@@ -37,7 +38,7 @@ namespace Escritorio
 
         }
 
-        public CityDesktop(int zipCode, ModoForm modo) : this()
+        public CityDesktop(String zipCode, ModoForm modo) : this()
         {
             CurrentCity = cl.GetOne(zipCode);
             MapearDeDatos();
@@ -66,18 +67,14 @@ namespace Escritorio
 
         public override void MapearDeDatos()
         {
-            this.txtZipCode.Text = this.CurrentCity.ZipCode.ToString();
+            this.txtZipCode.Text = this.CurrentCity.ZipCode;
             this.txtName.Text = this.CurrentCity.Name;
             this.txtProvinceId.Text = this.CurrentCity.ProvinceId.ToString();
-            /*this.txtZipCode.Text = "2000";
-            this.txtName.Text = "Hola";
-            this.txtProvinceId.Text = "1";*/
-            //this.txtProvinceName.Text = "";
         }
 
         public override void MapearADatos()
         {
-            this.CurrentCity.ZipCode = Int32.Parse(this.txtZipCode.Text);
+            this.CurrentCity.ZipCode = this.txtZipCode.Text;
             this.CurrentCity.Name = this.txtName.Text;
             this.CurrentCity.ProvinceId = Int32.Parse(this.txtProvinceId.Text);
             switch (Modo)
@@ -134,5 +131,15 @@ botones, MessageBoxIcon icono)
 
         }
 
+        private void CityDesktop_Load(object sender, EventArgs e)
+        {
+            List<Bolsa.Entities.Province> provinces = new List<Bolsa.Entities.Province>();
+            provinces = pl.GetAll();
+            foreach (Bolsa.Entities.Province prov in provinces)
+            {
+                cbIdProvincias.Items.Add(prov.Id );
+            }
+            
+        }
     }
 }
