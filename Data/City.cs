@@ -48,7 +48,7 @@ namespace Bolsa.Data
                 using (SqlConnection conn = Singleton.GetInstance().Open())
                 {
                     using (SqlCommand cmd = new SqlCommand(query, conn)) { 
-                        cmd.Parameters.Add("@ZIP", SqlDbType.Int).Value = zipCode;
+                        cmd.Parameters.Add("@ZIP", SqlDbType.VarChar).Value = zipCode;
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
                             if (reader != null)

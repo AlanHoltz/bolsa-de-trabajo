@@ -6,7 +6,7 @@ namespace Bolsa.Business
 {
     public class Province
     {
-        public static List<Entities.Province> GetAll()
+        public List<Entities.Province> GetAll()
         {
             return Data.Province.GetAll();
         }

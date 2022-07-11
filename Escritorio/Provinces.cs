@@ -14,16 +14,18 @@ namespace Escritorio
 {
     public partial class Provinces : Form
     {
+
         public Provinces()
         {
             InitializeComponent();
             dgvProvinces.AutoGenerateColumns = false;
             dgvProvinces.MultiSelect = false;
         }
+        private Bolsa.Business.Province pl = new Bolsa.Business.Province();
 
         public void Listar()
         {
-            this.dgvProvinces.DataSource = Bolsa.Business.Province.GetAll();
+            this.dgvProvinces.DataSource = pl.GetAll();
         }
 
         private void Provinces_Load(object sender, EventArgs e)
