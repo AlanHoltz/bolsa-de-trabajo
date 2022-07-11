@@ -10,7 +10,10 @@ namespace Bolsa.Business
         {
             return Data.Company.GetAll();
         }
-
+        public Entities.Company GetOne(int ID)
+        {
+            return Data.Company.GetOne(ID);
+        }
         public static void Insert(Entities.Company company)
         {
             Data.Company.Insert(company);
@@ -30,6 +33,10 @@ namespace Bolsa.Business
         public static void Delete(Entities.Company company)
         {
             Data.Company.Delete(company);
+        }
+        public void Save(Entities.Company company)
+        {
+            Data.Company.Save(company);
         }
     }
 }

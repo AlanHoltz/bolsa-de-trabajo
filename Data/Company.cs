@@ -38,6 +38,35 @@ namespace Bolsa.Data
                 return null;
             }
         }
+        public static Entities.Company GetOne(int ID)
+        {
+            Entities.Company company = new Entities.Company();
+            try
+            {
+                string query = "SELECT * FROM [users] u INNER JOIN [companies] c ON u.user_id = c.company_id WHERE u.user_status = 1 AND c.company_id = @ID";
+                using (SqlConnection conn = Singleton.GetInstance().Open())
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            if (reader != null)
+                            {
+                                reader.Read();
+                                company = new Entities.Company(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), Convert.ToBoolean(reader.GetByte(3)), reader.GetDateTime(4), reader.GetString(6), reader.GetString(7), reader.GetString(8), reader.GetString(9), reader.GetString(10), reader.GetString(11), reader.GetString(12), reader.GetString(13), reader.GetString(14), Convert.ToBoolean(reader.GetByte(15)), reader.GetString(16));
+                            }
+                        }
+                    }
+                }
+                return company;
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.ToString());
+                return null;
+            }
+        }
         public static void Insert(Entities.Company company)
         {
             try
@@ -168,6 +197,22 @@ namespace Bolsa.Data
             {
                 Console.WriteLine(e.ToString());
             }
+        }
+        public static void Save(Bolsa.Entities.Company company)
+        {
+            if (company.State == Bolsa.Entities.BusinessEntity.States.New)
+            {
+                Insert(company);
+            }
+            else if (company.State == Bolsa.Entities.BusinessEntity.States.Deleted)
+            {
+                Delete(company);
+            }
+            else if (company.State == Bolsa.Entities.BusinessEntity.States.Modified)
+            {
+                Update(company);
+            }
+            company.State = Bolsa.Entities.BusinessEntity.States.Unmodified;
         }
     }
 }
