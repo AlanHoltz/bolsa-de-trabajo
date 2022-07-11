@@ -36,9 +36,9 @@ namespace Escritorio
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.txtZipCode = new System.Windows.Forms.TextBox();
-            this.txtProvinceId = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.cbIdProvincias = new System.Windows.Forms.ComboBox();
+            this.txtProvince = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label2
@@ -71,7 +71,7 @@ namespace Escritorio
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(9, 97);
+            this.label5.Location = new System.Drawing.Point(12, 92);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(70, 15);
             this.label5.TabIndex = 6;
@@ -103,13 +103,6 @@ namespace Escritorio
             this.txtZipCode.Size = new System.Drawing.Size(144, 23);
             this.txtZipCode.TabIndex = 11;
             // 
-            // txtProvinceId
-            // 
-            this.txtProvinceId.Location = new System.Drawing.Point(89, 89);
-            this.txtProvinceId.Name = "txtProvinceId";
-            this.txtProvinceId.Size = new System.Drawing.Size(144, 23);
-            this.txtProvinceId.TabIndex = 12;
-            // 
             // txtName
             // 
             this.txtName.Location = new System.Drawing.Point(292, 27);
@@ -120,10 +113,19 @@ namespace Escritorio
             // cbIdProvincias
             // 
             this.cbIdProvincias.FormattingEnabled = true;
-            this.cbIdProvincias.Location = new System.Drawing.Point(50, 164);
+            this.cbIdProvincias.Location = new System.Drawing.Point(85, 89);
             this.cbIdProvincias.Name = "cbIdProvincias";
             this.cbIdProvincias.Size = new System.Drawing.Size(121, 23);
             this.cbIdProvincias.TabIndex = 14;
+            this.cbIdProvincias.SelectedValueChanged += new System.EventHandler(this.cbIdProvincias_SelectedValueChanged);
+            // 
+            // txtProvince
+            // 
+            this.txtProvince.Enabled = false;
+            this.txtProvince.Location = new System.Drawing.Point(292, 89);
+            this.txtProvince.Name = "txtProvince";
+            this.txtProvince.Size = new System.Drawing.Size(144, 23);
+            this.txtProvince.TabIndex = 15;
             // 
             // CityDesktop
             // 
@@ -132,9 +134,9 @@ namespace Escritorio
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancelar;
             this.ClientSize = new System.Drawing.Size(510, 200);
+            this.Controls.Add(this.txtProvince);
             this.Controls.Add(this.cbIdProvincias);
             this.Controls.Add(this.txtName);
-            this.Controls.Add(this.txtProvinceId);
             this.Controls.Add(this.txtZipCode);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.btnCancelar);
@@ -160,8 +162,8 @@ namespace Escritorio
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.TextBox txtZipCode;
-        private System.Windows.Forms.TextBox txtProvinceId;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.ComboBox cbIdProvincias;
+        private System.Windows.Forms.TextBox txtProvince;
     }
 }

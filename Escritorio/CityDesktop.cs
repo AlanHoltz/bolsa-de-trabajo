@@ -48,18 +48,18 @@ namespace Escritorio
                 case ModoForm.Baja:
                     btnAceptar.Select();
                     btnAceptar.Text = "Eliminar";
-                    txtZipCode.ReadOnly = true;
-                    txtName.ReadOnly = true;
-                    txtProvinceId.ReadOnly = true;
+                    txtZipCode.Enabled = false;
+                    txtName.Enabled = false;
+                    cbIdProvincias.Enabled = false;
                     break;
                 case ModoForm.Modificacion:
                     txtZipCode.Select();
                     break;
                 case ModoForm.Consulta:
                     btnAceptar.Select();
-                    txtZipCode.ReadOnly = true;
-                    txtName.ReadOnly = true;
-                    txtProvinceId.ReadOnly = true;
+                    txtZipCode.Enabled = false;
+                    txtName.Enabled = false;
+                    cbIdProvincias.Enabled = false;
                     btnAceptar.Text = "Aceptar";
                     break;
             }
@@ -69,14 +69,16 @@ namespace Escritorio
         {
             this.txtZipCode.Text = this.CurrentCity.ZipCode;
             this.txtName.Text = this.CurrentCity.Name;
-            this.txtProvinceId.Text = this.CurrentCity.ProvinceId.ToString();
+            this.cbIdProvincias.Text = this.CurrentCity.ProvinceId.ToString();
+            Bolsa.Entities.Province province = pl.GetOne(this.CurrentCity.ProvinceId);
+            this.txtProvince.Text = province.Name;
         }
 
         public override void MapearADatos()
         {
             this.CurrentCity.ZipCode = this.txtZipCode.Text;
             this.CurrentCity.Name = this.txtName.Text;
-            this.CurrentCity.ProvinceId = Int32.Parse(this.txtProvinceId.Text);
+            this.CurrentCity.ProvinceId = Int32.Parse(cbIdProvincias.SelectedItem.ToString());
             switch (Modo)
             {
                 case ModoForm.Baja:
@@ -102,7 +104,7 @@ namespace Escritorio
         }
         public override bool Validar()
         {
-            if ((this.txtZipCode.Text == "") || (this.txtName.Text == "") || (this.txtProvinceId.Text == ""))
+            if ((this.txtZipCode.Text == "") || (this.txtName.Text == "") || (cbIdProvincias.SelectedItem.ToString() == ""))
             {
                 return false;
             }
@@ -119,14 +121,21 @@ botones, MessageBoxIcon icono)
         }
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (Validar() || (Modo == ModoForm.Baja)) // Se agrego esta condicion ya que el campo pre cargado no la cumple y no permitia la eliminacion del mismo.
+            if (Modo != ModoForm.Consulta)
             {
-                GuardarCambios();
-                this.Close();
+                if (Validar() || (Modo == ModoForm.Baja)) // Se agrego esta condicion ya que el campo pre cargado no la cumple y no permitia la eliminacion del mismo.
+                {
+                    GuardarCambios();
+                    this.Close();
+                }
+                else
+                {
+                    Notificar("Error en la carga de datos", "Por favor revise la informacion cargada/Modificada", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); ;
+                }
             }
             else
             {
-                Notificar("Error en la carga de datos", "Por favor revise la informacion cargada/Modificada", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); ;
+                this.Close();
             }
 
         }
@@ -140,6 +149,13 @@ botones, MessageBoxIcon icono)
                 cbIdProvincias.Items.Add(prov.Id );
             }
             
+        }
+
+        private void cbIdProvincias_SelectedValueChanged(object sender, EventArgs e)
+        {
+            Bolsa.Entities.Province province = new Bolsa.Entities.Province();
+            province = pl.GetOne(Int32.Parse(cbIdProvincias.SelectedItem.ToString()));
+            txtProvince.Text = province.Name;
         }
     }
 }
