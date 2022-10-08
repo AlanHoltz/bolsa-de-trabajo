@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32602.291
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Console", "Consola\Console.csproj", "{17D97756-D38F-406E-B894-E4A2899763E7}"
 EndProject
@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business", "Business\Busine
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utils", "Utils\Utils.csproj", "{9BAC6B37-A114-4AF1-8963-7EC66C72C60F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Escritorio", "Escritorio\Escritorio.csproj", "{09337301-EBE1-4CE3-BA1E-BDC42D3A03D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Escritorio", "Escritorio\Escritorio.csproj", "{09337301-EBE1-4CE3-BA1E-BDC42D3A03D4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebMVC", "WebMVC\WebMVC.csproj", "{132C920F-F36A-4B01-817B-91EA151AD02D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{09337301-EBE1-4CE3-BA1E-BDC42D3A03D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09337301-EBE1-4CE3-BA1E-BDC42D3A03D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{09337301-EBE1-4CE3-BA1E-BDC42D3A03D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{132C920F-F36A-4B01-817B-91EA151AD02D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{132C920F-F36A-4B01-817B-91EA151AD02D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{132C920F-F36A-4B01-817B-91EA151AD02D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{132C920F-F36A-4B01-817B-91EA151AD02D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
