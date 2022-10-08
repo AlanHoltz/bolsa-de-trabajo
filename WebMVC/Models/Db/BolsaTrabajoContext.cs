@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WebMVC.Models;
 
 namespace BolsaTrabajo.Models.Db
 {
@@ -8,5 +9,15 @@ namespace BolsaTrabajo.Models.Db
         {
 
         }
+
+        public DbSet<Province> Provinces { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Person> Persons { get; set; }
+        public DbSet<JobProfile> JobProfiles { get; set; }
+        public DbSet<Career> Careers { get; set; }
+        public DbSet<Internship> Internships { get; set; }
+        public DbSet<Relationship> Relationships { get; set; }
     }
 }
