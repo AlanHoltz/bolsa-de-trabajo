@@ -13,6 +13,8 @@ namespace WebMVC.Models
         public string Mail { get; set; }
         [Required(ErrorMessage = "Contraseña requerida")]
         public string Password { get; set; }
+        [Required]
+        public string Type { get; set; }
         [DefaultValue(true)]
         public bool Status { get; set; }
         public DateTime SignupDate { get; set; }
