@@ -2,13 +2,14 @@
 using BolsaTrabajo.Models.Db;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-
+using WebMVC.Models;
 
 namespace BolsaTrabajo.Controllers
 {
@@ -31,10 +32,17 @@ namespace BolsaTrabajo.Controllers
                 return Redirect("/login");
             };
 
-            return View();
+            List<JobProfile> jobProfiles = _context.JobProfiles
+                .Include(jp => jp.Company)
+                .Include(jp => jp.JobProfilePerson)
+                .Where<JobProfile>(jp => jp.StartingDate <= DateTime.Now 
+                && jp.EndingDate >= DateTime.Now)
+                .ToList();
+
+            return View(jobProfiles);
         }
 
-  
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

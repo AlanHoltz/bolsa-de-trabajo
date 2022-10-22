@@ -28,21 +28,6 @@ namespace WebMVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Index(Models.User user)
         {
-
-            if (user.Mail == null)
-            {
-                ModelState.AddModelError(nameof(user.Mail), "Ingrese su Mail");
-                return View();
-            }
-
-
-            else if (user.Password == null)
-            {
-                ModelState.AddModelError(nameof(user.Password), "Ingrese su Contraseña");
-                return View();
-            }
-
-
             Models.User requestedUser = _context.Users.Where(u => u.Mail == user.Mail).FirstOrDefault();
 
             if (requestedUser == null || requestedUser.Password != user.Password)
@@ -53,7 +38,7 @@ namespace WebMVC.Controllers
 
             HttpContext.Session.SetInt32("Id", requestedUser.Id);
             HttpContext.Session.SetString("Mail", requestedUser.Mail);
-
+            HttpContext.Session.SetString("Type", requestedUser.Type);
 
             if (requestedUser.Type == "Person")
             {

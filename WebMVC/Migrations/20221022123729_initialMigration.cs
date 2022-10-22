@@ -41,6 +41,7 @@ namespace WebMVC.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Mail = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false),
                     SignupDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -199,14 +200,15 @@ namespace WebMVC.Migrations
                 name: "JobProfilePerson",
                 columns: table => new
                 {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     JobProfilesId = table.Column<int>(type: "int", nullable: false),
                     PersonsId = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<bool>(type: "bit", nullable: false),
-                    Observations = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Observations = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_JobProfilePerson", x => new { x.JobProfilesId, x.PersonsId });
+                    table.PrimaryKey("PK_JobProfilePerson", x => x.Id);
                     table.ForeignKey(
                         name: "FK_JobProfilePerson_JobProfiles_JobProfilesId",
                         column: x => x.JobProfilesId,
@@ -253,6 +255,11 @@ namespace WebMVC.Migrations
                 name: "IX_Companies_CityId",
                 table: "Companies",
                 column: "CityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JobProfilePerson_JobProfilesId",
+                table: "JobProfilePerson",
+                column: "JobProfilesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_JobProfilePerson_PersonsId",

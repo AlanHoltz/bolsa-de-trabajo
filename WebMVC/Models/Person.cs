@@ -21,7 +21,7 @@ namespace WebMVC.Models
         [DefaultValue(false)]
         public bool IsAdmin { get; set; }
         public User User { get; set; }
-        public ICollection<JobProfile> JobProfiles { get; set; }
+        public ICollection<JobProfilePerson> JobProfilePerson { get; set; }
 
     }
 }

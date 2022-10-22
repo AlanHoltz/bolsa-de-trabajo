@@ -34,21 +34,6 @@ namespace WebMVC.Migrations
                     b.ToTable("CareerJobProfile");
                 });
 
-            modelBuilder.Entity("JobProfilePerson", b =>
-                {
-                    b.Property<int>("JobProfilesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PersonsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("JobProfilesId", "PersonsId");
-
-                    b.HasIndex("PersonsId");
-
-                    b.ToTable("JobProfilePerson");
-                });
-
             modelBuilder.Entity("WebMVC.Models.Career", b =>
                 {
                     b.Property<int>("Id")
@@ -196,6 +181,31 @@ namespace WebMVC.Migrations
                     b.ToTable("JobProfiles");
                 });
 
+            modelBuilder.Entity("WebMVC.Models.JobProfilePerson", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("JobProfilesId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Observations")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PersonsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("JobProfilesId");
+
+                    b.HasIndex("PersonsId");
+
+                    b.ToTable("JobProfilePerson");
+                });
+
             modelBuilder.Entity("WebMVC.Models.Person", b =>
                 {
                     b.Property<int>("Id")
@@ -297,21 +307,6 @@ namespace WebMVC.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("JobProfilePerson", b =>
-                {
-                    b.HasOne("WebMVC.Models.JobProfile", null)
-                        .WithMany()
-                        .HasForeignKey("JobProfilesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WebMVC.Models.Person", null)
-                        .WithMany()
-                        .HasForeignKey("PersonsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("WebMVC.Models.City", b =>
                 {
                     b.HasOne("WebMVC.Models.Province", "Province")
@@ -362,6 +357,25 @@ namespace WebMVC.Migrations
                     b.Navigation("Company");
                 });
 
+            modelBuilder.Entity("WebMVC.Models.JobProfilePerson", b =>
+                {
+                    b.HasOne("WebMVC.Models.JobProfile", "JobProfiles")
+                        .WithMany("JobProfilePerson")
+                        .HasForeignKey("JobProfilesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebMVC.Models.Person", "Persons")
+                        .WithMany("JobProfilePerson")
+                        .HasForeignKey("PersonsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("JobProfiles");
+
+                    b.Navigation("Persons");
+                });
+
             modelBuilder.Entity("WebMVC.Models.Person", b =>
                 {
                     b.HasOne("WebMVC.Models.User", "User")
@@ -393,7 +407,14 @@ namespace WebMVC.Migrations
                 {
                     b.Navigation("Internship");
 
+                    b.Navigation("JobProfilePerson");
+
                     b.Navigation("Relationship");
+                });
+
+            modelBuilder.Entity("WebMVC.Models.Person", b =>
+                {
+                    b.Navigation("JobProfilePerson");
                 });
 
             modelBuilder.Entity("WebMVC.Models.Province", b =>

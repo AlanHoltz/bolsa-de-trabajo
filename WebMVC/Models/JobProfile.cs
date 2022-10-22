@@ -25,7 +25,7 @@ namespace WebMVC.Models
         [ForeignKey("Company")]
         public int CompanyId { get; set; }
         public Company Company { get; set; }
-        public ICollection<Person> Persons { get; set; }
+        public ICollection<JobProfilePerson> JobProfilePerson { get; set; }
         public ICollection<Career> Careers { get; set; }
         public Internship Internship { get; set; }
         public Relationship Relationship { get; set; }

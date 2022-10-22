@@ -19,5 +19,6 @@ namespace BolsaTrabajo.Models.Db
         public DbSet<Career> Careers { get; set; }
         public DbSet<Internship> Internships { get; set; }
         public DbSet<Relationship> Relationships { get; set; }
+        public DbSet<JobProfilePerson> JobProfilePerson { get; set; }
     }
 }
