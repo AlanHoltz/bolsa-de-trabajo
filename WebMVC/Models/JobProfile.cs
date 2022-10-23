@@ -10,19 +10,29 @@ namespace WebMVC.Models
         [Key]
         public int Id { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
-        [Required]
+        [Required(ErrorMessage = "Email requerido")]
+        [EmailAddress(ErrorMessage = "Ingrese un email válido")]
+        [Display(Name = "Email de recepción")]
         public string EmailReceptor { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Fecha de inicio requerida")]
+        [Display(Name = "Fecha de inicio")]
         public DateTime StartingDate { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Fecha de fin requerida")]
+        [Display(Name = "Fecha de finalización")]
         public DateTime EndingDate { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Dirección requerida")]
+        [Display(Name = "Dirección")]
         public string Address { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Capacidad requerida")]
+        [Display(Name = "Capacidad")]
         public int Capacity { get; set; }
+        [Display(Name = "Descripción")]
         public string Description { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Posición requerida")]
+        [Display(Name = "Puesto de trabajo")]
         public string Position { get; set; }
+        [Display(Name = "Tipo")]
+        public string Type { get; set; }
         [ForeignKey("Company")]
         public int CompanyId { get; set; }
         public Company Company { get; set; }

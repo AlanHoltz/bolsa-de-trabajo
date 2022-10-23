@@ -8,9 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using WebMVC.Models;
-using Microsoft.AspNetCore.Http;
 
 namespace BolsaTrabajo.Controllers
 {
@@ -29,15 +27,20 @@ namespace BolsaTrabajo.Controllers
         public IActionResult Index(int id)
         {
 
+            if(HttpContext.Session.GetString("Id") == null)
+            {
+                return Redirect("/login");
+            }
+            
+            if(HttpContext.Session.GetString("Type") == "Company")
+            {
+                return Redirect("/Company");
+            }
+
             if(id != 0)
             {
                 return Redirect("/"); //Redireccionar a vista con trabajo único y mostrar toda la info
             }
-
-            if(HttpContext.Session.GetString("Id") == null)
-            {
-                return Redirect("/login");
-            };
 
             List<JobProfilePerson> jobsPersonApplied = _context.JobProfilePerson
                 .Where(jpp => jpp.PersonsId == int.Parse(HttpContext.Session.GetString("Id")))
