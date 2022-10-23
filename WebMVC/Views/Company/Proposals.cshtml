@@ -1,0 +1,63 @@
+﻿@using WebMVC.Models
+@{
+    ViewData["Title"] = "Home Page";
+}
+@model List<JobProfile>
+
+<style>
+    .job:hover{
+        background:#000000 !important;
+        cursor:pointer;
+        transition: background .3s ease;
+    }
+</style>
+
+<div style="background:#E3E2E2;height:calc(100% - 56px);font-family: 'Roboto', sans-serif;" class="row px-3 overflow-auto">
+    <div class="col-md-12">
+        <h2 class="text-secondary my-3">
+            Propuestas de Trabajo
+        </h2>
+        @foreach(JobProfile jobProfile in Model){            
+        
+        <div class="row shadow mb-4 bg-white rounded py-4 px-1 justify-content-between job js-job">
+  
+            <div class="col-sm-12">
+
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-auto">
+                        <div class="row">
+                            <div class="px-1">
+                                <img src="~/images/logo.png" width="75" height="75"/>
+                            </div>
+
+                            <div class="pl-1">
+                            <h4 style="color:#6067D9">
+                                @jobProfile.Position
+                                </h4>
+                                <span class="font-weight-bold text-success">@jobProfile.Company.Name</span>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="text-secondary px-4">@DateTime.Today.Subtract(jobProfile.CreatedAt).Days días</span>
+                </div>
+
+
+            </div>
+            @Html.HiddenFor(m => jobProfile.Id, new { @class = "js-jobId" })    
+        </div>
+        
+        }
+    </div>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $('.js-job').on('click', function() {
+            var jobId = $('.js-jobId', $(this)).val();
+            window.location.href = "/company/proposal/" + jobId;
+        });
+    });
+
+</script>
+</div>
+    
