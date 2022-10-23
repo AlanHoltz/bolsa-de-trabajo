@@ -9,6 +9,7 @@ namespace WebMVC.Models
     {
         [Key]
         public int Id { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
         [Required]
         public string EmailReceptor { get; set; }
         [Required]

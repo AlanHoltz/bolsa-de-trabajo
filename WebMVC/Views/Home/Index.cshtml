@@ -1,67 +1,63 @@
 ﻿@using WebMVC.Models
 @{
     ViewData["Title"] = "Home Page";
-    int i = 0;
 }
 @model List<JobProfile>
 
-<table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
-  <thead>
-    <tr>
-      <th class="th-sm">#
-
-      </th>
-      <th class="th-sm">Email Receptor
-
-      </th>
-      <th class="th-sm">Starting Date
-
-      </th>
-      <th class="th-sm">Ending Date
-
-      </th>
-      <th class="th-sm">Address
-
-      </th>
-      <th class="th-sm">Description
-
-      </th>
-
-      <th class="th-sm">Position
-
-      </th>
-
-      <th class="th-sm">Company
-
-      </th>
-
-      <th class="th-sm">Reference email
-
-      </th>
-
-      <th class="th-sm">Actions
-
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    @foreach(JobProfile jobProfile in Model){            
-        {
-                <tr>
-                  <td>@jobProfile.Id</td>
-                  <td>@jobProfile.EmailReceptor</td>
-                  <td>@jobProfile.StartingDate.ToShortDateString()</td>
-                  <td>@jobProfile.EndingDate.ToShortDateString()</td>
-                  <td>@jobProfile.Address</td>
-                  <td>@jobProfile.Description</td>
-                  <td>@jobProfile.Position</td>
-                  <td>@jobProfile.Company.Name</td>
-                  <td>@jobProfile.Company.ReferenceEmail</td>
-                  <td><a asp-controller="JobProfilePerson" asp-action="Add" asp-route-id="@jobProfile.Id" class="btn btn-primary">Apply</a></td>
-                </tr>
-        }
+<style>
+    .job:hover{
+        background:#000000 !important;
+        cursor:pointer;
+        transition: background .3s ease;
     }
-  </tbody>
-</table>
+</style>
 
+<div style="background:#E3E2E2;height:calc(100% - 56px);font-family: 'Roboto', sans-serif;" class="row px-3 overflow-auto">
+    <div class="col-md-12">
+        <h2 class="text-secondary my-3">
+            Propuestas de Trabajo
+        </h2>
+        @foreach(JobProfile jobProfile in Model){            
+        
+        <div class="row shadow mb-4 bg-white rounded py-4 px-1 justify-content-between job js-job">
+  
+            <div class="col-sm-12">
+
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-auto">
+                        <div class="row">
+                            <div class="px-1">
+                                <img src="~/images/logo.png" width="75" height="75"/>
+                            </div>
+
+                            <div class="pl-1">
+                            <h4 style="color:#6067D9">
+                                @jobProfile.Position
+                                </h4>
+                                <span class="font-weight-bold text-success">@jobProfile.Company.Name</span>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="text-secondary px-4">@DateTime.Today.Subtract(jobProfile.CreatedAt).Days días</span>
+                </div>
+
+
+            </div>
+            @Html.HiddenFor(m => jobProfile.Id, new { @class = "js-jobId" })    
+        </div>
+        
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $('.js-job').on('click', function() {
+            var jobId = $('.js-jobId', $(this)).val();
+            window.location.href = "/home/index/" + jobId;
+        });
+    });
+
+</script>
     

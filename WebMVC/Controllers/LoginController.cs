@@ -36,7 +36,7 @@ namespace WebMVC.Controllers
                 return View();
             }
 
-            HttpContext.Session.SetInt32("Id", requestedUser.Id);
+            HttpContext.Session.SetString("Id", requestedUser.Id.ToString());
             HttpContext.Session.SetString("Mail", requestedUser.Mail);
             HttpContext.Session.SetString("Type", requestedUser.Type);
 

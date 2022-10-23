@@ -4,14 +4,16 @@ using BolsaTrabajo.Models.Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace WebMVC.Migrations
 {
     [DbContext(typeof(BolsaTrabajoContext))]
-    partial class BolsaTrabajoContextModelSnapshot : ModelSnapshot
+    [Migration("20221023011448_Status")]
+    partial class Status
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,8 +54,10 @@ namespace WebMVC.Migrations
 
             modelBuilder.Entity("WebMVC.Models.City", b =>
                 {
-                    b.Property<string>("ZipCode")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -62,7 +66,7 @@ namespace WebMVC.Migrations
                     b.Property<int>("ProvinceId")
                         .HasColumnType("int");
 
-                    b.HasKey("ZipCode");
+                    b.HasKey("Id");
 
                     b.HasIndex("ProvinceId");
 
@@ -78,9 +82,16 @@ namespace WebMVC.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CityId")
+                        .HasColumnType("int");
+
                     b.Property<string>("CityZipCode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Cuit")
                         .IsRequired()
@@ -88,9 +99,6 @@ namespace WebMVC.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Photo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ReferenceArea")
@@ -110,7 +118,7 @@ namespace WebMVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CityZipCode");
+                    b.HasIndex("CityId");
 
                     b.ToTable("Companies");
                 });
@@ -150,9 +158,6 @@ namespace WebMVC.Migrations
 
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -324,9 +329,7 @@ namespace WebMVC.Migrations
                 {
                     b.HasOne("WebMVC.Models.City", "City")
                         .WithMany("Companies")
-                        .HasForeignKey("CityZipCode")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CityId");
 
                     b.HasOne("WebMVC.Models.User", "User")
                         .WithMany("Companies")

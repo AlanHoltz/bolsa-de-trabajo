@@ -7,7 +7,7 @@ namespace WebMVC.Models
     public class City
     {
         [Key]
-        public int Id { get; set; }
+        public string ZipCode { get; set; }
         [Required(ErrorMessage = "Nombre requerido")]
         public string Name { get; set; }
         [ForeignKey("Province")]
