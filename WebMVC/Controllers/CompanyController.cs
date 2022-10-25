@@ -36,9 +36,11 @@ namespace WebMVC.Controllers
 
                 List<JobProfile> jobProfiles = _context.JobProfiles
                                                 .Include(jp => jp.Company)
-                                                .Where(jp => jp.StartingDate <= DateTime.Now 
-                                                && jp.EndingDate >= DateTime.Now 
-                                                && jp.CompanyId == companyId)
+                                                .Where(jp => 
+                                                //jp.StartingDate <= DateTime.Now 
+                                                ///&& jp.EndingDate >= DateTime.Now 
+                                                //&&
+                                                jp.CompanyId == companyId)
                                                 .ToList();
             
                 return View(jobProfiles);

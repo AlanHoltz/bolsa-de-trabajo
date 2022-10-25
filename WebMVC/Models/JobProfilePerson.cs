@@ -17,6 +17,6 @@ namespace WebMVC.Models
         [MaxLength(100)]
         public string Observations { get; set; }
         [MaxLength(50)]
-        public string Status { get; set; }
+        public string Status { get; set; } = "Pending";
     }
 }

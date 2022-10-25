@@ -25,39 +25,35 @@ namespace WebMVC.Controllers
             return View();
         }
 
-        public IActionResult Add(int id)
+        /*public IActionResult Add(int id)
         {
-            try
-            {
-                int idPerson = (int)HttpContext.Session.GetInt32("Id");
+           
+            int idPerson = int.Parse(HttpContext.Session.GetString("Id"));
 
-                JobProfilePerson jpPerson = new JobProfilePerson();
+            JobProfilePerson jpPerson = new JobProfilePerson();
 
-                jpPerson.PersonsId = idPerson;
-                jpPerson.JobProfilesId = id;
-                jpPerson.Status = "Waiting";
+            jpPerson.PersonsId = idPerson;
+            jpPerson.JobProfilesId = id;
+            jpPerson.Status = "Pending";
 
-                JobProfile jp = _context.JobProfiles.Find(id);
-                jp.Capacity--;
+            JobProfile jp = _context.JobProfiles.Find(id);
+            jp.Capacity--;
 
-                _context.Update(jp);
-                _context.SaveChanges();
+            _context.Update(jp);
+            _context.SaveChanges();
 
-                _context.JobProfilePerson.Add(jpPerson);
-                _context.SaveChanges();
+            _context.JobProfilePerson.Add(jpPerson);
+            _context.SaveChanges();
 
-                return Redirect("/");
-            }
-            catch (System.Exception ex)
-            {
-                throw;
-            }
-        }
+            return Redirect("/");
+            
+
+        }*/
 
         public IActionResult Cancel(int id)
         {
             JobProfilePerson jpp = _context.JobProfilePerson.Where(jpp => jpp.Id == id).FirstOrDefault();
-            jpp.Status = "Canceled";
+            _context.Remove(jpp);
             _context.SaveChanges();
 
             return Redirect("/Person/Applications");

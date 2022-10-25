@@ -27,17 +27,14 @@ namespace BolsaTrabajo.Controllers
         public IActionResult Index(int id)
         {
 
-            if(HttpContext.Session.GetString("Id") == null)
-            {
-                return Redirect("/login");
-            }
+            if(HttpContext.Session.GetString("Id") == null) return Redirect("/login");
             
-            if(HttpContext.Session.GetString("Type") == "Company")
-            {
-                return Redirect("/Company");
-            }
+            
+            if(HttpContext.Session.GetString("Type") == "Company") return Redirect("/Company");
 
-            if(id != 0)
+            return Redirect("/Person");
+
+            /*if(id != 0)
             {
                 return Redirect("/"); //Redireccionar a vista con trabajo único y mostrar toda la info
             }
@@ -52,7 +49,6 @@ namespace BolsaTrabajo.Controllers
 
             List<JobProfile> jobProfiles = _context.JobProfiles
                 .Include(jp => jp.Company)
-                //.Include(jp => jp.JobProfilePerson)
                 .Where(
                 jp => jp.StartingDate <= DateTime.Now 
                 && jp.EndingDate >= DateTime.Now 
@@ -63,13 +59,13 @@ namespace BolsaTrabajo.Controllers
 
             
 
-            return View(jobProfiles);
+            return View(jobProfiles);*/
         }
 
-        public int Jobs(int JobId)
+        /*public int Jobs(int JobId)
         {
             return JobId;
-        }
+        }*/
 
             [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
