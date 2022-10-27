@@ -34,38 +34,8 @@ namespace BolsaTrabajo.Controllers
 
             return Redirect("/Person");
 
-            /*if(id != 0)
-            {
-                return Redirect("/"); //Redireccionar a vista con trabajo único y mostrar toda la info
-            }
-
-            List<JobProfilePerson> jobsPersonApplied = _context.JobProfilePerson
-                .Where(jpp => jpp.PersonsId == int.Parse(HttpContext.Session.GetString("Id")))
-                .ToList();
-
-            List<int> jobsIds = new List<int>();
-
-            foreach (JobProfilePerson jpp in jobsPersonApplied) jobsIds.Add(jpp.JobProfilesId);
-
-            List<JobProfile> jobProfiles = _context.JobProfiles
-                .Include(jp => jp.Company)
-                .Where(
-                jp => jp.StartingDate <= DateTime.Now 
-                && jp.EndingDate >= DateTime.Now 
-                && !jobsIds.Contains(jp.Id)
-                )
-                .OrderByDescending(jp => jp.CreatedAt)
-                .ToList();
-
-            
-
-            return View(jobProfiles);*/
         }
 
-        /*public int Jobs(int JobId)
-        {
-            return JobId;
-        }*/
 
             [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

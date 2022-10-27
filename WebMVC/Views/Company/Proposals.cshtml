@@ -14,9 +14,12 @@
 
 <div style="background:#E3E2E2;height:calc(100% - 56px);font-family: 'Roboto', sans-serif;" class="row px-3 overflow-auto">
     <div class="col-md-12">
+        <div class="row justify-content-between">
         <h2 class="text-secondary my-3">
             Propuestas de Trabajo
         </h2>
+         <a class="mr-2 btn btn-success h-50 align-self-center" asp-controller="JobProfile" asp-action="Add">Nueva Propuesta</a>
+        </div>
         @foreach(JobProfile jobProfile in Model){            
         
         <div class="row shadow mb-4 bg-white rounded py-4 px-1 justify-content-between job js-job">
