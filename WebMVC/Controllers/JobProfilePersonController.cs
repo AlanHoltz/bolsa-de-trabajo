@@ -1,6 +1,7 @@
 ﻿using BolsaTrabajo.Models.Db;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using WebMVC.Models;
 
@@ -16,11 +17,6 @@ namespace WebMVC.Controllers
         }
 
         public IActionResult Index(int idJobProfile)
-        {
-            return View();
-        }
-
-        public IActionResult MyJobProfile()
         {
             return View();
         }
@@ -52,7 +48,10 @@ namespace WebMVC.Controllers
 
         public IActionResult Cancel(int id)
         {
-            JobProfilePerson jpp = _context.JobProfilePerson.Where(jpp => jpp.Id == id).FirstOrDefault();
+            JobProfilePerson jpp = _context.JobProfilePerson.Include(jpp => jpp.JobProfiles).Where(jpp => jpp.Id == id).FirstOrDefault();
+
+            jpp.JobProfiles.Capacity++;
+
             _context.Remove(jpp);
             _context.SaveChanges();
 

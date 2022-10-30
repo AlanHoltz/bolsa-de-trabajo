@@ -33,6 +33,7 @@ namespace WebMVC.Models
         public string Position { get; set; }
         [Display(Name = "Tipo")]
         public string Type { get; set; }
+        public bool Status { get; set; }
         [ForeignKey("Company")]
         public int CompanyId { get; set; }
         public Company Company { get; set; }

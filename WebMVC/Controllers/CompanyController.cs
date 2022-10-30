@@ -40,7 +40,8 @@ namespace WebMVC.Controllers
                                                 //jp.StartingDate <= DateTime.Now 
                                                 ///&& jp.EndingDate >= DateTime.Now 
                                                 //&&
-                                                jp.CompanyId == companyId)
+                                                jp.CompanyId == companyId
+                                                && jp.Status == true)
                                                 .ToList();
             
                 return View(jobProfiles);

@@ -7,6 +7,9 @@
 
 <div style="background:#E3E2E2;height:calc(100% - 56px);font-family: 'Roboto', sans-serif;" class="row px-3 overflow-auto">
     <div class="col-sm-12 px-4">
+        <div class="row mt-3">
+            <a asp-route="/Person/Jobs/" class="btn btn-primary">Regresar</a>
+        </div>
         <div
             class="row shadow rounded my-3 bg-white justify-content-between p-2"
           >
@@ -57,7 +60,7 @@
                 <div class="col-auto text-primary">
                   Vacantes:
                 </div>
-                <div class="col-auto p-0">@Model.Capacity empleados</div>
+                <div class="col-auto p-0">@Model.Capacity postulaciones</div>
               </div>
             </div>
           </div>

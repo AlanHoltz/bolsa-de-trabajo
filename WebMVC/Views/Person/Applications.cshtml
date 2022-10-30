@@ -4,37 +4,41 @@
     ViewData["Title"] = "Applications";
 }
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Company</th>
-      <th scope="col">Reference Name</th>
-      <th scope="col">Reference Phone</th>
-      <th scope="col">Reference Email</th>
-      <th scope="col">Position</th>
-      <th scope="col">Description</th>
-      <th scope="col">Status</th>
-      <th scope="col">Operations</th>
-    </tr>
-  </thead>
-  <tbody>
-@foreach(JobProfilePerson jp in Model)
-{
-    @if(@jp.Status != "Canceled")
-        {
-    <tr>
-      <td>@jp.JobProfiles.Company.Name</td>
-      <td>@jp.JobProfiles.Company.ReferenceName</td>
-      <td>@jp.JobProfiles.Company.ReferencePhone</td>
-      <td>@jp.JobProfiles.Company.ReferenceEmail</td>
-      <td>@jp.JobProfiles.Position</td>
-      <td>@jp.JobProfiles.Description</td>
-      <td>@jp.Status</td>
-      <td>
-            <a class="btn btn-danger" asp-controller="JobProfilePerson" asp-action="Cancel" asp-route-id="@jp.Id">Cancel</a>
-      </td>
-    </tr>
-        }
-}
-  </tbody>
-</table>
+<div style="background:#E3E2E2;height:calc(100% - 56px);font-family: 'Roboto', sans-serif;" class="row px-3 overflow-auto">
+
+    <table class="table text-center">
+      <thead>
+        <tr>
+          <th scope="col">Company</th>
+          <th scope="col">Reference Name</th>
+          <th scope="col">Reference Phone</th>
+          <th scope="col">Reference Email</th>
+          <th scope="col">Position</th>
+          <th scope="col">Description</th>
+          <th scope="col">Status</th>
+          <th scope="col">Operations</th>
+        </tr>
+      </thead>
+      <tbody>
+    @foreach(JobProfilePerson jp in Model)
+    {
+        @if(@jp.Status != "Canceled")
+            {
+        <tr>
+          <td>@jp.JobProfiles.Company.Name</td>
+          <td>@jp.JobProfiles.Company.ReferenceName</td>
+          <td>@jp.JobProfiles.Company.ReferencePhone</td>
+          <td>@jp.JobProfiles.Company.ReferenceEmail</td>
+          <td>@jp.JobProfiles.Position</td>
+          <td>@jp.JobProfiles.Description</td>
+          <td>@jp.Status</td>
+          <td>
+                <a class="btn btn-danger" asp-controller="JobProfilePerson" asp-action="Cancel" asp-route-id="@jp.Id">Cancel</a>
+          </td>
+        </tr>
+            }
+    }
+      </tbody>
+    </table>
+
+</div>

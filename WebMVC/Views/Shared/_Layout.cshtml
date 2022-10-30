@@ -11,6 +11,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        li:hover{
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body style="background:#E3E2E2" class="mb-0 h-100 mh-100 overflow-hidden">
     @if(Context.Session.GetString("Id") != null )
@@ -32,9 +38,15 @@
                     }
 
                     @if(Context.Session.GetString("Type") == "Company"){
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Company" asp-action="Proposals">Propuestas</a>
-                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
+                            Propuestas
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" asp-controller="Company" asp-action="Proposals">Listar</a>
+                            <a class="dropdown-item" asp-controller="JobProfile" asp-action="Add">Agregar</a>
+                        </div>
+                    </li> 
                     }
             </ul>
 
