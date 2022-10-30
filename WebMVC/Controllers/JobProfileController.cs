@@ -37,6 +37,8 @@ namespace WebMVC.Controllers
         {
             jobProfile.CompanyId = int.Parse(HttpContext.Session.GetString("Id"));
 
+            jobProfile.Status = true;
+
             _context.JobProfiles.Add(jobProfile);
             _context.SaveChanges();
 

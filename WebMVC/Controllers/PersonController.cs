@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using WebMVC.Models;
 
@@ -27,11 +28,28 @@ namespace WebMVC.Controllers
         public IActionResult Jobs(int id)
         {
 
+            if (HttpContext.Session.GetString("Id") == null)
+            {
+                return Redirect("/login");
+            }
+
             if (id != 0)
             {
-                JobProfile jobProfile = _context.JobProfiles.
-                Include(jp => jp.Company)
+                JobProfile jobProfile = _context.JobProfiles
+                .Include(jp => jp.Company)
                 .Where(jp => jp.Id == id).FirstOrDefault();
+
+                int personId = int.Parse(HttpContext.Session.GetString("Id"));
+
+                JobProfilePerson jobProfilePerson = _context.JobProfilePerson
+                .Where(jpp =>
+                jpp.PersonsId == personId
+                && jpp.JobProfilesId == id
+                ).FirstOrDefault();
+
+
+                ViewData["PersonApplied"] = jobProfilePerson != null;
+
                 return View("/Views/Person/Job.cshtml", jobProfile);
             }
 
@@ -100,6 +118,18 @@ namespace WebMVC.Controllers
 
             return Redirect("/");
 
+        }
+
+        public IActionResult RemoveApplication(int id)
+        {
+            JobProfilePerson jpp = _context.JobProfilePerson.Where(jpp => 
+            jpp.JobProfilesId == id
+            && jpp.PersonsId == int.Parse(HttpContext.Session.GetString("Id"))
+            ).FirstOrDefault();
+            _context.Remove(jpp);
+            _context.SaveChanges();
+
+            return Redirect("/Person/Applications");
         }
 
     }

@@ -39,13 +39,7 @@
 
                     @if(Context.Session.GetString("Type") == "Company"){
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-expanded="false">
-                            Propuestas
-                        </a>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" asp-controller="Company" asp-action="Proposals">Listar</a>
-                            <a class="dropdown-item" asp-controller="JobProfile" asp-action="Add">Agregar</a>
-                        </div>
+                        <a class="dropdown-item" asp-controller="Company" asp-action="Proposals">Propuestas</a>
                     </li> 
                     }
             </ul>
