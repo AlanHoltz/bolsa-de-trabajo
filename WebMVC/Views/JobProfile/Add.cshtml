@@ -2,66 +2,66 @@
 
 <div style="background:#E3E2E2;height:calc(100% - 56px);font-family: 'Roboto', sans-serif;" class="row px-3 overflow-auto">
     <div class="col-md-12">
-    <h2 class="text-secondary my-3">
-        Agregar Propuesta de Trabajo
-    </h2>
-            <div class="card">
-                <div class="card-body">
-                    <form asp-controller="JobProfile" asp-action="Add" method="POST">
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label asp-for="StartingDate" class="control-label"></label>
-                                <input type="date" asp-for="StartingDate" class="form-control" />
-                                <span asp-validation-for="StartingDate" class="text-danger"></span>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label asp-for="EndingDate" class="control-label"></label>
-                                <input type="date" asp-for="EndingDate" class="form-control" />
-                                <span asp-validation-for="EndingDate" class="text-danger"></span>
-                            </div>
+        <h2 class="text-secondary my-3">
+            Agregar Propuesta de Trabajo
+        </h2>
+        <div class="card">
+            <div class="card-body">
+                <form asp-controller="JobProfile" asp-action="Add" method="POST">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="StartingDate" class="control-label"></label>
+                            <input type="date" asp-for="StartingDate" class="form-control" />
+                            <span asp-validation-for="StartingDate" class="text-danger"></span>
                         </div>
-                        <div class="row">
-                            <div class="form-group col-md-4">
-                                <label asp-for="Address" class="control-label"></label>
-                                <input type="text" asp-for="Address" class="form-control" />
-                                <span asp-validation-for="Address" class="text-danger"></span>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label asp-for="Capacity" class="control-label"></label>
-                                <input type="number" asp-for="Capacity" class="form-control" />
-                                <span asp-validation-for="Capacity" class="text-danger"></span>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label asp-for="Position" class="control-label"></label>
-                                <input type="text" asp-for="Position" class="form-control" />
-                                <span asp-validation-for="Position" class="text-danger"></span>
-                            </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="EndingDate" class="control-label"></label>
+                            <input type="date" asp-for="EndingDate" class="form-control" />
+                            <span asp-validation-for="EndingDate" class="text-danger"></span>
                         </div>
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label asp-for="EmailReceptor" class="control-label"></label>
-                                <input type="text" asp-for="EmailReceptor" class="form-control" />
-                                <span asp-validation-for="EmailReceptor" class="text-danger"></span>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label asp-for="Type" class="control-label"></label>
-                                <select class="form-control" asp-for="Type">
-                                  <option value="Relationship">Relación de dependencia</option>
-                                  <option value="Internship">Pasantía</option>
-                                </select>
-                                <span asp-validation-for="Type" class="text-danger"></span>
-                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label asp-for="Address" class="control-label"></label>
+                            <input type="text" asp-for="Address" class="form-control" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
                         </div>
-                        <div class="form-group">
-                            <label asp-for="Description" class="control-label"></label>
-                            <textarea style="resize:none" type="text" asp-for="Description" class="form-control"></textarea>
-                            <span asp-validation-for="Description" class="text-danger"></span>
+                        <div class="form-group col-md-4">
+                            <label asp-for="Capacity" class="control-label"></label>
+                            <input type="number" asp-for="Capacity" class="form-control" />
+                            <span asp-validation-for="Capacity" class="text-danger"></span>
                         </div>
-                        <div class="form-group row justify-content-center">
-                            <input type="submit" value="Agregar" class="btn btn-primary w-75" />
+                        <div class="form-group col-md-4">
+                            <label asp-for="Position" class="control-label"></label>
+                            <input type="text" asp-for="Position" class="form-control" />
+                            <span asp-validation-for="Position" class="text-danger"></span>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="EmailReceptor" class="control-label"></label>
+                            <input type="text" asp-for="EmailReceptor" class="form-control" />
+                            <span asp-validation-for="EmailReceptor" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="Type" class="control-label"></label>
+                            <select class="form-control" asp-for="Type">
+                                <option value="Relationship">Relación de Dependencia</option>
+                                <option value="Internship">Pasantía</option>
+                            </select>
+                            <span asp-validation-for="Type" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea style="resize:none" type="text" asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group row justify-content-center">
+                        <input type="submit" value="Agregar" class="btn btn-primary w-75" />
+                    </div>
+                </form>
             </div>
+        </div>
     </div>
 </div>

@@ -38,7 +38,15 @@
                         </div>
                     </div>
                 </div>
-                <a class="btn btn-primary p-3 btn-job">Ver CV</a>
+                    @if(jpp.Persons.Cv != null)
+                    {
+                        <a href="@($"/CVs/{jpp.Persons.Cv}")" class="btn btn-primary p-3 btn-job">Ver CV</a>
+                    }
+                    else
+                    {
+                         <span class="text-danger">Sin CV cargado</span>   
+                    }
+
             </div>
         </div>
     </div>

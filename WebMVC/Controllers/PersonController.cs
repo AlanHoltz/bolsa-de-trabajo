@@ -66,6 +66,7 @@ namespace WebMVC.Controllers
                 .Where(
                 jp => jp.StartingDate <= DateTime.Now
                 && jp.EndingDate >= DateTime.Now
+                && jp.Status == true
                 && !jobsIds.Contains(jp.Id)
                 )
                 .OrderByDescending(jp => jp.CreatedAt)
@@ -108,7 +109,10 @@ namespace WebMVC.Controllers
             jpPerson.Status = "Pending";
 
             JobProfile jp = _context.JobProfiles.Find(id);
-            jp.Capacity--;
+            
+            //jp.Capacity--;
+            //Por el momento se supone que la capacidad aumenta o disminuye
+            //acorde a si la empresa acepta o rechaza la postulación
 
             _context.Update(jp);
             _context.SaveChanges();

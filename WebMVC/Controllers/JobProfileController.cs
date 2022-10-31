@@ -36,7 +36,6 @@ namespace WebMVC.Controllers
         public IActionResult Add(Models.JobProfile jobProfile)
         {
             jobProfile.CompanyId = int.Parse(HttpContext.Session.GetString("Id"));
-
             jobProfile.Status = true;
 
             _context.JobProfiles.Add(jobProfile);

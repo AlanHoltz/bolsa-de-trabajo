@@ -31,7 +31,7 @@
                         <div class="col-auto">
                             <div class="row">
                                 <div class="px-1">
-                                    <img src="~/images/logo.png" width="75" height="75"/>
+                                    <img src="@(@jobProfile.Company.Photo != null ? $"/images/companies/{jobProfile.Company.Photo}" : "/images/logo.png")" width="75" height="75"/>
                                 </div>
 
                                 <div class="pl-1">

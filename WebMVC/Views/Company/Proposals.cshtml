@@ -14,8 +14,18 @@
          <a class="mr-2 btn btn-success h-50 align-self-center" asp-controller="JobProfile" asp-action="Add">Nueva Propuesta</a>
         </div>
         
-        <table class="table text-center">
-          <thead>
+        <style>
+            .table-striped tbody tr:nth-of-type(odd){
+                background:none;
+            }
+
+            .table-striped tbody tr:nth-of-type(even) {
+                background:rgba(0,123,255,0.2);
+}
+        </style>
+
+        <table class="table table-striped table-responsive-lg text-center">
+          <thead class="bg-primary text-white">
             <tr>
               <th scope="col">#</th>
               <th scope="col">Puesto de trabajo</th>
@@ -35,10 +45,10 @@
                 <td>@jp.Description</td>
                 <td>@jp.Capacity</td>
                 <td>@jp.Address</td>
-                <td>@jp.Type</td>
+                <td>@(jp.Type == "Relationship" ? "Relación de Dependencia" : "Pasantía")</td>
                 <td>
                     <a class="btn btn-danger" asp-controller="JobProfile" asp-action="Delete" asp-route-id="@jp.Id">Eliminar</a>
-                    <a class="btn btn-secondary" asp-controller="JobProfile" asp-action="Edit" asp-route-id="@jp.Id">Editar</a>
+                    <a style="color:#ffffff" class="btn btn-warning" asp-controller="JobProfile" asp-action="Edit" asp-route-id="@jp.Id">Editar</a>
                     <a class="btn btn-primary" asp-controller="Company" asp-action="Proposal" asp-route-id="@jp.Id">Ver postulantes</a>
                 </td>
             </tr>

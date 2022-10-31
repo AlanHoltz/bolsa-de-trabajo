@@ -20,12 +20,10 @@ namespace WebMVC.Controllers
 
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("Id") != null && HttpContext.Session.GetString("Type") == "Company")
-            {
-                return View();
-            }
+            if (HttpContext.Session.GetString("Id") == null) return Redirect("/login");
+            if (HttpContext.Session.GetString("Type") == "Person") return Redirect("/Person");
 
-            return Redirect("/");
+            return Redirect("/Company/Proposals");
         }
 
         public IActionResult Proposals()
@@ -37,10 +35,9 @@ namespace WebMVC.Controllers
                 List<JobProfile> jobProfiles = _context.JobProfiles
                                                 .Include(jp => jp.Company)
                                                 .Where(jp => 
-                                                //jp.StartingDate <= DateTime.Now 
-                                                ///&& jp.EndingDate >= DateTime.Now 
-                                                //&&
-                                                jp.CompanyId == companyId
+                                                jp.StartingDate <= DateTime.Now 
+                                                && jp.EndingDate >= DateTime.Now 
+                                                && jp.CompanyId == companyId
                                                 && jp.Status == true)
                                                 .ToList();
             

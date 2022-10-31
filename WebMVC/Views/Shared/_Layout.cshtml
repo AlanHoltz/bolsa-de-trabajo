@@ -32,12 +32,12 @@
             <ul class="navbar-nav mr-auto">
                     @if(Context.Session.GetString("Type") == "Person")
                     {                        
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Person" asp-action="Applications">Aplicaciones</a>
+                    <li class="nav-item dropdown">
+                        <a class="dropdown-item" asp-controller="Person" asp-action="Applications">Aplicaciones</a>
                     </li>
                     }
 
-                    @if(Context.Session.GetString("Type") == "Company"){
+                    else{
                     <li class="nav-item dropdown">
                         <a class="dropdown-item" asp-controller="Company" asp-action="Proposals">Propuestas</a>
                     </li> 
