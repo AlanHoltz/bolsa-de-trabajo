@@ -41,8 +41,22 @@
                                 </div>
                             </div>
                         </div>
-                        <a id="cancelButton" class="mr-2 btn btn-danger h-50 align-self-center" asp-controller="Person" asp-action="RemoveApplication" asp-route-id="@jobProfilePerson.JobProfiles.Id">Cancelar</a>
-                    </div>
+                            @if(jobProfilePerson.Status == "Pending")
+                            {
+                                <a id="cancelButton" class="mr-2 btn btn-danger h-50 align-self-center" asp-controller="Person" asp-action="RemoveApplication" asp-route-id="@jobProfilePerson.JobProfiles.Id">Cancelar</a>
+                            }
+                            else
+                            {
+                                if(jobProfilePerson.Status == "Accepted")
+                                {
+                                    <span class="text-success mr-2 font-weight-bold">PROPUESTA ACEPTADA</span>
+                                }
+                                else
+                                {
+                                    <span class="text-danger mr-2 font-weight-bold">PROPUESTA RECHAZADA</span>
+                                }
+                            }
+                        </div>
 
 
                 </div>
@@ -78,4 +92,4 @@
     })
 
 </script>
->>>>>>> refs/remotes/origin/master
+

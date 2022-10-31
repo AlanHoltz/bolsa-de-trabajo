@@ -49,6 +49,7 @@ namespace WebMVC.Controllers
 
 
                 ViewData["PersonApplied"] = jobProfilePerson != null;
+                ViewData["ApplicationStatus"] = jobProfilePerson != null ? jobProfilePerson.Status : "";
 
                 return View("/Views/Person/Job.cshtml", jobProfile);
             }
@@ -66,7 +67,6 @@ namespace WebMVC.Controllers
                 .Where(
                 jp => jp.StartingDate <= DateTime.Now
                 && jp.EndingDate >= DateTime.Now
-                && jp.Status == true
                 && !jobsIds.Contains(jp.Id)
                 )
                 .OrderByDescending(jp => jp.CreatedAt)
@@ -130,8 +130,13 @@ namespace WebMVC.Controllers
             jpp.JobProfilesId == id
             && jpp.PersonsId == int.Parse(HttpContext.Session.GetString("Id"))
             ).FirstOrDefault();
-            _context.Remove(jpp);
-            _context.SaveChanges();
+            
+            if (jpp != null)
+            {
+                _context.Remove(jpp);
+                _context.SaveChanges();
+            }
+
 
             return Redirect("/Person/Applications");
         }

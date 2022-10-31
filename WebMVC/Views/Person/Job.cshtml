@@ -32,7 +32,20 @@
             </div>
             @if (System.Convert.ToBoolean(ViewData["PersonApplied"]))
             {
-            <a class="btn btn-danger h-50 align-self-center" asp-controller="Person" asp-action="RemoveApplication" asp-route-id="@Model.Id">Cancelar</a>
+                if(ViewData["ApplicationStatus"].ToString() == "Accepted")
+                {
+                    <span class="text-success mr-2 font-weight-bold align-self-center">PROPUESTA ACEPTADA</span>
+                }
+                else if(ViewData["ApplicationStatus"].ToString() == "Rejected")
+                {
+                    <span class="text-danger mr-2 font-weight-bold align-self-center">PROPUESTA RECHAZADA</span>
+                }
+
+                else
+                {     
+                    <a class="btn btn-danger h-50 align-self-center" asp-controller="Person" asp-action="RemoveApplication" asp-route-id="@Model.Id">Cancelar</a>
+                }
+
             }
             else
             {

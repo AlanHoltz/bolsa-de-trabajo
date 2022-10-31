@@ -1,6 +1,10 @@
 ﻿@using WebMVC.Models
 @model List<JobProfilePerson>
 
+@{
+    ViewData["Title"] = "Proposal";
+}
+
 <style>
     .btn-job:hover{
         opacity: .8;
@@ -30,22 +34,33 @@
                 <div class="col-auto">
                     <div class="row">
                         <div class="pl-1">
-                            <h4 style="color:#6067D9">
-                                @jpp.Persons.Name @jpp.Persons.Surname
-                            </h4>
+                            <div class="row align-items-center">
+                                <div class="col-auto">
+                                    <h4 style="color:#6067D9">
+                                    @jpp.Persons.Name @jpp.Persons.Surname
+                                    </h4>
+                                </div>
+                                <div class="col-auto">
+                                    @if(jpp.Persons.Cv != null)
+                                    {
+                                        <a href="@($"/CVs/{jpp.Persons.Cv}")" class="btn btn-primary p-3 btn-job">Ver CV</a>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-danger">Sin CV cargado</span>   
+                                    }
+                                </div>
+                            </div>
                             <span class="font-weight-bold text-success">@jpp.Persons.User.Mail</span><br/>
                             <span class="text-secondary">@(DateTime.Today.AddTicks(-jpp.Persons.BirthDate.Ticks).Year - 1) años</span>
                         </div>
                     </div>
                 </div>
-                    @if(jpp.Persons.Cv != null)
-                    {
-                        <a href="@($"/CVs/{jpp.Persons.Cv}")" class="btn btn-primary p-3 btn-job">Ver CV</a>
-                    }
-                    else
-                    {
-                         <span class="text-danger">Sin CV cargado</span>   
-                    }
+                
+                <div>
+                    <a asp-controller="JobProfile" asp-action="ModifyProposal" asp-route-id="@jpp.Id" asp-route-state="Accepted" class="btn btn-success p-3 btn-job">Aceptar</a>
+                    <a asp-controller="JobProfile" asp-action="ModifyProposal" asp-route-id="@jpp.Id" asp-route-state="Rejected" class="btn btn-danger p-3 btn-job">Rechazar</a>
+                </div>
 
             </div>
         </div>

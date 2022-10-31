@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
+using WebMVC.Models;
 
 namespace WebMVC.Controllers
 {
@@ -36,7 +37,6 @@ namespace WebMVC.Controllers
         public IActionResult Add(Models.JobProfile jobProfile)
         {
             jobProfile.CompanyId = int.Parse(HttpContext.Session.GetString("Id"));
-            jobProfile.Status = true;
 
             _context.JobProfiles.Add(jobProfile);
             _context.SaveChanges();
@@ -69,8 +69,6 @@ namespace WebMVC.Controllers
         {
             jobProfile.CompanyId = int.Parse(HttpContext.Session.GetString("Id"));
 
-            jobProfile.Status = true;
-
             _context.JobProfiles.Update(jobProfile);
             _context.SaveChanges();
 
@@ -85,17 +83,30 @@ namespace WebMVC.Controllers
 
                 if (jp != null)
                 {
-                    jp.Status = false;
 
-                    _context.JobProfiles.Update(jp);
+                    _context.Remove(jp);
+
                     _context.SaveChanges();
                 }
 
                 return Redirect("/Company/Proposals");
-            } else
-            {
-                return Redirect("/");
             }
+
+            return Redirect("/");
+        }
+
+        public IActionResult ModifyProposal(int id, string state)
+        {
+            JobProfilePerson jobProfilePerson = _context.JobProfilePerson.Where(jpp => jpp.Id == id).FirstOrDefault();
+
+            if(jobProfilePerson != null)
+            {
+                jobProfilePerson.Status = state;
+                _context.Update(jobProfilePerson);
+                _context.SaveChanges();
+            }
+
+            return Redirect("/Company/Proposals");
         }
     }
 }
