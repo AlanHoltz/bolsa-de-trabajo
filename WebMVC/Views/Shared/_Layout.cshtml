@@ -43,7 +43,7 @@
                     </li> 
                     }
 
-                    @if (Context.Session.GetString("IsAdmin") != "False"){
+                    @if (Context.Session.GetString("IsAdmin") == "True"){
                         <li class="dropdown">
                           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Admin
@@ -64,8 +64,14 @@
                         }  
                     </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <a class="dropdown-item" href="#">Configuración</a>
-                    <a class="dropdown-item" asp-controller="Logout" asp-action="Index">Salir</a>
+                    @if (Context.Session.GetString("Type") == "Person")
+                    {
+                        <a class="dropdown-item" asp-controller="Person" asp-action="Profile">Perfil</a>
+                    } else
+                    {
+                        <a class="dropdown-item" asp-controller="Company" asp-action="Profile">Perfil</a>
+                    }  
+                        <a class="dropdown-item" asp-controller="Logout" asp-action="Index">Salir</a>
                 </div>
             </div>
         </div>

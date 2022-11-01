@@ -203,5 +203,15 @@ namespace WebMVC.Controllers
 
             return Redirect("/");
         }
+
+        public IActionResult Profile()
+        {
+            if(HttpContext.Session.GetString("Type") == "Company")
+            {
+                return View();
+            }
+
+            return Redirect("/");
+        }
     }
 }

@@ -250,5 +250,14 @@ namespace WebMVC.Controllers
             return Redirect("/");
         }
 
+        public IActionResult Profile()
+        {
+            if (HttpContext.Session.GetString("Type") == "Person")
+            {
+                return View();
+            }
+
+            return Redirect("/");
+        }
     }
 }

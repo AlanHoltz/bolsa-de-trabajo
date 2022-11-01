@@ -7,7 +7,7 @@ namespace WebMVC.Controllers
     {
         public IActionResult Index()
         {
-            if(HttpContext.Session.GetString("Id") != null)
+            if(HttpContext.Session.GetString("Id") != null && HttpContext.Session.GetString("IsAdmin") == "True")
             {
                 return View();
             }
