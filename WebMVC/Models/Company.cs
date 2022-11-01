@@ -22,6 +22,7 @@ namespace WebMVC.Models
         public string ReferenceEmail { get; set; }
         public string ReferenceArea { get; set; }
         public string ReferenceWorkingOnCompany { get; set; }
+        public string Status { get; set; }
         public User User { get; set; }
         [ForeignKey("CityZipCode")]
         public City City { get; set; }

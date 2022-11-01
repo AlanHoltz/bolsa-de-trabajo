@@ -45,6 +45,7 @@ namespace WebMVC.Controllers
                 Models.Person person = _context.Persons.Where(p => p.Id == requestedUser.Id).FirstOrDefault();
                 HttpContext.Session.SetString("Name", person.Name);
                 HttpContext.Session.SetString("Surname", person.Surname);
+                HttpContext.Session.SetString("IsAdmin", person.IsAdmin.ToString());
             }
             else
             {

@@ -1,5 +1,65 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using WebMVC.Models
 @{
+    ViewData["Title"] = "Companies";
 }
+@model List<Company>
+
+<div style="background:#E3E2E2;height:calc(100% - 56px);font-family: 'Roboto', sans-serif;" class="row px-3 overflow-auto">
+
+    <div class="col-md-12">
+        <div class="row justify-content-between">
+        <h2 class="text-secondary my-3">
+            Empresas
+        </h2>
+         <a class="mr-2 btn btn-success h-50 align-self-center" asp-controller="JobProfile" asp-action="Add">Nueva Propuesta</a>
+        </div>
+        
+        <style>
+            .table-striped tbody tr:nth-of-type(odd){
+                background:none;
+            }
+
+            .table-striped tbody tr:nth-of-type(even) {
+                background:rgba(0,123,255,0.2);
+}
+        </style>
+
+        <table class="table table-striped table-responsive-lg text-center">
+          <thead class="bg-primary text-white">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">CUIT</th>
+              <th scope="col">Dirección</th>
+              <th scope="col">Ciudad</th>
+              <th scope="col">Email de referencia</th>
+              <th scope="col">Mail</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Operaciones</th>
+            </tr>
+          </thead>
+          <tbody>
+        @foreach(Company company in Model)
+        {
+            <tr>
+                <td>@company.Id</td>
+                <td>@company.Name</td>
+                <td>@company.Cuit</td>
+                <td>@company.Address</td>
+                <td>@company.City.Name</td>
+                <td>@company.ReferenceEmail</td>
+                <td>@company.User.Mail</td>
+                <td>@company.User.Status</td>
+                <td>
+                    <a class="btn btn-danger" asp-controller="Company" asp-action="Delete" asp-route-id="@company.Id">Eliminar</a>
+                    <a style="color:#ffffff" class="btn btn-warning" asp-controller="Company" asp-action="Edit" asp-route-id="@company.Id">Editar</a>
+                    <a class="btn btn-primary" asp-controller="Company" asp-action="Authorize" asp-route-id="@company.Id">Autorizar</a>
+                </td>
+            </tr>
+        }
+          </tbody>
+        </table>
+    </div>
+
+
+</div>

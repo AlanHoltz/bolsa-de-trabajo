@@ -1,0 +1,51 @@
+﻿@model WebMVC.Models.Person;
+
+@{
+    ViewData["Title"] = "Nueva persona";
+}
+
+<div style="background:#E3E2E2;height:calc(100% - 56px);font-family: 'Roboto', sans-serif;" class="row px-3 overflow-auto">
+    <div class="col-md-12">
+        <h2 class="text-secondary my-3">
+            Registrar alumno
+        </h2>
+        <div class="card">
+            <div class="card-body">
+                <form asp-controller="Person" asp-action="Signup" method="POST">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label asp-for="Mail" class="control-label"></label>
+                            <input type="email" asp-for="Mail" class="form-control" />
+                            <span asp-validation-for="Mail" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label asp-for="Password" class="control-label"></label>
+                            <input type="password" asp-for="Password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label asp-for="Name" class="control-label"></label>
+                            <input type="text" asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label asp-for="Surname" class="control-label"></label>
+                            <input type="text" asp-for="Surname" class="form-control" />
+                            <span asp-validation-for="Surname" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label asp-for="BirthDate" class="control-label"></label>
+                            <input type="date" asp-for="BirthDate" class="form-control" />
+                            <span asp-validation-for="BirthDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row justify-content-center">
+                        <input type="submit" value="Agregar" class="btn btn-primary w-75" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

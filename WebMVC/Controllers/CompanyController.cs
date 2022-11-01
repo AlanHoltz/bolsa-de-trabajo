@@ -21,6 +21,7 @@ namespace WebMVC.Controllers
         public IActionResult Index()
         {
             if (HttpContext.Session.GetString("Id") == null) return Redirect("/login");
+            if (HttpContext.Session.GetString("IsAdmin") == "True") return View();
             if (HttpContext.Session.GetString("Type") == "Person") return Redirect("/Person");
 
             return Redirect("/Company/Proposals");
@@ -61,6 +62,27 @@ namespace WebMVC.Controllers
                 ViewBag.quantity = jobProfile.Count();
             
                 return View(jobProfile);
+            }
+
+            return Redirect("/");
+        }
+
+        public IActionResult Signup()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Signup(Models.Company company)
+        {
+            if (HttpContext.Session.GetString("IsAdmin") == "true")
+            {
+                company.Status = "Pending";
+
+                _context.Companies.Add(company);
+                _context.SaveChanges();
+
+                return Redirect("/");
             }
 
             return Redirect("/");

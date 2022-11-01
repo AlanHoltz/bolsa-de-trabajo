@@ -19,11 +19,15 @@ namespace WebMVC.Controllers
         }
         public IActionResult Index()
         {
+            HttpContext.Session.GetString("IsAdmin");
             if (HttpContext.Session.GetString("Id") == null) return Redirect("/login");
             if (HttpContext.Session.GetString("Type") == "Company") return Redirect("/Company");
+            if (HttpContext.Session.GetString("IsAdmin") == "False") return Redirect("/Person/Jobs");
 
-            return Redirect("/Person/Jobs");
-
+            List<Person> persons = _context.Persons.Include(person => person.User).Where(person => person.User.Status == true
+                                                                                        && person.IsAdmin == false).ToList();
+            
+            return View(persons);
         }
         public IActionResult Jobs(int id)
         {
@@ -139,6 +143,111 @@ namespace WebMVC.Controllers
 
 
             return Redirect("/Person/Applications");
+        }
+
+        public IActionResult Signup()
+        {
+            if (HttpContext.Session.GetString("IsAdmin") == "True")
+            {
+                return View();
+            }
+
+            return Redirect("/");
+        }
+
+        [HttpPost]
+        public IActionResult Signup(Models.Person person)
+        {
+            if(HttpContext.Session.GetString("IsAdmin") == "True")
+            {
+                person.IsAdmin = false;
+
+                Models.User user = new User();
+                user.Mail = person.Mail;
+                user.Password = person.Password;
+                user.SignupDate = DateTime.Now;
+                user.Type = "Person";
+                user.Status = true;
+
+                _context.Users.Add(user);
+                _context.SaveChanges();
+
+                person.Id = user.Id;
+                _context.Persons.Add(person);
+                _context.SaveChanges();
+
+                return Redirect("/Person");
+            }
+
+            return Redirect("/");
+        }
+
+        public IActionResult Edit(int id)
+        {
+
+            if (HttpContext.Session.GetString("Type") == "Person")
+            {
+                Models.Person person = _context.Persons.Include(person => person.User).Where(person => person.Id == id).FirstOrDefault();
+
+                if (person != null)
+                {
+                    person.Mail = person.User.Mail;
+                    person.Password = person.User.Password;
+
+                    return View(person);
+                }
+
+                return Redirect("/Person");
+            }
+            else
+            {
+                return Redirect("/");
+            }
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Models.Person person)
+        {
+            if (HttpContext.Session.GetString("Type") == "Person")
+            {
+                Models.User user = new User();
+                user.Id = person.Id;
+                user.Mail = person.Mail;
+                user.Password = person.Password;
+                user.Type = "Person";
+                user.Status = true;
+
+                _context.Users.Update(user);
+                _context.SaveChanges();
+
+                _context.Persons.Update(person);
+                _context.SaveChanges();
+
+                return Redirect("/Person");
+            }
+
+            return Redirect("/");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            if (HttpContext.Session.GetString("IsAdmin") == "True")
+            {
+                Models.User person = _context.Users.Where(user => user.Id == id).FirstOrDefault();
+
+                if (person != null)
+                {
+                    person.Status = false;
+
+                    _context.Update(person);
+
+                    _context.SaveChanges();
+                }
+
+                return Redirect("/Person");
+            }
+
+            return Redirect("/");
         }
 
     }
