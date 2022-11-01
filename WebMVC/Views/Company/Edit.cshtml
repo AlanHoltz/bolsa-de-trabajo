@@ -1,45 +1,45 @@
 ﻿@model WebMVC.Models.Company;
 
 @{
-    ViewData["Title"] = "Nueva empresa";
+    ViewData["Title"] = "Edit Company";
 }
 
 <div style="background:#E3E2E2;height:calc(100% - 56px);font-family: 'Roboto', sans-serif;" class="row px-3 overflow-auto">
     <div class="col-md-12">
         <h2 class="text-secondary my-3">
-            Registrar empresa
+            Editar Empresa
         </h2>
         <div class="card">
             <div class="card-body">
-                <form asp-controller="Company" asp-action="Signup" method="POST">
+                <form asp-controller="Company" asp-action="Edit" method="POST">
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label asp-for="Mail" class="control-label"></label>
-                            <input type="email" asp-for="Mail" class="form-control" />
+                            <input type="email" asp-for="Mail" class="form-control" value="@Model.Mail"/>
                             <span asp-validation-for="Mail" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-6">
                             <label asp-for="Password" class="control-label"></label>
-                            <input type="password" asp-for="Password" class="form-control" />
+                            <input type="password" asp-for="Password" class="form-control" value="@Model.Password"/>
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label asp-for="Name" class="control-label"></label>
-                            <input type="text" asp-for="Name" class="form-control" />
+                            <input type="text" asp-for="Name" class="form-control" value="@Model.Name"/>
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-6">
                             <label asp-for="Cuit" class="control-label"></label>
-                            <input type="text" asp-for="Cuit" class="form-control" />
+                            <input type="text" asp-for="Cuit" class="form-control" value="@Model.Cuit"/>
                             <span asp-validation-for="Cuit" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label asp-for="Address" class="control-label"></label>
-                            <input type="text" asp-for="Address" class="form-control" />
+                            <input type="text" asp-for="Address" class="form-control" value="@Model.Address"/>
                             <span asp-validation-for="Address" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-6">
@@ -55,25 +55,35 @@
                     <div class="row">
                         <div class="form-group col-md-4">
                             <label asp-for="ReferenceName" class="control-label"></label>
-                            <input type="text" asp-for="ReferenceName" class="form-control" />
+                            <input type="text" asp-for="ReferenceName" class="form-control" value="@Model.ReferenceName"/>
                             <span asp-validation-for="ReferenceName" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-4">
                             <label asp-for="ReferenceEmail" class="control-label"></label>
-                            <input type="email" asp-for="ReferenceEmail" class="form-control" />
+                            <input type="email" asp-for="ReferenceEmail" class="form-control" value="@Model.ReferenceEmail"/>
                             <span asp-validation-for="ReferenceEmail" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-4">
                             <label asp-for="ReferencePhone" class="control-label"></label>
-                            <input type="text" asp-for="ReferencePhone" class="form-control" />
+                            <input type="text" asp-for="ReferencePhone" class="form-control" value="@Model.ReferencePhone"/>
                             <span asp-validation-for="ReferencePhone" class="text-danger"></span>
                         </div>
                     </div>
+                    <input type="text" style="visibility:hidden;" asp-for="Status" value="@Model.Status" />
                     <div class="form-group row justify-content-center">
-                        <input type="submit" value="Agregar" class="btn btn-primary w-75" />
+                        <input type="submit" value="Editar" class="btn btn-primary w-75" />
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $('select').val(@Model.CityZipCode).change();
+    },
+    });
+
+</script>

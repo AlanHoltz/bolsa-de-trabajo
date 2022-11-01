@@ -11,7 +11,7 @@
         <h2 class="text-secondary my-3">
             Empresas
         </h2>
-         <a class="mr-2 btn btn-success h-50 align-self-center" asp-controller="JobProfile" asp-action="Add">Nueva Propuesta</a>
+         <a class="mr-2 btn btn-success h-50 align-self-center" asp-controller="Company" asp-action="Signup">Nueva Empresa</a>
         </div>
         
         <style>
@@ -53,13 +53,15 @@
                 <td>
                     <a class="btn btn-danger" asp-controller="Company" asp-action="Delete" asp-route-id="@company.Id">Eliminar</a>
                     <a style="color:#ffffff" class="btn btn-warning" asp-controller="Company" asp-action="Edit" asp-route-id="@company.Id">Editar</a>
-                    <a class="btn btn-primary" asp-controller="Company" asp-action="Authorize" asp-route-id="@company.Id">Autorizar</a>
+                    @if(company.Status != "Authorized")
+                    {
+                        <a class="btn btn-primary" asp-controller="Company" asp-action="Authorize" asp-route-id="@company.Id">Autorizar</a>
+                    }
                 </td>
             </tr>
         }
           </tbody>
         </table>
     </div>
-
 
 </div>
