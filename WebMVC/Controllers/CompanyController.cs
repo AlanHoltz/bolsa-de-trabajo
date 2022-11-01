@@ -182,5 +182,26 @@ namespace WebMVC.Controllers
 
             return Redirect("/");
         }
+
+        public IActionResult Authorize(int id)
+        {
+            if (HttpContext.Session.GetString("IsAdmin") == "True")
+            {
+                Models.Company company = _context.Companies.Where(company => company.Id == id).FirstOrDefault();
+
+                if (company != null)
+                {
+                    company.Status = "Authorized";
+
+                    _context.Update(company);
+
+                    _context.SaveChanges();
+                }
+
+                return Redirect("/Company");
+            }
+
+            return Redirect("/");
+        }
     }
 }
