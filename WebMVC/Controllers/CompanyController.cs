@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using WebMVC.Models;
 
@@ -26,19 +27,29 @@ namespace WebMVC.Controllers
             return Redirect("/Company/Proposals");
         }
 
-        public IActionResult Proposals()
+        public IActionResult Proposals(string Position, DateTime? From, DateTime? Until, string Type)
         {
-            if(HttpContext.Session.GetString("Id") != null && HttpContext.Session.GetString("Type") == "Company")
+
+            if (HttpContext.Session.GetString("Id") != null && HttpContext.Session.GetString("Type") == "Company")
             {
                 int companyId = int.Parse(HttpContext.Session.GetString("Id"));
 
-                List<JobProfile> jobProfiles = _context.JobProfiles
+                IQueryable<JobProfile> jobProfiles = _context.JobProfiles
                                                 .Include(jp => jp.Company)
-                                                .Where(jp => 
-                                                 jp.CompanyId == companyId)
-                                                .ToList();
-            
-                return View(jobProfiles);
+                                                .Where(jp =>
+                                                 jp.CompanyId == companyId);
+                
+                jobProfiles = Position != null ? jobProfiles.Where(jp => jp.Position.Contains(Position)) : jobProfiles;
+                jobProfiles = From != null ? jobProfiles.Where(jp => jp.StartingDate >= From) : jobProfiles;
+                jobProfiles = Until != null ? jobProfiles.Where(jp => jp.EndingDate <= Until) : jobProfiles;
+                jobProfiles = Type != null && (Type == "relationship" || Type == "internship") ? jobProfiles.Where(jp => jp.Type.ToLower() == Type) : jobProfiles;
+
+                ViewData["Position"] = Position;
+                ViewData["From"] = From;
+                ViewData["Until"] = Until;
+                ViewData["Type"] = Type;
+
+                return View(jobProfiles.ToList());
             }
 
             return Redirect("/");
