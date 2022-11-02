@@ -12,10 +12,12 @@ namespace WebMVC.Controllers
     public class CompanyController : Controller
     {
         private readonly BolsaTrabajoContext _context;
+        private readonly IReportService _reportService;
 
-        public CompanyController(BolsaTrabajoContext context)
+        public CompanyController(BolsaTrabajoContext context, IReportService reportService)
         {
             _context = context;
+            _reportService = reportService;
         }
 
         public IActionResult Index()
@@ -42,6 +44,31 @@ namespace WebMVC.Controllers
             }
 
             return Redirect("/");
+        }
+
+        public IActionResult ProposalsReport()
+        {
+
+            if (HttpContext.Session.GetString("Id") != null && HttpContext.Session.GetString("Type") == "Company")
+            {
+
+                int companyId = int.Parse(HttpContext.Session.GetString("Id"));
+
+                List<JobProfile> jobProfiles = _context.JobProfiles
+                                                .Include(jp => jp.Company)
+                                                .Where(jp =>
+                                                 jp.CompanyId == companyId)
+                                                .ToList();
+
+                var pdfFile = _reportService.GeneratePdfReport(jobProfiles);
+                
+                return File(pdfFile,
+                "application/octet-stream", "Trabajos.pdf");
+
+            }
+
+            return Redirect("/");
+           
         }
         
         public IActionResult Proposal(int id)
