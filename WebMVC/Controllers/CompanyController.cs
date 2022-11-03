@@ -141,14 +141,10 @@ namespace WebMVC.Controllers
         [HttpPost]
         public IActionResult Edit(Models.Company company)
         {
-            if (HttpContext.Session.GetString("Type") == "Company" || HttpContext.Session.GetString("IsAdmin") == "True")
+            if (HttpContext.Session.GetString("Type") == "Company")
             {
-                Models.User user = new User();
-                user.Id = company.Id;
-                user.Mail = company.Mail;
+                Models.User user = _context.Users.Where(user => user.Id == company.Id).FirstOrDefault();
                 user.Password = company.Password;
-                user.Type = "Company";
-                user.Status = true;
 
                 _context.Users.Update(user);
                 _context.SaveChanges();
@@ -156,7 +152,7 @@ namespace WebMVC.Controllers
                 _context.Companies.Update(company);
                 _context.SaveChanges();
 
-                return Redirect("/Company");
+                return Redirect("/Company/Profile");
             }
 
             return Redirect("/");
@@ -206,9 +202,12 @@ namespace WebMVC.Controllers
 
         public IActionResult Profile()
         {
-            if(HttpContext.Session.GetString("Type") == "Company")
+            if (HttpContext.Session.GetString("Type") == "Company")
             {
-                return View();
+                int id = int.Parse(HttpContext.Session.GetString("Id"));
+                Models.Company company = _context.Companies.Include(c => c.User).Include(c => c.City).Where(company => company.Id == id).FirstOrDefault();
+
+                return View(company);
             }
 
             return Redirect("/");
