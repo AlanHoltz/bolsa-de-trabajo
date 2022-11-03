@@ -21,6 +21,7 @@ namespace WebMVC.Controllers
         public IActionResult Index()
         {
             if (HttpContext.Session.GetString("Id") == null) return Redirect("/login");
+            if (HttpContext.Session.GetString("Authorized") == "Pending") return Redirect("/Company/Profile");
             if (HttpContext.Session.GetString("IsAdmin") == "True")
             {
                 List<Company> company = _context.Companies
@@ -38,7 +39,8 @@ namespace WebMVC.Controllers
 
         public IActionResult Proposals()
         {
-            if(HttpContext.Session.GetString("Id") != null && HttpContext.Session.GetString("Type") == "Company")
+            if (HttpContext.Session.GetString("Authorized") == "Pending") return Redirect("/Company/Profile");
+            if (HttpContext.Session.GetString("Id") != null && HttpContext.Session.GetString("Type") == "Company")
             {
                 int companyId = int.Parse(HttpContext.Session.GetString("Id"));
 
@@ -56,7 +58,8 @@ namespace WebMVC.Controllers
         
         public IActionResult Proposal(int id)
         {
-            if(HttpContext.Session.GetString("Id") != null && HttpContext.Session.GetString("Type") == "Company")
+            if (HttpContext.Session.GetString("Authorized") == "Pending") return Redirect("/Company/Profile");
+            if (HttpContext.Session.GetString("Id") != null && HttpContext.Session.GetString("Type") == "Company")
             {
                 int companyId = int.Parse(HttpContext.Session.GetString("Id"));
 
@@ -116,7 +119,7 @@ namespace WebMVC.Controllers
 
         public IActionResult Edit(int id)
         {
-
+            if (HttpContext.Session.GetString("Authorized") == "Pending") return Redirect("/Company/Profile");
             if (HttpContext.Session.GetString("Type") == "Company" || HttpContext.Session.GetString("IsAdmin") == "True")
             {
                 Models.Company company = _context.Companies.Include(company => company.User).Where(company => company.Id == id).FirstOrDefault();
@@ -160,6 +163,7 @@ namespace WebMVC.Controllers
 
         public IActionResult Delete(int id)
         {
+            if (HttpContext.Session.GetString("Authorized") == "Pending") return Redirect("/Company/Profile");
             if (HttpContext.Session.GetString("IsAdmin") == "True")
             {
                 Models.User company = _context.Users.Where(user => user.Id == id).FirstOrDefault();

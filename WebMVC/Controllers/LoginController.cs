@@ -52,6 +52,7 @@ namespace WebMVC.Controllers
                 Models.Company company = _context.Companies.Where(c => c.Id == requestedUser.Id).FirstOrDefault();
                 HttpContext.Session.SetString("Name", company.Name);
                 HttpContext.Session.SetString("Cuit", company.Cuit);
+                HttpContext.Session.SetString("Authorized", company.Status);
             }
 
             return Redirect("/");
