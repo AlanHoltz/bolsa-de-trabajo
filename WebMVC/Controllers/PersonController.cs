@@ -210,12 +210,8 @@ namespace WebMVC.Controllers
         {
             if (HttpContext.Session.GetString("Type") == "Person")
             {
-                Models.User user = new User();
-                user.Id = person.Id;
-                user.Mail = person.Mail;
+                Models.User user = _context.Users.Where(user => user.Id == person.Id).FirstOrDefault();
                 user.Password = person.Password;
-                user.Type = "Person";
-                user.Status = true;
 
                 _context.Users.Update(user);
                 _context.SaveChanges();
@@ -223,7 +219,7 @@ namespace WebMVC.Controllers
                 _context.Persons.Update(person);
                 _context.SaveChanges();
 
-                return Redirect("/Person");
+                return Redirect("/Person/Profile");
             }
 
             return Redirect("/");
@@ -254,7 +250,10 @@ namespace WebMVC.Controllers
         {
             if (HttpContext.Session.GetString("Type") == "Person")
             {
-                return View();
+                int id = int.Parse(HttpContext.Session.GetString("Id"));
+                Models.Person person = _context.Persons.Include(p => p.User).Where(user => user.Id == id).FirstOrDefault();
+
+                return View(person);
             }
 
             return Redirect("/");
