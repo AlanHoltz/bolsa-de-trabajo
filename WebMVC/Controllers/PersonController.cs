@@ -13,9 +13,12 @@ namespace WebMVC.Controllers
     public class PersonController : Controller
     {
         private readonly BolsaTrabajoContext _context;
-        public PersonController(BolsaTrabajoContext context)
+        private readonly IReportService _reportService;
+
+        public PersonController(BolsaTrabajoContext context, IReportService reportService)
         {            
             _context = context;
+            _reportService = reportService;
         }
         public IActionResult Index()
         {
@@ -99,6 +102,30 @@ namespace WebMVC.Controllers
                 && jp.JobProfiles.EndingDate >= DateTime.Now).ToList();
             
             return View(jpPerson);
+        }
+
+        public IActionResult ApplicationsReport()
+        {
+            if (HttpContext.Session.GetString("Id") == null)
+            {
+                return Redirect("/login");
+            }
+
+            int personId = int.Parse(HttpContext.Session.GetString("Id"));
+
+            List<JobProfilePerson> jpPerson = _context.JobProfilePerson
+                .Include(jp => jp.JobProfiles)
+                .Include(jp => jp.JobProfiles.Company)
+                .Where(
+                jp => jp.PersonsId == personId
+                && jp.JobProfiles.StartingDate <= DateTime.Now
+                && jp.JobProfiles.EndingDate >= DateTime.Now).ToList();
+
+
+            var pdfFile = _reportService.GeneratePdfReport(jpPerson);
+
+            return File(pdfFile,
+            "application/octet-stream", "Aplicaciones.pdf");
         }
 
         public IActionResult AddApplication(int id)
