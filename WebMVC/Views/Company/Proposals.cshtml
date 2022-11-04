@@ -1,6 +1,7 @@
 ﻿@using WebMVC.Models
 @{
     ViewData["Title"] = "Proposals";
+
 }
 @model List<JobProfile>
 
@@ -23,7 +24,32 @@
                 background:rgba(0,123,255,0.2);
 }
         </style>
-
+        <form method="GET" asp-action="Proposals" asp-controller="Company" class="row justify-content-between align-items-center mb-2">
+            <div class="col-auto">
+                <input value="@(ViewData["Position"] ?? null)" name="Position" placeholder="Puesto de trabajo" class="form-control" />
+            </div>
+             <div class="col-auto">
+                 <div class="row align-items-center">
+                     <div class="col-auto">
+                         <input value="@(ViewData["From"] != null ? Convert.ToDateTime(ViewData["From"]).ToString("yyyy-MM-dd") : null)" name="From" type="date" placeholder="Desde" class="form-control"/>
+                     </div>
+                     <div class="col-auto"><span> - </span></div>
+                     <div class="col-auto">
+                         <input value="@(ViewData["Until"] != null ? Convert.ToDateTime(ViewData["Until"]).ToString("yyyy-MM-dd") : null)" name="Until" type="date" placeholder="Hasta" class="form-control"/>
+                    </div>
+                 </div>
+            </div>
+            <div class="col-auto">
+                  <select name="Type" class="form-select" aria-label="Default select example">
+                  <option selected="@(ViewData["Type"] == null ? "selected" : null)"> Tipo</option>
+                  <option selected="@(ViewData["Type"] != null && ViewData["Type"].ToString() == "relationship" ? "selected" : null)" value="relationship">Relación de Dependencia</option>
+                  <option selected="@(ViewData["Type"] != null && ViewData["Type"].ToString() == "internship" ? "selected" : null)" value="internship">Pasantía</option>
+                </select>
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-info" type="submit">Buscar</button>
+            </div>
+        </form>
         <table class="table table-striped table-responsive-lg text-center">
           <thead class="bg-primary text-white">
             <tr>
@@ -33,6 +59,8 @@
               <th scope="col">Capacidad</th>
               <th scope="col">Dirección</th>
               <th scope="col">Tipo</th>
+              <th scope="col">Desde</th>
+              <th scope="col">Hasta</th>
               <th scope="col">Operaciones</th>
             </tr>
           </thead>
@@ -46,9 +74,11 @@
                 <td>@jp.Capacity</td>
                 <td>@jp.Address</td>
                 <td>@(jp.Type == "Relationship" ? "Relación de Dependencia" : "Pasantía")</td>
+                <td>@jp.StartingDate.ToString("dd/MM/yyyy")</td>
+                <td>@jp.EndingDate.ToString("dd/MM/yyyy")</td>
                 <td>
-                    <a class="btn btn-danger" asp-controller="JobProfile" asp-action="Delete" asp-route-id="@jp.Id">Eliminar</a>
                     <a style="color:#ffffff" class="btn btn-warning" asp-controller="JobProfile" asp-action="Edit" asp-route-id="@jp.Id">Editar</a>
+                    <a class="btn btn-danger" asp-controller="JobProfile" asp-action="Delete" asp-route-id="@jp.Id">Eliminar</a>
                     <a class="btn btn-primary" asp-controller="Company" asp-action="Proposal" asp-route-id="@jp.Id">Ver postulantes</a>
                 </td>
             </tr>
