@@ -75,7 +75,7 @@ public class ReportService : IReportService
 ";
         }
 
-        string html = 
+        string html =
         $@"
         <!DOCTYPE html>
         <html lang=""en"">
@@ -98,7 +98,7 @@ public class ReportService : IReportService
 
 
         Settings settings = GetPdfSettings(html);
-        
+
         HtmlToPdfDocument htmlToPdfDocument = new HtmlToPdfDocument()
         {
             GlobalSettings = settings.globalSettings,
@@ -107,10 +107,61 @@ public class ReportService : IReportService
         return _converter.Convert(htmlToPdfDocument);
     }
 
-    public byte[] GeneratePdfReport(string PORVERSE)
+    public byte[] GeneratePdfReport(List<JobProfilePerson> jpPerson)
     {
 
-        Settings settings = GetPdfSettings("");
+        string rows = "";
+
+        foreach (JobProfilePerson jobProfilePerson in jpPerson)
+        {
+            rows += $@"
+            <tr>
+                <td>
+                {jobProfilePerson.Id}
+                </td>
+                <td>
+                {jobProfilePerson.JobProfiles.Position}
+                </td>
+                <td>
+                {jobProfilePerson.JobProfiles.Company.Name}
+                </td>
+                <td>
+                {jobProfilePerson.JobProfiles.Address}
+                </td>
+                <td>
+                {jobProfilePerson.JobProfiles.Description}
+                </td>
+                <td>
+                {(jobProfilePerson.Status == "Pending" ? "Pendiente de Respuesta" : 
+                jobProfilePerson.Status == "Accepted" ? "Propuesta Aceptada" : "Propuesta Rechazada")}
+                </td>
+            </tr>
+";
+        }
+
+        string html =
+        $@"
+        <!DOCTYPE html>
+        <html lang=""en"">
+            <body style=""font-family:arial"">
+                <h1>Reporte de Aplicaciones</h1>
+                <table style=""width:100%"">
+                  <tr style=""color:#ffffff;background:#007bff;text-transform:uppercase"">
+                    <th>#</th>
+                    <th>Puesto de Trabajo</th>
+                    <th>Empresa</th>
+                    <th>Dirección</th>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+                  </tr>
+                 {rows}
+                </table>
+            </body>
+        </html>
+        ";
+
+
+        Settings settings = GetPdfSettings(html);
 
         HtmlToPdfDocument htmlToPdfDocument = new HtmlToPdfDocument()
         {
@@ -119,4 +170,5 @@ public class ReportService : IReportService
         };
         return _converter.Convert(htmlToPdfDocument);
     }
+
 }
