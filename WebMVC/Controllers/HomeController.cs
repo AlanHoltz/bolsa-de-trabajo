@@ -32,6 +32,8 @@ namespace BolsaTrabajo.Controllers
             
             if(HttpContext.Session.GetString("Type") == "Company") return Redirect("/Company");
 
+            if (HttpContext.Session.GetString("IsAdmin") != "False") return Redirect("/Admin");
+
             return Redirect("/Person");
 
         }

@@ -45,12 +45,14 @@ namespace WebMVC.Controllers
                 Models.Person person = _context.Persons.Where(p => p.Id == requestedUser.Id).FirstOrDefault();
                 HttpContext.Session.SetString("Name", person.Name);
                 HttpContext.Session.SetString("Surname", person.Surname);
+                HttpContext.Session.SetString("IsAdmin", person.IsAdmin.ToString());
             }
             else
             {
                 Models.Company company = _context.Companies.Where(c => c.Id == requestedUser.Id).FirstOrDefault();
                 HttpContext.Session.SetString("Name", company.Name);
                 HttpContext.Session.SetString("Cuit", company.Cuit);
+                HttpContext.Session.SetString("Authorized", company.Status);
             }
 
             return Redirect("/");
