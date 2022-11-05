@@ -35,7 +35,7 @@
                     </div>
                     <div class="row justify-content-center">
                         <a class="btn btn-primary m-3" asp-controller="Person" asp-action="Edit" asp-route-id="@Context.Session.GetString("Id")">Editar</a>
-                        <a class="btn btn-secondary m-3 text-white">Cargar CV</a>
+                        <a class="btn btn-secondary m-3 text-white" asp-controller="Person" asp-action="MyCV">Ver mi CV</a>
                     </div>
                 </div>
             </div>

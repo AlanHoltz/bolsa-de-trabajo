@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Http
+
+@model WebMVC.Models.Person
+
+
+
+<div style="background:#E3E2E2;height:calc(100% - 56px);font-family: 'Roboto', sans-serif;" class="row px-3 overflow-auto">
+    <div class="col-md-12">
+        <div class="col-md-8 mx-auto">
+            <h3 class="text-center text-uppercase my-2 text-secondary">Mi Curriculum Vitae</h3>
+            <div class="card row" style="flex-direction: row; padding:15px;">
+                <div class="col-sm-12">
+                    <div class="row">
+                        @if(Model.Cv != null)
+                        {
+                            <h6 class="mb-0">Ya has cargado tu CV. <a href="@($"/CVs/{Model.Cv}")" class="link-primary">Puedes verlo aquí</a></h6>
+                        }
+                        else
+                        {
+                            <h6 class="text-danger mb-0">Aún no tiene un CV cargado</h6>
+                        }
+
+                    </div>
+                    <div class="row">
+                        <form method="post" enctype="multipart/form-data" asp-controller="Person" asp-action="MyCV">
+                            <div class="form-group mb-0 my-4">
+                                <div class="col-sm-12 pl-0">
+                                    <input type="file" name="cv"/>
+                                </div>
+                            </div>
+                            <div class="form-group mb-0">
+                                <div class="col-sm-12 pl-0">
+                                    <input type="submit" class="btn btn-primary" value="Subir CV" />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
