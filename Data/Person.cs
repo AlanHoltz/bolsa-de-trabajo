@@ -1,196 +1,147 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace Bolsa.Data
 {
-    public class Person
+    public class Person : Base
     {
-        public static List<Entities.Person> GetAll()
+        public Person() : base()
         {
-        try 
-            { 
-                string query = "SELECT * FROM [users] u INNER JOIN [persons] p ON u.user_id = p.person_id WHERE u.user_status = 1";
-                var people = new List<Entities.Person>();
-                using (SqlConnection conn = Singleton.GetInstance().Open())
-                {
-                    using(SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            if (reader != null)
-                            {
-                                while(reader.Read())
-                                {
-                                    Entities.Person person = new Entities.Person(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), Convert.ToBoolean(reader.GetByte(3)), reader.GetDateTime(4), reader.GetString(6), reader.GetString(7), reader.IsDBNull(8) ? "" : reader.GetString(8), reader.IsDBNull(9) ? "" : reader.GetString(9), Convert.ToBoolean(reader.GetByte(10)), reader.GetDateTime(11));
-                                    people.Add(person);
-                                }
-                            }
-                        }
-                    }
-                }
-                return people;
-            }
-            catch (SqlException e)
+
+        }
+
+        public List<Entities.Person> GetAll()
+        {
+            List<Entities.Person> usuarios = new List<Entities.Person>();
+
+            try
             {
-                Console.WriteLine(e.ToString());
-                return null;
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Users u INNER JOIN Persons p ON u.Id = p.Id WHERE u.Status = 1", Conn);
+
+                Conn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    Entities.Person person = new Entities.Person();
+                    person.Id = dr.GetInt32(0);
+                    person.Mail = dr.GetString(1);
+                    person.Type = dr.GetString(3);
+                    person.Name = dr.GetString(7);
+                    person.Surname = dr.GetString(8);
+                    person.BirthDate = dr.GetDateTime(9);
+
+                    usuarios.Add(person);
+                }
+
+                dr.Close();
+                Conn.Close();
+
+                return usuarios;
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
 
-        public static Entities.Person GetOne(int ID)
+        public Entities.Person GetOne(int id)
         {
-            Entities.Person person = new Entities.Person();
-            try
-            {
-                string query = "SELECT * FROM [users] u INNER JOIN [persons] p ON u.user_id = p.person_id WHERE u.user_status = 1 AND p.person_id = @ID";
-                using (SqlConnection conn = Singleton.GetInstance().Open())
-                {
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            if (reader != null)
-                            {
-                                reader.Read();
-                                person.Id = ID; //El 0 y el 6 son ID asique con uno alcanza.
-                                person.Mail = reader.GetString(1);
-                                person.Password = reader.GetString(2);
-                                person.Status = Convert.ToBoolean(reader.GetByte(3));
-                                person.Date = reader.GetDateTime(4);
-                                person.Name = reader.GetString(6);
-                                person.Surname = reader.GetString(7);
-                                person.Photo = reader.IsDBNull(8) ? "" : reader.GetString(8);
-                                person.Cv = reader.IsDBNull(9) ? "" : reader.GetString(9);
-                                person.IsAdmin = Convert.ToBoolean(reader.GetByte(10));
-                                person.BirthDate = reader.GetDateTime(11);
-                            }
-                        }
-                    }
-                }
-                return person;
-            }
-            catch (SqlException e)
-            {
-                Console.WriteLine(e.ToString());
-                return null;
-            }
+            List<Entities.Person> usuarios = GetAll();
+
+            Entities.Person usuario = usuarios.FirstOrDefault(u => u.Id.Equals(id));
+
+            return usuario;
         }
-        public static void Insert(Entities.Person person)
+
+        public void Add(Entities.Person user)
         {
             try
             {
-                string query1 = "INSERT INTO [users] (user_mail, user_password, user_status, user_signup_date) OUTPUT Inserted.user_id VALUES (@EMAIL, @PASSWORD, @STATUS, @FECHAREGISTRO)";
-                string query2 = "INSERT INTO [persons] (person_id, person_name, person_surname, person_is_admin, person_birth_date) VALUES (@ID, @NAME, @SURNAME, @IS_ADMIN, @BIRTH_DATE)";
-                using (SqlConnection conn = Singleton.GetInstance().Open())
-                {
-                    using (SqlCommand cmd1 = new SqlCommand(query1, conn))
-                    {
-                        cmd1.Parameters.Add("@EMAIL", SqlDbType.VarChar).Value = person.Mail;
-                        cmd1.Parameters.Add("@PASSWORD", SqlDbType.VarChar).Value = person.Password;
-                        cmd1.Parameters.Add("@STATUS", SqlDbType.TinyInt).Value = 1;
-                        cmd1.Parameters.Add("@FECHAREGISTRO", SqlDbType.Date).Value = DateTime.Now.ToString("dd/MM/yyyy");
+                SqlCommand cmd = new SqlCommand("insert into Users(Mail, Password, Type, Status, SignupDate) OUTPUT Inserted.Id values(@mail, @password, @type, @status, @signupDate)", Conn);
 
-                        int id = (int) cmd1.ExecuteScalar();
+                cmd.Parameters.AddWithValue("@mail", user.Mail);
+                cmd.Parameters.AddWithValue("@password", user.Password);
+                cmd.Parameters.AddWithValue("@type", "Person");
+                cmd.Parameters.AddWithValue("@status", true);
+                cmd.Parameters.AddWithValue("@signupDate", DateTime.Now);
 
-                        using (SqlCommand cmd2 = new SqlCommand(query2, conn))
-                        {
-                            cmd2.Parameters.Add("@ID", SqlDbType.Int).Value = id;
-                            cmd2.Parameters.Add("@NAME", SqlDbType.VarChar).Value = person.Name;
-                            cmd2.Parameters.Add("@SURNAME", SqlDbType.VarChar).Value = person.Surname;
-                            cmd2.Parameters.Add("@IS_ADMIN", SqlDbType.TinyInt).Value = person.IsAdmin;
-                            cmd2.Parameters.Add("@BIRTH_DATE", SqlDbType.DateTime).Value = person.BirthDate;
+                Conn.Open();
+                int id = (int)cmd.ExecuteScalar();
+                Conn.Close();
 
-                            cmd2.ExecuteNonQuery();
-                        }
-                    }
-                }
+
+                cmd = new SqlCommand("insert into Persons values(@id, @name, @surname, @birthdate, @cv, @isAdmin)", Conn);
+
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@name", user.Name);
+                cmd.Parameters.AddWithValue("@surname", user.Surname);
+                cmd.Parameters.AddWithValue("@birthdate", user.BirthDate);
+                cmd.Parameters.AddWithValue("@cv", "");
+                cmd.Parameters.AddWithValue("@isAdmin", false);
+                Conn.Open();
+                cmd.ExecuteNonQuery();
+                Conn.Close();            
             }
-            catch (SqlException e)
+            catch (SqlException ex)
             {
-                Console.WriteLine(e.ToString());
+
+                throw new Exception(ex.Message);
             }
         }
-        public static void Update(Entities.Person person)
+
+        public void Edit(Entities.Person user)
         {
             try
             {
-                //string query = "UPDATE [persons] SET person_name = @NAME, person_surname = @SURNAME, person_photo = @PHOTO, person_cv = @CV, person_is_admin = @ADMIN, person_birth_day = @BIRTHDAY,  WHERE person_id = @ID";
-                string query = "UPDATE [dbo].[persons] SET [person_name] = @NAME ,[person_surname] = @SURNAME ,[person_is_admin] = @ADMIN ,[person_birth_date] = @BIRTHDAY WHERE person_id = @ID";
-                using (SqlConnection conn = Singleton.GetInstance().Open())
-                {
-                    using (SqlCommand cmd1 = new SqlCommand(query, conn))
-                    {
-                            cmd1.Parameters.Add("@ID", SqlDbType.Int).Value = person.Id;
-                            cmd1.Parameters.Add("@NAME", SqlDbType.VarChar).Value = person.Name;
-                            cmd1.Parameters.Add("@SURNAME", SqlDbType.VarChar).Value = person.Surname;
-                            //cmd1.Parameters.Add("@PHOTO", SqlDbType.VarChar).Value = person.Photo; //Estos dos rompen el update
-                            //cmd1.Parameters.Add("@CV", SqlDbType.VarChar).Value = person.Cv;
-                            cmd1.Parameters.Add("@ADMIN", SqlDbType.TinyInt).Value = person.IsAdmin;
-                            cmd1.Parameters.Add("@BIRTHDAY", SqlDbType.Date).Value = person.BirthDate;
-                            cmd1.ExecuteNonQuery();
-                    }
-                }
-                string query2 = "UPDATE[dbo].[users] SET[user_mail] = @EMAIL, [user_password] = @PASSWORD WHERE user_id = @ID";
+                SqlCommand cmd = new SqlCommand("update Users set Password = @password where Id = @id", Conn);
 
-                using (SqlConnection conn = Singleton.GetInstance().Open())
-                {
-                    using (SqlCommand cmd2 = new SqlCommand(query2, conn))
-                    {
- 
-                        cmd2.Parameters.Add("@EMAIL", SqlDbType.VarChar).Value = person.Mail;
-                        cmd2.Parameters.Add("@PASSWORD", SqlDbType.VarChar).Value = person.Password;
-                        cmd2.Parameters.Add("@ID", SqlDbType.Int).Value = person.Id;
-                        cmd2.ExecuteNonQuery();
-                    }
-                }
+                cmd.Parameters.AddWithValue("@password", user.Password);
+                cmd.Parameters.AddWithValue("@id", user.Id);
+
+                Conn.Open();
+                cmd.ExecuteNonQuery();
+                Conn.Close();
 
 
+                cmd = new SqlCommand("update Persons set Name = @name, Surname = @surname, Birthdate = @birthdate where Id = @id", Conn);
+
+                cmd.Parameters.AddWithValue("@name", user.Name);
+                cmd.Parameters.AddWithValue("@surname", user.Surname);
+                cmd.Parameters.AddWithValue("@birthdate", user.BirthDate);
+                cmd.Parameters.AddWithValue("@id", user.Id);
+
+                Conn.Open();
+                cmd.ExecuteNonQuery();
+                Conn.Close();
             }
-            catch (SqlException e)
+            catch (SqlException ex)
             {
-                Console.WriteLine(e.ToString());
+
+                throw new Exception(ex.Message);
             }
         }
-        public static void Delete(int ID)
+
+        public void Delete(int id)
         {
             try
             {
-                string query1 = "UPDATE [users] SET user_status = @STATUS WHERE user_id = @ID";
-                using (SqlConnection conn = Singleton.GetInstance().Open())
-                {
-                    using (SqlCommand cmd1 = new SqlCommand(query1, conn))
-                    {
-                        cmd1.Parameters.Add("@STATUS", SqlDbType.TinyInt).Value = 0;
-                        cmd1.Parameters.Add("@ID", SqlDbType.VarChar).Value = ID;
+                SqlCommand cmd = new SqlCommand("update Users set Status = 0 where Id = @id", Conn);
 
-                        cmd1.ExecuteNonQuery();
-                    }
-                }
-            }
-            catch (SqlException e)
-            {
-                Console.WriteLine(e.ToString());
-            }
-        }
+                cmd.Parameters.AddWithValue("@id", id);
 
-        public static void Save(Bolsa.Entities.Person person)
-        {
-            if (person.State == Bolsa.Entities.BusinessEntity.States.New)
-            {
-                Insert(person);
+                Conn.Open();
+                cmd.ExecuteNonQuery();
+                Conn.Close();
             }
-            else if (person.State == Bolsa.Entities.BusinessEntity.States.Deleted)
+            catch (SqlException ex)
             {
-                Delete(person.Id);
+
+                throw new Exception(ex.Message);
             }
-            else if (person.State == Bolsa.Entities.BusinessEntity.States.Modified)
-            {
-                Update(person);
-            }
-            person.State = Bolsa.Entities.BusinessEntity.States.Unmodified;
         }
     }
 }

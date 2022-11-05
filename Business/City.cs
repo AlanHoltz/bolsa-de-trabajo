@@ -1,4 +1,4 @@
-﻿using System;
+﻿/* using System;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 
@@ -34,3 +34,4 @@ namespace Bolsa.Business
         }
     }
 }
+*/

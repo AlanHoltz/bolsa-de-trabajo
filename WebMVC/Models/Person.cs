@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -29,6 +30,8 @@ namespace WebMVC.Models
         [Display(Name = "Fecha de nacimiento")]
         public DateTime BirthDate { get; set; }
         public string Cv { get; set; }
+        [NotMapped]
+        public IFormFile CvFile { set; get; }
         [DefaultValue(false)]
         public bool IsAdmin { get; set; }
         public User User { get; set; }

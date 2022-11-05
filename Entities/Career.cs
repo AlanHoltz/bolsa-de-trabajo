@@ -3,12 +3,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Bolsa.Entities
 {
-    public class Province
+    public class Career
     {
         [Key]
         public int Id { get; set; }
-        [Required(ErrorMessage = "Nombre requerido")]
+        [Required]
         public string Name { get; set; }
-        public ICollection<City> Cities { get; set; }
+        public ICollection<JobProfile> JobProfiles { get; set; }
     }
 }

@@ -1,59 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bolsa.Entities
 {
-    public class Company : User
+    public class Company: User
     {
-        public Company() : base()
-        {
-
-        }
-        public Company(int id, String mail, String password, Boolean status, DateTime signupDate, String name, String cuit, String category, String address, String zipCode, String referenceName, String referencePhone, String referenceEmail, String referenceArea, Boolean referenceWorkOnCompany, String photo) : base(mail, password, status, signupDate)
-        {
-            Id = id;
-            Name = name;
-            Cuit = cuit;
-            Category = category;
-            Address = address;
-            ZipCode = zipCode;
-            ReferenceName = referenceName;
-            ReferencePhone = referencePhone;
-            ReferenceEmail = referenceEmail;
-            ReferenceArea = referenceArea;
-            ReferenceWorkOnCompany = ReferenceWorkOnCompany;
-            Photo = photo;
-        }
-        public Company(String mail, String password, Boolean status, DateTime signupDate, String name, String cuit, String category, String address, String zipCode, String referenceName, String referencePhone, String referenceEmail, String referenceArea, Boolean referenceWorkOnCompany, String photo) : base(mail, password, status, signupDate)
-        {
-            Name = name;
-            Cuit = cuit;
-            Category = category;
-            Address = address;
-            ZipCode = zipCode;
-            ReferenceName = referenceName;
-            ReferencePhone = referencePhone;
-            ReferenceEmail = referenceEmail;
-            ReferenceArea = referenceArea;
-            ReferenceWorkOnCompany = referenceWorkOnCompany;
-            Photo = photo;
-        }
-        public Company(String mail, String password) : base(mail, password)
-        {
-        }
-        public String Name { get; set; }
-        public String Cuit { get; set; }
-        public String Category { get; set; }
-        public String Address { get; set; }
-        public String ZipCode { get; set; }
-        public String ReferenceName { get; set; }
-        public String ReferencePhone { get; set; }
-        public String ReferenceEmail { get; set; }
-        public String ReferenceArea { get; set; }
-        public Boolean ReferenceWorkOnCompany { get; set; }
-        public String Photo { get; set; }
+        [Required(ErrorMessage = "Nombre requerido")]
+        [Display(Name = "Nombre")]
+        public string Name { get; set; }
+        [Required(ErrorMessage = "CUIT requerido")]
+        public string Cuit { get; set; }
+        [Required(ErrorMessage = "Dirección requerida")]
+        [Display(Name = "Dirección")]
+        public string Address { get; set; }
+        public string Photo { get; set; }
+        [Required]
+        [Display(Name = "Ciudad")]
+        public string CityZipCode { get; set; }
+        [Display(Name = "Nombre de referencia")]
+        public string ReferenceName { get; set; }
+        [Display(Name = "Teléfono de referencia")]
+        public string ReferencePhone { get; set; }
+        [EmailAddress(ErrorMessage = "Ingrese un email válido")]
+        [Display(Name = "Email de referencia")]
+        public string ReferenceEmail { get; set; }
+        public string ReferenceArea { get; set; }
+        public string ReferenceWorkingOnCompany { get; set; }
+        public string Status { get; set; }
+        public User User { get; set; }
+        [ForeignKey("CityZipCode")]
+        public City City { get; set; }
     }
 }

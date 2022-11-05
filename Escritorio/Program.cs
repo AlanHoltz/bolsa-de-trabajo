@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace Escritorio
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         ///  The main entry point for the application.
@@ -17,7 +17,7 @@ namespace Escritorio
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainMenu());
+            Application.Run(new frmPersons());
         }
     }
 }

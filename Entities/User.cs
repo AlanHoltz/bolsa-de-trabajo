@@ -1,41 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Bolsa.Entities
 {
-    public abstract class User:BusinessEntity
+    public class User
     {
-        public User()
-        {
-
-        }
-        public User(int id)
-        {
-            Id = id;
-        }
-        public User(int id, String mail, String password, Boolean status, DateTime signupDate)
-        {
-            Id = id;
-            Mail = mail;
-            Password = password;
-            Status = status;
-            Date = signupDate;
-        }
-        public User(String mail, String password, Boolean status, DateTime signupDate)
-        {
-            Mail = mail;
-            Password = password;
-            Status = status;
-            Date = signupDate;
-        }
-        public User(String mail, String password)
-        {
-            Mail = mail;
-            Password = password;
-        }
+        [Key]
         public int Id { get; set; }
-        public String Mail { get; set; }
-        public String Password { get; set; }
-        public Boolean Status { get; set; }
-        public DateTime Date { get; set; }
+        [Required(ErrorMessage = "Email requerido")]
+        public string Mail { get; set; }
+        [Required(ErrorMessage = "Contraseña requerida")]
+        public string Password { get; set; }
+        [Required]
+        public string Type { get; set; }
+        [DefaultValue(true)]
+        public bool Status { get; set; }
+        public DateTime SignupDate { get; set; }
+        public ICollection<Person> Persons { get; set; }
+        public ICollection<Company> Companies { get; set; }
     }
 }

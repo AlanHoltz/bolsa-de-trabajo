@@ -2,10 +2,13 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using WebMVC.Models;
 
 namespace WebMVC.Controllers
@@ -13,9 +16,11 @@ namespace WebMVC.Controllers
     public class PersonController : Controller
     {
         private readonly BolsaTrabajoContext _context;
-        public PersonController(BolsaTrabajoContext context)
+        private readonly IHostingEnvironment hostingEnvironment;
+        public PersonController(BolsaTrabajoContext context, IHostingEnvironment environment)
         {            
             _context = context;
+            hostingEnvironment = environment;
         }
         public IActionResult Index()
         {
@@ -254,6 +259,26 @@ namespace WebMVC.Controllers
                 Models.Person person = _context.Persons.Include(p => p.User).Where(user => user.Id == id).FirstOrDefault();
 
                 return View(person);
+            }
+
+            return Redirect("/");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadCv(IFormFile formFile)
+        {
+            if (HttpContext.Session.GetString("Type") == "Person")
+            {
+                if (formFile.Length > 0)
+                {
+                    var filePath = Path.Combine("wwwroot", "images");
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await formFile.CopyToAsync(stream);
+                    }
+
+                    return Redirect("/Person/Profile");
+                }
             }
 
             return Redirect("/");

@@ -1,4 +1,4 @@
-﻿using System;
+﻿/* using System;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 
@@ -21,11 +21,6 @@ namespace Bolsa.Business
 
         public static void Update(Entities.Company company)
         {
-            /*
-             * TODO
-             * Faltaría hacer acá la subida de imágenes y asignarle la url a
-             * company.Photo y con los setters
-             */
             company.Photo = "";
 
             Data.Company.Update(company);
@@ -40,3 +35,4 @@ namespace Bolsa.Business
         }
     }
 }
+*/

@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Cvs\" />
     <Folder Include="wwwroot\images\" />
     <Folder Include="wwwroot\CVs\" />
   </ItemGroup>

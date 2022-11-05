@@ -1,31 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bolsa.Entities
 {
-    public class City:BusinessEntity
+    public class City
     {
-        public City()
-        {
-        }
-        public City(String zipCode, String name, int provinceId)
-        {
-            ZipCode = zipCode;
-            Name = name;
-            ProvinceId = provinceId;
-        }
-
-        public City(String name, int provinceId)
-        {
-            Name = name;
-            ProvinceId = provinceId;
-        }
-        public String ZipCode { get; set; }
-        public String Name { get; set; }
+        [Key]
+        public string ZipCode { get; set; }
+        [Required(ErrorMessage = "Nombre requerido")]
+        public string Name { get; set; }
+        [ForeignKey("Province")]
         public int ProvinceId { get; set; }
-
+        public ICollection<Company> Companies { get; set; }
+        public Province Province { get; set; }
     }
 }

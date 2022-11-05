@@ -1,27 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bolsa.Entities
 {
-    public class Relationship : JobProfile
+    public class Relationship
     {
-        public Relationship()
-        {
 
-        }
-        public Relationship(int id, String mail, DateTime startingDate, DateTime endingDate, String address, int capacity, String description, String position, int companyId, int workdayTime) : base(id, mail, startingDate, endingDate, address, capacity, description, position, companyId)
-        {
-            WorkdayTime = workdayTime;
-        }
-
-        public Relationship(String mail, DateTime startingDate, DateTime endingDate, String address, int capacity, String description, String position, int companyId, int workdayTime) : base(mail, startingDate, endingDate, address, capacity, description, position, companyId)
-        {
-            WorkdayTime = workdayTime;
-        }
+        [Key]
+        [ForeignKey("JobProfile")]
+        public int Id { get; set; }
+        [Required(ErrorMessage = "Tiempo de trabajo requerido")]
         public int WorkdayTime { get; set; }
-
+        public JobProfile JobProfile { get; set; }
     }
 }

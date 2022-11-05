@@ -6,29 +6,45 @@ namespace Bolsa.Business
 {
     public class Person
     {
-        public static List<Entities.Person> GetAll()
+        public List<Entities.Person> GetAll()
         {
-            return Data.Person.GetAll();
+            Data.Person dataPerson = new Data.Person();
+            return dataPerson.GetAll();
         }
 
-        public Entities.Person GetOne(int ID)
+        public Entities.Person GetOne(int id)
         {
-            return Data.Person.GetOne(ID);
+            Data.Person dataPerson = new Data.Person();
+            return dataPerson.GetOne(id);
         }
 
         public void Insert(Entities.Person person)
         {
-            Data.Person.Insert(person);
+            Data.Person dataPerson = new Data.Person();
+            dataPerson.Add(person);
         }
-
-        public static void Delete(int ID)
+        
+        public void Edit(Entities.Person person)
         {
-            Data.Person.Delete(ID);
+            Data.Person dataPerson = new Data.Person();
+            dataPerson.Edit(person);
         }
 
         public void Save(Entities.Person person)
         {
-            Data.Person.Save(person);
+            if(person.Id != 0)
+            {
+                Edit(person);
+            } else
+            {
+                Insert(person);
+            }
+        }
+
+        public void Delete(int id)
+        {
+            Data.Person dataPerson = new Data.Person();
+            dataPerson.Delete(id);
         }
     }
 }

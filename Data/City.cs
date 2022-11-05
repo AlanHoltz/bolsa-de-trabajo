@@ -1,4 +1,4 @@
-﻿using System;
+﻿/* using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Collections.Generic;
@@ -23,8 +23,8 @@ namespace Bolsa.Data
                             {
                                 while(reader.Read())
                                 {
-                                    Entities.City citie = new Entities.City(reader.GetString(0), reader.GetString(1), reader.GetInt32(2));
-                                    cities.Add(citie);
+                                    //Entities.City citie = new Entities.City(reader.GetString(0), reader.GetString(1), reader.GetInt32(2));
+                                    //cities.Add(citie);
                                 }
                             }
                         }
@@ -160,3 +160,4 @@ namespace Bolsa.Data
     }
 }
 
+*/

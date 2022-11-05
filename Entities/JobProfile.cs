@@ -1,50 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bolsa.Entities
 {
-    public abstract class JobProfile
+    public class JobProfile
     {
-        public JobProfile()
-        {
-
-        }
-        public JobProfile(int id, String mail, DateTime startingDate, DateTime endingDate, String address, int capacity, String description, String position, int companyId)
-        {
-            Id = id;
-            MailReceptor = mail;
-            StartingDate = startingDate;
-            EndingDate = endingDate;
-            Address = address;
-            Capacity = capacity;
-            Description = description;
-            Position = position;
-            CompanyId = companyId;
-        }
-
-        public JobProfile(String mail, DateTime startingDate, DateTime endingDate, String address, int capacity, String description, String position, int companyId)
-        {
-            MailReceptor = mail;
-            StartingDate = startingDate;
-            EndingDate = endingDate;
-            Address = address;
-            Capacity = capacity;
-            Description = description;
-            Position = position;
-            CompanyId = companyId;
-        }
+        [Key]
         public int Id { get; set; }
-        public String MailReceptor { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+        [Required(ErrorMessage = "Email requerido")]
+        [EmailAddress(ErrorMessage = "Ingrese un email válido")]
+        [Display(Name = "Email de recepción")]
+        public string EmailReceptor { get; set; }
+        [Required(ErrorMessage = "Fecha de inicio requerida")]
+        [Display(Name = "Fecha de inicio")]
         public DateTime StartingDate { get; set; }
+        [Required(ErrorMessage = "Fecha de fin requerida")]
+        [Display(Name = "Fecha de finalización")]
         public DateTime EndingDate { get; set; }
-        public String Address { get; set; }
+        [Required(ErrorMessage = "Dirección requerida")]
+        [Display(Name = "Dirección")]
+        public string Address { get; set; }
+        [Required(ErrorMessage = "Capacidad requerida")]
+        [Display(Name = "Capacidad")]
         public int Capacity { get; set; }
-        public String Description { get; set; }
-        public String Position { get; set; }
+        [Display(Name = "Descripción")]
+        public string Description { get; set; }
+        [Required(ErrorMessage = "Posición requerida")]
+        [Display(Name = "Puesto de trabajo")]
+        public string Position { get; set; }
+        [Display(Name = "Tipo")]
+        public string Type { get; set; }
+        public bool Status { get; set; }
+        [ForeignKey("Company")]
         public int CompanyId { get; set; }
+        public Company Company { get; set; }
+        public ICollection<JobProfilePerson> JobProfilePerson { get; set; }
+        public ICollection<Career> Careers { get; set; }
+        public Internship Internship { get; set; }
+        public Relationship Relationship { get; set; }
 
     }
 }

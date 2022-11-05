@@ -1,4 +1,4 @@
-﻿using System;
+﻿/* using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Collections.Generic;
@@ -25,7 +25,7 @@ namespace Bolsa.Data
                                 while (reader.Read())
                                 {
                                     // Entities.Person person = new Entities.Person(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), Convert.ToBoolean(reader.GetByte(3)), reader.GetDateTime(4), reader.GetString(6), reader.GetString(7), reader.IsDBNull(8) ? "" : reader.GetString(8), reader.IsDBNull(9) ? "" : reader.GetString(9), Convert.ToBoolean(reader.GetByte(10)), reader.GetDateTime(11));
-                                    Entities.Person person = new Entities.Person(reader.GetString(1), reader.GetString(2));
+                                    // Entities.Person person = new Entities.Person(reader.GetString(1), reader.GetString(2));
                                     if (person.Password == user.Password)
                                     {
                                         return true;
@@ -46,3 +46,4 @@ namespace Bolsa.Data
     }
 }
 
+*/
