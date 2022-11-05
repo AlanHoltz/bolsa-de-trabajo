@@ -14,9 +14,18 @@
 
 <div style="background:#E3E2E2;height:calc(100% - 56px);font-family: 'Roboto', sans-serif;" class="row px-3 overflow-auto">
     <div class="col-md-12">
-        <h2 class="text-secondary my-3">
-            Aplicaciones
-        </h2>
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <h2 class="text-secondary my-3">
+                        Aplicaciones
+                        </h2>
+                    </div>
+                    <div class="col-auto">
+                        <a class="btn btn-primary" asp-controller="Person" asp-action="ApplicationsReport">
+                            <i class="bi bi-cloud-download"></i>    
+                        </a>
+                    </div>
+                </div>
 
         @if(Model.Count > 0)
         {
@@ -29,8 +38,8 @@
                     <div class="row justify-content-between align-items-center">
                         <div class="col-auto">
                             <div class="row">
-                                <div class="px-1">
-                                    <img src="@(@jobProfilePerson.JobProfiles.Company.Photo != null ? $"/images/companies/{jobProfilePerson.JobProfiles.Company.Photo}" : "/images/logo.png")" width="75" height="75"/>
+                                <div class="px-1 d-flex align-items-center">
+                                    <img src="@(@jobProfilePerson.JobProfiles.Company.Photo != null ? $"/images/companies/{jobProfilePerson.JobProfiles.Company.Photo}" : "/images/logo.png")" width="auto" height="40"/>
                                 </div>
 
                                 <div class="pl-1">

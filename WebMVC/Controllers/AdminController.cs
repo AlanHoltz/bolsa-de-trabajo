@@ -9,7 +9,7 @@ namespace WebMVC.Controllers
         {
             if(HttpContext.Session.GetString("Id") != null && HttpContext.Session.GetString("IsAdmin") == "True")
             {
-                return View();
+                return Redirect("/Person/Jobs");
             }
 
             return Redirect("/");

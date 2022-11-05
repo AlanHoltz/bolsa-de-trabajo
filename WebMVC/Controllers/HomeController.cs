@@ -24,7 +24,7 @@ namespace BolsaTrabajo.Controllers
             
         }
 
-        public IActionResult Index(int id)
+        public IActionResult Index()
         {
 
             if(HttpContext.Session.GetString("Id") == null) return Redirect("/login");

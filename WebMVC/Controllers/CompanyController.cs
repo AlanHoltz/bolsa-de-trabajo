@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using WebMVC.Models;
 
@@ -12,15 +13,16 @@ namespace WebMVC.Controllers
     public class CompanyController : Controller
     {
         private readonly BolsaTrabajoContext _context;
+        private readonly IReportService _reportService;
 
-        public CompanyController(BolsaTrabajoContext context)
+        public CompanyController(BolsaTrabajoContext context, IReportService reportService)
         {
             _context = context;
+            _reportService = reportService;
         }
 
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("Id") == null) return Redirect("/login");
             if (HttpContext.Session.GetString("Authorized") == "Pending") return Redirect("/Company/Profile");
             if (HttpContext.Session.GetString("IsAdmin") == "True")
             {
@@ -37,46 +39,79 @@ namespace WebMVC.Controllers
             return Redirect("/Company/Proposals");
         }
 
-        public IActionResult Proposals()
+        public IActionResult Proposals(string Position, DateTime? From, DateTime? Until, string Type)
         {
+            if (HttpContext.Session.GetString("Id") == null) return Redirect("/login");
             if (HttpContext.Session.GetString("Authorized") == "Pending") return Redirect("/Company/Profile");
-            if (HttpContext.Session.GetString("Id") != null && HttpContext.Session.GetString("Type") == "Company")
-            {
-                int companyId = int.Parse(HttpContext.Session.GetString("Id"));
+            if (HttpContext.Session.GetString("Type") == "Person") return Redirect("/Person");
 
-                List<JobProfile> jobProfiles = _context.JobProfiles
-                                                .Include(jp => jp.Company)
-                                                .Where(jp => 
-                                                 jp.CompanyId == companyId)
-                                                .ToList();
+            int companyId = int.Parse(HttpContext.Session.GetString("Id"));
+
+            IQueryable<JobProfile> jobProfiles = _context.JobProfiles
+                                            .Include(jp => jp.Company)
+                                            .Where(jp =>
+                                                jp.CompanyId == companyId);
+                
+            jobProfiles = Position != null ? jobProfiles.Where(jp => jp.Position.Contains(Position)) : jobProfiles;
+            jobProfiles = From != null ? jobProfiles.Where(jp => jp.StartingDate >= From) : jobProfiles;
+            jobProfiles = Until != null ? jobProfiles.Where(jp => jp.EndingDate <= Until) : jobProfiles;
+            jobProfiles = Type != null && (Type == "relationship" || Type == "internship") ? jobProfiles.Where(jp => jp.Type.ToLower() == Type) : jobProfiles;
+
+            ViewData["Position"] = Position;
+            ViewData["From"] = From;
+            ViewData["Until"] = Until;
+            ViewData["Type"] = Type;
+
+            return View(jobProfiles.ToList());
             
-                return View(jobProfiles);
-            }
 
-            return Redirect("/");
+            
+        }
+
+        public IActionResult ProposalsReport()
+        {
+            if (HttpContext.Session.GetString("Id") == null) return Redirect("/login");
+            if (HttpContext.Session.GetString("Authorized") == "Pending") return Redirect("/Company/Profile");
+            if (HttpContext.Session.GetString("Type") == "Person") return Redirect("/Person");
+
+
+            int companyId = int.Parse(HttpContext.Session.GetString("Id"));
+
+            List<JobProfile> jobProfiles = _context.JobProfiles
+                                            .Include(jp => jp.Company)
+                                            .Where(jp =>
+                                                jp.CompanyId == companyId)
+                                            .ToList();
+
+            var pdfFile = _reportService.GeneratePdfReport(jobProfiles);
+                
+            return File(pdfFile,
+            "application/octet-stream", "Trabajos.pdf");
+
+
+           
         }
         
         public IActionResult Proposal(int id)
         {
+            if (HttpContext.Session.GetString("Id") == null) return Redirect("/login");
             if (HttpContext.Session.GetString("Authorized") == "Pending") return Redirect("/Company/Profile");
-            if (HttpContext.Session.GetString("Id") != null && HttpContext.Session.GetString("Type") == "Company")
-            {
-                int companyId = int.Parse(HttpContext.Session.GetString("Id"));
-
-                List<JobProfilePerson> jobProfile = _context.JobProfilePerson
-                                            .Include(jpp => jpp.JobProfiles)
-                                            .Include(jpp => jpp.Persons)
-                                            .Include(jpp => jpp.Persons.User)
-                                            .Where(jp => jp.JobProfilesId == id 
-                                            && jp.JobProfiles.CompanyId == companyId)
-                                            .ToList();
-
-                ViewBag.quantity = jobProfile.Count();
+            if (HttpContext.Session.GetString("Type") == "Person") return Redirect("/Person");
             
-                return View(jobProfile);
-            }
+            int companyId = int.Parse(HttpContext.Session.GetString("Id"));
 
-            return Redirect("/");
+            List<JobProfilePerson> jobProfile = _context.JobProfilePerson
+                                        .Include(jpp => jpp.JobProfiles)
+                                        .Include(jpp => jpp.Persons)
+                                        .Include(jpp => jpp.Persons.User)
+                                        .Where(jp => jp.JobProfilesId == id 
+                                        && jp.JobProfiles.CompanyId == companyId)
+                                        .ToList();
+
+            ViewBag.quantity = jobProfile.Count();
+            
+            return View(jobProfile);
+
         }
 
         public IActionResult Signup()
@@ -144,7 +179,7 @@ namespace WebMVC.Controllers
         [HttpPost]
         public IActionResult Edit(Models.Company company)
         {
-            if (HttpContext.Session.GetString("Type") == "Company")
+            if (HttpContext.Session.GetString("Type") == "Company" || HttpContext.Session.GetString("IsAdmin") == "True")
             {
                 Models.User user = _context.Users.Where(user => user.Id == company.Id).FirstOrDefault();
                 user.Password = company.Password;
@@ -163,6 +198,7 @@ namespace WebMVC.Controllers
 
         public IActionResult Delete(int id)
         {
+
             if (HttpContext.Session.GetString("Authorized") == "Pending") return Redirect("/Company/Profile");
             if (HttpContext.Session.GetString("IsAdmin") == "True")
             {

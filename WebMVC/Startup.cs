@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 
 namespace BolsaTrabajo
 {
@@ -26,6 +28,11 @@ namespace BolsaTrabajo
         public void ConfigureServices(IServiceCollection services)
         {
 
+
+            services.AddSingleton<IReportService, ReportService>();
+            services.AddSingleton(typeof(IConverter), new
+            SynchronizedConverter(new PdfTools()));
+
             services.AddDistributedMemoryCache();
 
             services.AddSession(options =>
@@ -41,6 +48,8 @@ namespace BolsaTrabajo
             {
                 options.UseSqlServer(Configuration.GetConnectionString("defaultConnection"));
             });
+
+         
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

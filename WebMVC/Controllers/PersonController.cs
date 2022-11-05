@@ -16,18 +16,18 @@ namespace WebMVC.Controllers
     public class PersonController : Controller
     {
         private readonly BolsaTrabajoContext _context;
-        private readonly IHostingEnvironment hostingEnvironment;
-        public PersonController(BolsaTrabajoContext context, IHostingEnvironment environment)
+        private readonly IReportService _reportService;
+        private readonly IHostEnvironment _hostingEnvironment;
+
+        public PersonController(BolsaTrabajoContext context, IHostEnvironment environment, IReportService reportService)
         {            
             _context = context;
-            hostingEnvironment = environment;
+            _reportService = reportService;
+            _hostingEnvironment = environment;
         }
         public IActionResult Index()
         {
-            HttpContext.Session.GetString("IsAdmin");
-            if (HttpContext.Session.GetString("Id") == null) return Redirect("/login");
-            if (HttpContext.Session.GetString("Type") == "Company") return Redirect("/Company");
-            if (HttpContext.Session.GetString("IsAdmin") == "False") return Redirect("/Person/Jobs");
+            if (HttpContext.Session.GetString("Type") != "Person") return Redirect("/");
 
             List<Person> persons = _context.Persons.Include(person => person.User).Where(person => person.User.Status == true
                                                                                         && person.IsAdmin == false).ToList();
@@ -37,10 +37,7 @@ namespace WebMVC.Controllers
         public IActionResult Jobs(int id)
         {
 
-            if (HttpContext.Session.GetString("Id") == null)
-            {
-                return Redirect("/login");
-            }
+            if (HttpContext.Session.GetString("Type") != "Person") return Redirect("/");
 
             if (id != 0)
             {
@@ -88,10 +85,7 @@ namespace WebMVC.Controllers
 
         public IActionResult Applications()
         {
-            if (HttpContext.Session.GetString("Id") == null)
-            {
-                return Redirect("/login");
-            }
+            if (HttpContext.Session.GetString("Type") != "Person") return Redirect("/");
 
             int personId = int.Parse(HttpContext.Session.GetString("Id"));
 
@@ -106,8 +100,31 @@ namespace WebMVC.Controllers
             return View(jpPerson);
         }
 
+        public IActionResult ApplicationsReport()
+        {
+            if (HttpContext.Session.GetString("Type") != "Person") return Redirect("/");
+
+            int personId = int.Parse(HttpContext.Session.GetString("Id"));
+
+            List<JobProfilePerson> jpPerson = _context.JobProfilePerson
+                .Include(jp => jp.JobProfiles)
+                .Include(jp => jp.JobProfiles.Company)
+                .Where(
+                jp => jp.PersonsId == personId
+                && jp.JobProfiles.StartingDate <= DateTime.Now
+                && jp.JobProfiles.EndingDate >= DateTime.Now).ToList();
+
+
+            var pdfFile = _reportService.GeneratePdfReport(jpPerson);
+
+            return File(pdfFile,
+            "application/octet-stream", "Aplicaciones.pdf");
+        }
+
         public IActionResult AddApplication(int id)
         {
+
+            if (HttpContext.Session.GetString("Type") != "Person") return Redirect("/");
 
             int idPerson = int.Parse(HttpContext.Session.GetString("Id"));
 
@@ -135,6 +152,8 @@ namespace WebMVC.Controllers
 
         public IActionResult RemoveApplication(int id)
         {
+            if (HttpContext.Session.GetString("Type") != "Person") return Redirect("/");
+
             JobProfilePerson jpp = _context.JobProfilePerson.Where(jpp => 
             jpp.JobProfilesId == id
             && jpp.PersonsId == int.Parse(HttpContext.Session.GetString("Id"))
@@ -152,10 +171,10 @@ namespace WebMVC.Controllers
 
         public IActionResult Signup()
         {
-            if (HttpContext.Session.GetString("IsAdmin") == "True")
-            {
-                return View();
-            }
+
+
+            if (HttpContext.Session.GetString("IsAdmin") == "True") return View();
+            
 
             return Redirect("/");
         }
@@ -163,7 +182,8 @@ namespace WebMVC.Controllers
         [HttpPost]
         public IActionResult Signup(Models.Person person)
         {
-            if(HttpContext.Session.GetString("IsAdmin") == "True")
+
+            if (HttpContext.Session.GetString("IsAdmin") == "True")
             {
                 person.IsAdmin = false;
 
@@ -213,8 +233,10 @@ namespace WebMVC.Controllers
         [HttpPost]
         public IActionResult Edit(Models.Person person)
         {
+
             if (HttpContext.Session.GetString("Type") == "Person")
             {
+
                 Models.User user = _context.Users.Where(user => user.Id == person.Id).FirstOrDefault();
                 user.Password = person.Password;
 
@@ -232,6 +254,7 @@ namespace WebMVC.Controllers
 
         public IActionResult Delete(int id)
         {
+
             if (HttpContext.Session.GetString("IsAdmin") == "True")
             {
                 Models.User person = _context.Users.Where(user => user.Id == id).FirstOrDefault();
@@ -253,6 +276,7 @@ namespace WebMVC.Controllers
 
         public IActionResult Profile()
         {
+
             if (HttpContext.Session.GetString("Type") == "Person")
             {
                 int id = int.Parse(HttpContext.Session.GetString("Id"));
@@ -264,24 +288,55 @@ namespace WebMVC.Controllers
             return Redirect("/");
         }
 
-        [HttpPost]
-        public async Task<IActionResult> UploadCv(IFormFile formFile)
+        public IActionResult MyCV()
         {
-            if (HttpContext.Session.GetString("Type") == "Person")
-            {
-                if (formFile.Length > 0)
-                {
-                    var filePath = Path.Combine("wwwroot", "images");
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await formFile.CopyToAsync(stream);
-                    }
 
-                    return Redirect("/Person/Profile");
-                }
+            int id = int.Parse(HttpContext.Session.GetString("Id"));
+            Models.Person person = _context.Persons.Include(p => p.User).Where(user => user.Id == id).FirstOrDefault();
+
+            return View(person);
+        }
+
+        [HttpPost]
+        public IActionResult MyCVAsync(IFormFile cv)
+        {
+
+            if (HttpContext.Session.GetString("Type") != "Person") return Redirect("/");
+
+            if (cv != null && cv.Length <= 8000000)
+            {
+
+
+                
+
+                var uniqueFileName = GetUniqueFileName(cv.FileName);
+                var uploads = Path.Combine(_hostingEnvironment.ContentRootPath + "\\wwwroot\\", "CVs");
+                var filePath = Path.Combine(uploads, uniqueFileName);
+                cv.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                int userId = int.Parse(HttpContext.Session.GetString("Id"));
+
+                Person myself = _context.Persons.Where(p => p.Id == userId).FirstOrDefault();
+
+                myself.Cv = uniqueFileName;
+
+                _context.Persons.Update(myself);
+                _context.SaveChanges();
+
+
             }
 
-            return Redirect("/");
+
+            return Redirect("/Person/MyCV");
+        }
+
+        private string GetUniqueFileName(string fileName)
+        {
+            fileName = Path.GetFileName(fileName);
+            return Path.GetFileNameWithoutExtension(fileName)
+                      + "_"
+                      + Guid.NewGuid().ToString().Substring(0, 4)
+                      + Path.GetExtension(fileName);
         }
     }
 }

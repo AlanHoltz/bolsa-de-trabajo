@@ -108,6 +108,9 @@ namespace WebMVC.Migrations
                     b.Property<string>("ReferenceWorkingOnCompany")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CityZipCode");
