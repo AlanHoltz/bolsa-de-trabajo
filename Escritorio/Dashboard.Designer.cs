@@ -1,6 +1,6 @@
 ﻿namespace Escritorio
 {
-    partial class frmPersonDashboard
+    partial class frmDashboard
     {
         /// <summary>
         /// Required designer variable.

@@ -30,7 +30,7 @@ namespace Escritorio
 
             if (foundUser != null)
             {
-                frmPersonDashboard pd = new frmPersonDashboard();
+                frmDashboard dashboard = new frmDashboard();
                 
 
                 Session.Id = foundUser.Id;
@@ -45,8 +45,6 @@ namespace Escritorio
                     Session.Name = $"{person.Name} {person.Surname}";
                     Session.IsAdmin = person.IsAdmin;
 
-                    this.Hide();
-                    pd.Show();
                 }
                 else
                 {
@@ -57,9 +55,11 @@ namespace Escritorio
                     Session.CUIT = company.Cuit;
                     Session.Status = company.Status;
 
-                    //IMPLEMENTAR DASHBOARD DE COMPANY
                 }
-                
+
+                this.Hide();
+                dashboard.Show();
+
             }
             else
             {

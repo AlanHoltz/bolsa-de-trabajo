@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Escritorio
 {
-    public partial class frmPersonDashboard : Form
+    public partial class frmDashboard : Form
     {
-        public frmPersonDashboard()
+        public frmDashboard()
         {
             InitializeComponent();
 
