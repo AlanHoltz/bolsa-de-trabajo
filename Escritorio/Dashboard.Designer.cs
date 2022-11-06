@@ -31,6 +31,7 @@
             this.menuDashboard = new System.Windows.Forms.MenuStrip();
             this.trabajosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aplicacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.propuestasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.administradorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.personasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.empresasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,6 +47,7 @@
             this.menuDashboard.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.trabajosToolStripMenuItem,
             this.aplicacionesToolStripMenuItem,
+            this.propuestasToolStripMenuItem,
             this.administradorToolStripMenuItem,
             this.perfilToolStripMenuItem});
             this.menuDashboard.Location = new System.Drawing.Point(0, 0);
@@ -59,12 +61,19 @@
             this.trabajosToolStripMenuItem.Name = "trabajosToolStripMenuItem";
             this.trabajosToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
             this.trabajosToolStripMenuItem.Text = "Trabajos";
+            this.trabajosToolStripMenuItem.Click += new System.EventHandler(this.trabajosToolStripMenuItem_Click);
             // 
             // aplicacionesToolStripMenuItem
             // 
             this.aplicacionesToolStripMenuItem.Name = "aplicacionesToolStripMenuItem";
             this.aplicacionesToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
             this.aplicacionesToolStripMenuItem.Text = "Aplicaciones";
+            // 
+            // propuestasToolStripMenuItem
+            // 
+            this.propuestasToolStripMenuItem.Name = "propuestasToolStripMenuItem";
+            this.propuestasToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
+            this.propuestasToolStripMenuItem.Text = "Propuestas";
             // 
             // administradorToolStripMenuItem
             // 
@@ -121,7 +130,7 @@
             this.lblBienvenida.TabIndex = 1;
             this.lblBienvenida.Text = "label1";
             // 
-            // PersonDashboard
+            // frmDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -129,7 +138,7 @@
             this.Controls.Add(this.lblBienvenida);
             this.Controls.Add(this.menuDashboard);
             this.MainMenuStrip = this.menuDashboard;
-            this.Name = "PersonDashboard";
+            this.Name = "frmDashboard";
             this.Text = "Dashboard";
             this.Shown += new System.EventHandler(this.PersonDashboard_Shown);
             this.menuDashboard.ResumeLayout(false);
@@ -151,5 +160,6 @@
         private System.Windows.Forms.ToolStripMenuItem personasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem empresasToolStripMenuItem;
         private System.Windows.Forms.Label lblBienvenida;
+        private System.Windows.Forms.ToolStripMenuItem propuestasToolStripMenuItem;
     }
 }

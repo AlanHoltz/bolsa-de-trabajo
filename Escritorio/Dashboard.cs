@@ -18,6 +18,30 @@ namespace Escritorio
 
         }
 
+
+        private void PersonDashboard_Shown(object sender, EventArgs e)
+        {
+            administradorToolStripMenuItem.Visible = Session.IsAdmin == true;
+
+            if(Session.Type == "Person")
+            {
+                propuestasToolStripMenuItem.Visible = false;
+            }
+            else
+            {
+                trabajosToolStripMenuItem.Visible = false;
+                aplicacionesToolStripMenuItem.Visible = false;
+            }
+            
+            string? name = Session.Type == "Person" ? $"{Session.Name} {Session.Surname}" : Session.Name;
+            lblBienvenida.Text = $"Dashboard de {name}";
+        }
+
+        private void trabajosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new frmJobs().ShowDialog();
+        }
+
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Hide();
@@ -27,13 +51,7 @@ namespace Escritorio
 
         private void personasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            new frmPersons().Show();
-        }
-
-        private void PersonDashboard_Shown(object sender, EventArgs e)
-        {
-            administradorToolStripMenuItem.Visible = Session.IsAdmin == true;
-            lblBienvenida.Text = $"Bienvenido/a {Session.Name} {Session.Surname}";
+            new frmPersons().ShowDialog();
         }
     }
 }

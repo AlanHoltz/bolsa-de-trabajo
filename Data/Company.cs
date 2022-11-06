@@ -27,11 +27,15 @@ namespace Bolsa.Data
                 while (dr.Read())
                 {
                     Entities.Company company = new Entities.Company();
+
+                    string photo = dr.GetString(16);
+
                     company.Id = dr.GetInt32(0);
                     company.Mail = dr.GetString(1);
                     company.Type = dr.GetString(3);
                     company.Name = dr.GetString(7);
                     company.Cuit = dr.GetString(8);
+                    company.Photo = photo != null ? photo : "logo.png";
                     company.Status = dr.GetString(17);
 
 
