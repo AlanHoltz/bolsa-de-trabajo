@@ -1,4 +1,4 @@
-﻿/* using System;
+﻿using System;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 
@@ -6,33 +6,18 @@ namespace Bolsa.Business
 {
     public class Company
     {
-        public static List<Entities.Company> GetAll()
+        public List<Entities.Company> GetAll()
         {
-            return Data.Company.GetAll();
-        }
-        public Entities.Company GetOne(int ID)
-        {
-            return Data.Company.GetOne(ID);
-        }
-        public static void Insert(Entities.Company company)
-        {
-            Data.Company.Insert(company);
+            Data.Company dataCompany = new Data.Company();
+            return dataCompany.GetAll();
         }
 
-        public static void Update(Entities.Company company)
+        public Entities.Company GetOne(int id)
         {
-            company.Photo = "";
+            Data.Company dataCompany = new Data.Company();
+            return dataCompany.GetOne(id);
+        }
 
-            Data.Company.Update(company);
-        }
-        public static void Delete(Entities.Company company)
-        {
-            Data.Company.Delete(company);
-        }
-        public void Save(Entities.Company company)
-        {
-            Data.Company.Save(company);
-        }
+
     }
 }
-*/

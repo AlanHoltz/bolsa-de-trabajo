@@ -33,6 +33,7 @@ namespace Bolsa.Data
                     person.Name = dr.GetString(7);
                     person.Surname = dr.GetString(8);
                     person.BirthDate = dr.GetDateTime(9);
+                    person.IsAdmin = dr.GetBoolean(11);
 
                     usuarios.Add(person);
                 }
