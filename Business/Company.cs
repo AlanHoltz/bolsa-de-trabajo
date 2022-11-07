@@ -47,6 +47,18 @@ namespace Bolsa.Business
             Data.Company dataCompany = new Data.Company();
             dataCompany.Delete(id);
         }
+        
+        public List<Entities.JobProfile> GetProposals(int companyId)
+        {
+            Data.Company dataCompany = new Data.Company();
+            return dataCompany.GetProposals(companyId);
+        }
+        
+        public Entities.JobProfile GetProposal(int idProposal)
+        {
+            Data.JobProfile dataJobProfile = new Data.JobProfile();
+            return dataJobProfile.GetOne(idProposal);
+        }
 
     }
 }

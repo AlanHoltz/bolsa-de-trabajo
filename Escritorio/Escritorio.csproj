@@ -26,6 +26,9 @@
     <Compile Update="EditPerson.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="ListProposal.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Jobs.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -161,5 +161,46 @@ namespace Bolsa.Data
                 throw new Exception(ex.Message);
             }
         }
+
+        public List<Entities.JobProfile> GetProposals(int companyId)
+        {
+            List<Entities.JobProfile> proposals = new List<Entities.JobProfile>();
+
+            try
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM JobProfiles WHERE companyId = @companyId", Conn);
+
+                cmd.Parameters.AddWithValue("@companyId", companyId);
+
+                Conn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    Entities.JobProfile proposal = new Entities.JobProfile();
+
+                    proposal.Id = dr.GetInt32(0);
+                    proposal.EmailReceptor = dr.GetString(1);
+                    proposal.StartingDate = dr.GetDateTime(2);
+                    proposal.EndingDate = dr.GetDateTime(3);
+                    proposal.Address = dr.GetString(4);
+                    proposal.Capacity = dr.GetInt32(5);
+                    proposal.Description = dr.GetString(6);
+                    proposal.Position = dr.GetString(7);
+                    proposal.Type = dr.GetString(10);
+
+                    proposals.Add(proposal);
+                }
+
+                dr.Close();
+                Conn.Close();
+
+                return proposals;
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }
