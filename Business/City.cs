@@ -1,4 +1,4 @@
-﻿/* using System;
+﻿using System;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 
@@ -6,11 +6,15 @@ namespace Bolsa.Business
 {
     public class City
     {
-        public static List<Entities.City> GetAll()
+        public List<Entities.City> GetAll()
         {
-            return Data.City.GetAll();
+            Data.City dataCity = new Data.City();
+            return dataCity.GetAll();
         }
+    }
+}
 
+        /*
         public Entities.City GetOne(String zipCode)
         {
             return Data.City.GetOne(zipCode);

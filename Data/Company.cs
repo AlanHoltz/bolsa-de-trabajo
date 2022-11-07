@@ -19,7 +19,7 @@ namespace Bolsa.Data
 
             try
             {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM Users u INNER JOIN Companies c ON u.Id = c.Id WHERE c.Status = 'Authorized'", Conn);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Users u INNER JOIN Companies c ON u.Id = c.Id WHERE u.Status = 1", Conn);
 
                 Conn.Open();
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -27,6 +27,7 @@ namespace Bolsa.Data
                 while (dr.Read())
                 {
                     Entities.Company company = new Entities.Company();
+                    Entities.City city = new Entities.City();
 
                     string photo = dr.GetString(16);
 
@@ -35,9 +36,14 @@ namespace Bolsa.Data
                     company.Type = dr.GetString(3);
                     company.Name = dr.GetString(7);
                     company.Cuit = dr.GetString(8);
+                    company.Address = dr.GetString(9);
+                    company.ReferenceName = dr.GetString(11);
+                    company.ReferencePhone = dr.GetString(12);
+                    company.ReferenceEmail = dr.GetString(13);
+                    company.ReferenceArea = dr.GetString(14);
+                    company.ReferenceWorkingOnCompany = dr.GetString(15);
                     company.Photo = photo != null ? photo : "logo.png";
                     company.Status = dr.GetString(17);
-
 
                     companies.Add(company);
                 }
@@ -62,5 +68,139 @@ namespace Bolsa.Data
             return company;
         }
 
+        public void Add(Entities.Company user)
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("insert into Users(Mail, Password, Type, Status, SignupDate) OUTPUT Inserted.Id values(@mail, @password, @type, @status, @signupDate)", Conn);
+
+                cmd.Parameters.AddWithValue("@mail", user.Mail);
+                cmd.Parameters.AddWithValue("@password", user.Password);
+                cmd.Parameters.AddWithValue("@type", "Company");
+                cmd.Parameters.AddWithValue("@status", true);
+                cmd.Parameters.AddWithValue("@signupDate", DateTime.Now);
+
+                Conn.Open();
+                int id = (int)cmd.ExecuteScalar();
+                Conn.Close();
+
+
+                cmd = new SqlCommand("insert into Companies values(@id, @name, @cuit, @address, @zipCode, @referName, @referPhone, @referEmail, @referArea, @referWork, @photo, @status)", Conn);
+
+                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@name", user.Name);
+                cmd.Parameters.AddWithValue("@cuit", user.Cuit);
+                cmd.Parameters.AddWithValue("@address", user.Address);
+                cmd.Parameters.AddWithValue("@zipCode", user.CityZipCode);
+                cmd.Parameters.AddWithValue("@referName", "");
+                cmd.Parameters.AddWithValue("@referPhone", "");
+                cmd.Parameters.AddWithValue("@referEmail", "");
+                cmd.Parameters.AddWithValue("@referArea", "");
+                cmd.Parameters.AddWithValue("@referWork", "");
+                cmd.Parameters.AddWithValue("@photo", "");
+                cmd.Parameters.AddWithValue("@status", "Pending");
+
+                Conn.Open();
+                cmd.ExecuteNonQuery();
+                Conn.Close();
+            }
+            catch (SqlException ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public void Edit(Entities.Company user)
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("update Users set Password = @password where Id = @id", Conn);
+
+                cmd.Parameters.AddWithValue("@password", user.Password);
+                cmd.Parameters.AddWithValue("@id", user.Id);
+
+                Conn.Open();
+                cmd.ExecuteNonQuery();
+                Conn.Close();
+
+
+                cmd = new SqlCommand("update Companies set Name = @name, Cuit = @cuit, Address = @address where Id = @id", Conn);
+
+                cmd.Parameters.AddWithValue("@name", user.Name);
+                cmd.Parameters.AddWithValue("@cuit", user.Cuit);
+                cmd.Parameters.AddWithValue("@address", user.Address);
+                cmd.Parameters.AddWithValue("@id", user.Id);
+
+                Conn.Open();
+                cmd.ExecuteNonQuery();
+                Conn.Close();
+            }
+            catch (SqlException ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public void Delete(int id)
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("update Users set Status = 0 where Id = @id", Conn);
+
+                cmd.Parameters.AddWithValue("@id", id);
+
+                Conn.Open();
+                cmd.ExecuteNonQuery();
+                Conn.Close();
+            }
+            catch (SqlException ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public List<Entities.JobProfile> GetProposals(int companyId)
+        {
+            List<Entities.JobProfile> proposals = new List<Entities.JobProfile>();
+
+            try
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM JobProfiles WHERE companyId = @companyId AND Status = 1", Conn);
+
+                cmd.Parameters.AddWithValue("@companyId", companyId);
+
+                Conn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    Entities.JobProfile proposal = new Entities.JobProfile();
+
+                    proposal.Id = dr.GetInt32(0);
+                    proposal.EmailReceptor = dr.GetString(1);
+                    proposal.StartingDate = dr.GetDateTime(2);
+                    proposal.EndingDate = dr.GetDateTime(3);
+                    proposal.Address = dr.GetString(4);
+                    proposal.Capacity = dr.GetInt32(5);
+                    proposal.Description = dr.GetString(6);
+                    proposal.Position = dr.GetString(7);
+                    proposal.Type = dr.GetString(10);
+
+                    proposals.Add(proposal);
+                }
+
+                dr.Close();
+                Conn.Close();
+
+                return proposals;
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

@@ -1,44 +1,45 @@
-﻿/* using System;
+﻿using System;
 using System.Data;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 
 namespace Bolsa.Data
 {
-    public class City
+    public class City : Base
     {
-        public static List<Entities.City> GetAll()
+        public List<Entities.City> GetAll()
         {
-        try 
-            { 
-                string query = "SELECT * FROM [cities]";
-                var cities = new List<Entities.City>();
-                using (SqlConnection conn = Singleton.GetInstance().Open())
+            List<Entities.City> cities = new List<Entities.City>();
+
+            try
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM Cities", Conn);
+
+                Conn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
                 {
-                    using(SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        using (SqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            if (reader != null)
-                            {
-                                while(reader.Read())
-                                {
-                                    //Entities.City citie = new Entities.City(reader.GetString(0), reader.GetString(1), reader.GetInt32(2));
-                                    //cities.Add(citie);
-                                }
-                            }
-                        }
-                    }
+                    Entities.City city = new Entities.City();
+                    city.ZipCode = dr.GetString(2);
+                    city.Name = dr.GetString(0);
+
+                    cities.Add(city);
                 }
+
+                dr.Close();
+                Conn.Close();
+
                 return cities;
             }
-            catch (SqlException e)
+            catch (SqlException ex)
             {
-                Console.WriteLine(e.ToString());
-                return null;
+                throw new Exception(ex.Message);
             }
         }
-
+    }
+}
+/*
         public static Entities.City GetOne(String zipCode)
         {
             Entities.City city = new Entities.City();
