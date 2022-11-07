@@ -168,7 +168,7 @@ namespace Bolsa.Data
 
             try
             {
-                SqlCommand cmd = new SqlCommand("SELECT * FROM JobProfiles WHERE companyId = @companyId", Conn);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM JobProfiles WHERE companyId = @companyId AND Status = 1", Conn);
 
                 cmd.Parameters.AddWithValue("@companyId", companyId);
 

@@ -41,6 +41,9 @@ namespace Escritorio
             this.lblAddressValue = new System.Windows.Forms.Label();
             this.lblCapacityValue = new System.Windows.Forms.Label();
             this.lblDescriptionValue = new System.Windows.Forms.Label();
+            this.btnEditar = new System.Windows.Forms.Button();
+            this.btnEliminar = new System.Windows.Forms.Button();
+            this.btnVerPostulantes = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picCompany)).BeginInit();
             this.SuspendLayout();
             // 
@@ -148,11 +151,43 @@ namespace Escritorio
             this.lblDescriptionValue.TabIndex = 13;
             this.lblDescriptionValue.Text = "label5";
             // 
+            // btnEditar
+            // 
+            this.btnEditar.Location = new System.Drawing.Point(12, 415);
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Size = new System.Drawing.Size(75, 23);
+            this.btnEditar.TabIndex = 14;
+            this.btnEditar.Text = "Editar";
+            this.btnEditar.UseVisualStyleBackColor = true;
+            // 
+            // btnEliminar
+            // 
+            this.btnEliminar.Location = new System.Drawing.Point(196, 415);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(75, 23);
+            this.btnEliminar.TabIndex = 14;
+            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.UseVisualStyleBackColor = true;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            // 
+            // btnVerPostulantes
+            // 
+            this.btnVerPostulantes.Location = new System.Drawing.Point(356, 415);
+            this.btnVerPostulantes.Name = "btnVerPostulantes";
+            this.btnVerPostulantes.Size = new System.Drawing.Size(128, 23);
+            this.btnVerPostulantes.TabIndex = 14;
+            this.btnVerPostulantes.Text = "Ver postulantes";
+            this.btnVerPostulantes.UseVisualStyleBackColor = true;
+            this.btnVerPostulantes.Click += new System.EventHandler(this.btnVerPostulantes_Click);
+            // 
             // frmListProposal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(496, 450);
+            this.Controls.Add(this.btnVerPostulantes);
+            this.Controls.Add(this.btnEliminar);
+            this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.lblDescriptionValue);
             this.Controls.Add(this.lblCapacityValue);
             this.Controls.Add(this.lblAddressValue);
@@ -186,5 +221,8 @@ namespace Escritorio
         private Label lblAddressValue;
         private Label lblCapacityValue;
         private Label lblDescriptionValue;
+        private Button btnEditar;
+        private Button btnEliminar;
+        private Button btnVerPostulantes;
     }
 }

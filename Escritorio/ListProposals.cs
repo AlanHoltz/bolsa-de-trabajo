@@ -23,7 +23,6 @@ namespace Escritorio
         {
             Bolsa.Business.Company businessCompany = new Bolsa.Business.Company();
 
-            companyId = 2;
             dgvProposals.DataSource = businessCompany.GetProposals(companyId);
 
             dgvProposals.Columns["Status"].Visible = false;
@@ -40,6 +39,10 @@ namespace Escritorio
             int idProposal = int.Parse(dgvProposals.Rows[dgvProposals.CurrentRow.Index].Cells[0].Value.ToString());
             frmListProposal frmListProposal = new frmListProposal(idProposal);
             frmListProposal.ShowDialog();
+
+            Bolsa.Business.Company businessCompany = new Bolsa.Business.Company();
+
+            dgvProposals.DataSource = businessCompany.GetProposals(companyId);
 
             // dgvPersons.DataSource = personBusiness.GetAll();
         }

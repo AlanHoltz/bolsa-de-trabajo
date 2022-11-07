@@ -41,5 +41,19 @@ namespace Escritorio
             lblDescriptionValue.Text = jobProfile.Description;
 
         }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            Bolsa.Business.JobProfile businessJobProfile = new Bolsa.Business.JobProfile();
+
+            businessJobProfile.Delete(idProposal);
+
+            this.Close();
+        }
+
+        private void btnVerPostulantes_Click(object sender, EventArgs e)
+        {
+            new frmShowApplies(idProposal).ShowDialog();
+        }
     }
 }

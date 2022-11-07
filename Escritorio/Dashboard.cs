@@ -25,7 +25,7 @@ namespace Escritorio
 
             if(Session.Type == "Person")
             {
-                propuestasToolStripMenuItem.Visible = false;
+                tspProposals.Visible = false;
             }
             else
             {
@@ -49,9 +49,29 @@ namespace Escritorio
             new frmLogin().Show();
         }
 
-        private void personasToolStripMenuItem_Click(object sender, EventArgs e)
+        private void tspPersonas_Click(object sender, EventArgs e)
         {
             new frmPersons().ShowDialog();
+        }
+        private void tspPeople_Click(object sender, EventArgs e)
+        {
+            new frmPersons().ShowDialog();
+        }
+
+        private void tspEmpresas_Click(object sender, EventArgs e)
+        {
+            new frmCompanies().ShowDialog();
+        }
+        private void tspCompanies_Click(object sender, EventArgs e)
+        {
+            new frmCompanies().ShowDialog();
+        }
+
+        private void tspProposals_Click(object sender, EventArgs e)
+        {
+            int idCompany = (int)Session.Id;
+            idCompany = 2;
+            new frmListProposals(idCompany).ShowDialog();
         }
     }
 }

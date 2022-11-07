@@ -20,7 +20,7 @@ namespace Bolsa.Data
             try
             {
                 //"SELECT * FROM JobProfiles jp WHERE jp.Id NOT IN (SELECT JobProfilesId FROM JobProfilePerson WHERE PersonsId = @person)"
-                SqlCommand cmd = new SqlCommand("SELECT * FROM JobProfiles", Conn);
+                SqlCommand cmd = new SqlCommand("SELECT * FROM JobProfiles WHERE Status = 1", Conn);
 
                 Conn.Open();
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -114,6 +114,66 @@ namespace Bolsa.Data
             Entities.JobProfile jobProfile = jobProfiles.FirstOrDefault(jp => jp.Id.Equals(jobProfileId));
 
             return jobProfile;
+        }
+
+        public void Delete(int id)
+        {
+            try
+            {
+                SqlCommand cmd = new SqlCommand("update JobProfiles set Status = 0 where Id = @id", Conn);
+
+                cmd.Parameters.AddWithValue("@id", id);
+
+                Conn.Open();
+                cmd.ExecuteNonQuery();
+                Conn.Close();
+            }
+            catch (SqlException ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+        
+        public List<Entities.Person> GetApplies(int idProposal)
+        {
+            List<Entities.Person> persons = new List<Entities.Person>();
+
+            try
+            {
+                SqlCommand cmd = new SqlCommand("select per.Name, per.Surname, per.BirthDate, u.Mail " +
+                "from JobProfiles jp " +
+                "inner join JobProfilePerson jpp on jp.Id = jpp.JobProfilesId " +
+                "inner join Persons per on jpp.PersonsId = per.Id " +
+                "inner join Users u on per.Id = u.Id " +
+                "where jp.Id = @id", Conn);
+
+                cmd.Parameters.AddWithValue("@id", idProposal);
+
+                Conn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    Entities.Person person = new Entities.Person();
+                    person.Name = dr.GetString(0);
+                    person.Surname = dr.GetString(1);
+                    person.BirthDate = dr.GetDateTime(2);
+                    person.Mail = dr.GetString(3);
+
+                    persons.Add(person);
+                }
+
+                dr.Close();
+                Conn.Close();
+
+                return persons;
+            }
+            catch (SqlException ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
 
     }

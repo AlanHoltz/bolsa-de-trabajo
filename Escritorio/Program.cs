@@ -17,7 +17,7 @@ namespace Escritorio
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmListProposals(2));
+            Application.Run(new frmLogin());
         }
     }
 }

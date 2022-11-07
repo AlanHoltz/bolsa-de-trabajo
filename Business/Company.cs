@@ -59,6 +59,12 @@ namespace Bolsa.Business
             Data.JobProfile dataJobProfile = new Data.JobProfile();
             return dataJobProfile.GetOne(idProposal);
         }
+        
+        public List<Entities.Person> GetApplies(int idProposal)
+        {
+            Data.JobProfile dataJobProfile = new Data.JobProfile();
+            return dataJobProfile.GetApplies(idProposal);
+        }
 
     }
 }
