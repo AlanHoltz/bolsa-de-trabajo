@@ -31,10 +31,10 @@
             this.menuDashboard = new System.Windows.Forms.MenuStrip();
             this.trabajosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aplicacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.propuestasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tspProposals = new System.Windows.Forms.ToolStripMenuItem();
             this.administradorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.personasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.empresasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tspPersonas = new System.Windows.Forms.ToolStripMenuItem();
+            this.tspEmpresas = new System.Windows.Forms.ToolStripMenuItem();
             this.perfilToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.configuraciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,7 +47,7 @@
             this.menuDashboard.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.trabajosToolStripMenuItem,
             this.aplicacionesToolStripMenuItem,
-            this.propuestasToolStripMenuItem,
+            this.tspProposals,
             this.administradorToolStripMenuItem,
             this.perfilToolStripMenuItem});
             this.menuDashboard.Location = new System.Drawing.Point(0, 0);
@@ -70,33 +70,36 @@
             this.aplicacionesToolStripMenuItem.Text = "Aplicaciones";
             this.aplicacionesToolStripMenuItem.Click += new System.EventHandler(this.aplicacionesToolStripMenuItem_Click);
             // 
-            // propuestasToolStripMenuItem
+            // tspProposals
             // 
-            this.propuestasToolStripMenuItem.Name = "propuestasToolStripMenuItem";
-            this.propuestasToolStripMenuItem.Size = new System.Drawing.Size(77, 20);
-            this.propuestasToolStripMenuItem.Text = "Propuestas";
+            this.tspProposals.Name = "tspProposals";
+            this.tspProposals.Size = new System.Drawing.Size(77, 20);
+            this.tspProposals.Text = "Propuestas";
+            this.tspProposals.Click += new System.EventHandler(this.tspProposals_Click);
             // 
             // administradorToolStripMenuItem
             // 
             this.administradorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.personasToolStripMenuItem,
-            this.empresasToolStripMenuItem});
+            this.tspPersonas,
+            this.tspEmpresas});
             this.administradorToolStripMenuItem.Name = "administradorToolStripMenuItem";
             this.administradorToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
             this.administradorToolStripMenuItem.Text = "Administrador";
             // 
-            // personasToolStripMenuItem
+            // tspPersonas
             // 
-            this.personasToolStripMenuItem.Name = "personasToolStripMenuItem";
-            this.personasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.personasToolStripMenuItem.Text = "Personas";
-            this.personasToolStripMenuItem.Click += new System.EventHandler(this.personasToolStripMenuItem_Click);
+
+            this.tspPersonas.Name = "tspPersonas";
+            this.tspPersonas.Size = new System.Drawing.Size(124, 22);
+            this.tspPersonas.Text = "Personas";
+            this.tspPersonas.Click += new System.EventHandler(this.tspPersonas_Click);
             // 
-            // empresasToolStripMenuItem
+            // tspEmpresas
             // 
-            this.empresasToolStripMenuItem.Name = "empresasToolStripMenuItem";
-            this.empresasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.empresasToolStripMenuItem.Text = "Empresas";
+            this.tspEmpresas.Name = "tspEmpresas";
+            this.tspEmpresas.Size = new System.Drawing.Size(124, 22);
+            this.tspEmpresas.Text = "Empresas";
+            this.tspEmpresas.Click += new System.EventHandler(this.tspEmpresas_Click);
             // 
             // perfilToolStripMenuItem
             // 
@@ -159,9 +162,9 @@
         private System.Windows.Forms.ToolStripMenuItem configuraciónToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem administradorToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem personasToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem empresasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tspPersonas;
+        private System.Windows.Forms.ToolStripMenuItem tspEmpresas;
         private System.Windows.Forms.Label lblBienvenida;
-        private System.Windows.Forms.ToolStripMenuItem propuestasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tspProposals;
     }
 }

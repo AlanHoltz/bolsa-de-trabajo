@@ -5,6 +5,7 @@ namespace Bolsa.Entities
 {
     public class Company: User
     {
+        new public int Id { get; set; }
         [Required(ErrorMessage = "Nombre requerido")]
         [Display(Name = "Nombre")]
         public string Name { get; set; }
