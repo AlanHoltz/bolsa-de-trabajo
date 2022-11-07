@@ -28,6 +28,7 @@ namespace WebMVC.Controllers
         public IActionResult Index()
         {
             if (HttpContext.Session.GetString("Type") != "Person") return Redirect("/");
+            if (HttpContext.Session.GetString("IsAdmin") != "True") return Redirect("/Person/Jobs");
 
             List<Person> persons = _context.Persons.Include(person => person.User).Where(person => person.User.Status == true
                                                                                         && person.IsAdmin == false).ToList();
@@ -43,7 +44,9 @@ namespace WebMVC.Controllers
             {
                 JobProfile jobProfile = _context.JobProfiles
                 .Include(jp => jp.Company)
-                .Where(jp => jp.Id == id).FirstOrDefault();
+                .Where(
+                    jp => jp.Id == id 
+                ).FirstOrDefault();
 
                 int personId = int.Parse(HttpContext.Session.GetString("Id"));
 
