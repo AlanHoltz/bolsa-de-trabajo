@@ -57,7 +57,13 @@ namespace Bolsa.Business
         public Entities.JobProfile GetProposal(int idProposal)
         {
             Data.JobProfile dataJobProfile = new Data.JobProfile();
-            return dataJobProfile.GetOne(idProposal);
+
+            Entities.JobProfile jobProfile = dataJobProfile.GetOne(idProposal);
+
+            jobProfile.Company = GetOne(jobProfile.CompanyId);
+
+
+            return jobProfile;
         }
         
         public List<Entities.Person> GetApplies(int idProposal)

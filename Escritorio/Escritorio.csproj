@@ -17,6 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="AddJobProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="EditCompany.cs">
       <SubType>Form</SubType>
     </Compile>

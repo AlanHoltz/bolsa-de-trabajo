@@ -62,34 +62,28 @@ namespace Escritorio
 
         private void configuraciónToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(Session.Type == "Person")
+            if (Session.Type == "Person")
             {
                 new frmEditPerson(Session.Id ?? -1).ShowDialog();
             }
             else
             {
-
+                new frmEditCompany(Session.Id ?? -1).ShowDialog();
             }
 
-        private void tspPeople_Click(object sender, EventArgs e)
-        {
-            new frmPersons().ShowDialog();
         }
+
 
         private void tspEmpresas_Click(object sender, EventArgs e)
         {
             new frmCompanies().ShowDialog();
         }
-        private void tspCompanies_Click(object sender, EventArgs e)
-        {
-            new frmCompanies().ShowDialog();
-        }
+
 
         private void tspProposals_Click(object sender, EventArgs e)
         {
-            int idCompany = (int)Session.Id;
-            idCompany = 2;
-            new frmListProposals(idCompany).ShowDialog();
+
+            new frmListProposals(Session.Id ?? -1).ShowDialog();
         }
     }
 }

@@ -44,6 +44,7 @@ namespace Escritorio
             this.btnEditar = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnVerPostulantes = new System.Windows.Forms.Button();
+            this.lblCompany = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picCompany)).BeginInit();
             this.SuspendLayout();
             // 
@@ -180,11 +181,21 @@ namespace Escritorio
             this.btnVerPostulantes.UseVisualStyleBackColor = true;
             this.btnVerPostulantes.Click += new System.EventHandler(this.btnVerPostulantes_Click);
             // 
+            // lblCompany
+            // 
+            this.lblCompany.AutoSize = true;
+            this.lblCompany.Location = new System.Drawing.Point(161, 73);
+            this.lblCompany.Name = "lblCompany";
+            this.lblCompany.Size = new System.Drawing.Size(38, 15);
+            this.lblCompany.TabIndex = 15;
+            this.lblCompany.Text = "label1";
+            // 
             // frmListProposal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(496, 450);
+            this.Controls.Add(this.lblCompany);
             this.Controls.Add(this.btnVerPostulantes);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnEditar);
@@ -224,5 +235,6 @@ namespace Escritorio
         private Button btnEditar;
         private Button btnEliminar;
         private Button btnVerPostulantes;
+        private Label lblCompany;
     }
 }

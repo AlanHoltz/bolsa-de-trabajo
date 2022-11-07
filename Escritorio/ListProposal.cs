@@ -29,11 +29,11 @@ namespace Escritorio
 
             string currentDirectory = Environment.CurrentDirectory;
             string solutionDirectory = Directory.GetParent(currentDirectory).Parent.Parent.Parent.FullName;
-            // string imageUrl = jobProfile.Company.Photo != null ? $"companies\\{jobProfile.Company.Photo}" : "logo.png";
-            // picCompany.ImageLocation = $"{solutionDirectory}\\WebMVC\\wwwroot\\images\\{imageUrl}";
+            string imageUrl = jobProfile.Company.Photo != null ? $"companies\\{jobProfile.Company.Photo}" : "logo.png";
+            picCompany.ImageLocation = $"{solutionDirectory}\\WebMVC\\wwwroot\\images\\{imageUrl}";
 
             lblPosition.Text = jobProfile.Position;
-            // lblCompany.Text = jobProfile.Company.Name;
+            lblCompany.Text = jobProfile.Company.Name;
             lblStartingDateValue.Text = jobProfile.StartingDate.ToString("dd/MM/yyyy");
             lblEndingDateValue.Text = jobProfile.EndingDate.ToString("dd/MM/yyyy");
             lblAddressValue.Text = jobProfile.Address;

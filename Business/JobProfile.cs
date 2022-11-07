@@ -34,6 +34,13 @@ namespace Bolsa.Business
 
             return jobProfile;
         }
+
+        public void Add(Entities.JobProfile jobProfile)
+        {
+            Data.JobProfile jobProfileData = new Data.JobProfile();
+
+            jobProfileData.Add(jobProfile);
+        }
         
         public void Delete(int jobProfileId)
         {

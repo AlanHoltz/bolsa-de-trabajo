@@ -30,6 +30,7 @@
         {
             this.dgvProposals = new System.Windows.Forms.DataGridView();
             this.btnMirar = new System.Windows.Forms.Button();
+            this.btnAgregar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProposals)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,14 +56,25 @@
             this.btnMirar.UseVisualStyleBackColor = true;
             this.btnMirar.Click += new System.EventHandler(this.btnMirar_Click);
             // 
-            // ListProposals
+            // btnAgregar
+            // 
+            this.btnAgregar.Location = new System.Drawing.Point(404, 272);
+            this.btnAgregar.Name = "btnAgregar";
+            this.btnAgregar.Size = new System.Drawing.Size(75, 23);
+            this.btnAgregar.TabIndex = 2;
+            this.btnAgregar.Text = "Agregar";
+            this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
+            // 
+            // frmListProposals
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(586, 307);
+            this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.btnMirar);
             this.Controls.Add(this.dgvProposals);
-            this.Name = "ListProposals";
+            this.Name = "frmListProposals";
             this.Text = "ListProposals";
             this.Load += new System.EventHandler(this.ListProposals_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvProposals)).EndInit();
@@ -74,5 +86,6 @@
 
         private System.Windows.Forms.DataGridView dgvProposals;
         private System.Windows.Forms.Button btnMirar;
+        private System.Windows.Forms.Button btnAgregar;
     }
 }

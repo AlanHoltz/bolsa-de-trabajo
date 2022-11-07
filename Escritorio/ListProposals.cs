@@ -36,6 +36,9 @@ namespace Escritorio
 
         private void btnMirar_Click(object sender, EventArgs e)
         {
+
+            if (dgvProposals.Rows.Count == 0) return;
+
             int idProposal = int.Parse(dgvProposals.Rows[dgvProposals.CurrentRow.Index].Cells[0].Value.ToString());
             frmListProposal frmListProposal = new frmListProposal(idProposal);
             frmListProposal.ShowDialog();
@@ -44,7 +47,15 @@ namespace Escritorio
 
             dgvProposals.DataSource = businessCompany.GetProposals(companyId);
 
-            // dgvPersons.DataSource = personBusiness.GetAll();
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            new frmAddJobProfile().ShowDialog();
+
+            Bolsa.Business.Company businessCompany = new Bolsa.Business.Company();
+
+            dgvProposals.DataSource = businessCompany.GetProposals(companyId);
         }
     }
 }

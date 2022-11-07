@@ -56,6 +56,7 @@ namespace Bolsa.Data
             }
         }
 
+
         public List<Entities.JobProfile> GetAll(int personId)
         {
             List<Entities.JobProfile> jobProfiles = new List<Entities.JobProfile>();
@@ -109,13 +110,36 @@ namespace Bolsa.Data
             return jobProfile;
         }
 
-        public Entities.JobProfile GetOne(int jobProfileId)
+        public void Add(Entities.JobProfile jobProfile)
         {
-            List<Entities.JobProfile> jobProfiles = GetAll();
+            try
+            {
+                SqlCommand cmd = new SqlCommand("insert into JobProfiles(EmailReceptor, StartingDate, EndingDate, Address, Capacity,Description,Position,CompanyId,CreatedAt,Type,Status) VALUES(@receptor, @starting, @ending, @address, @capacity,@description,@position,@companyid,@createdat,@type,@status)", Conn);
 
-            Entities.JobProfile jobProfile = jobProfiles.FirstOrDefault(jp => jp.Id.Equals(jobProfileId));
+                cmd.Parameters.AddWithValue("@receptor", jobProfile.EmailReceptor);
+                cmd.Parameters.AddWithValue("@starting", jobProfile.StartingDate);
+                cmd.Parameters.AddWithValue("@ending", jobProfile.EndingDate);
+                cmd.Parameters.AddWithValue("@address", jobProfile.Address);
+                cmd.Parameters.AddWithValue("@capacity", jobProfile.Capacity);
+                cmd.Parameters.AddWithValue("@description", jobProfile.Description);
+                cmd.Parameters.AddWithValue("@position", jobProfile.Position);
+                cmd.Parameters.AddWithValue("@companyid", jobProfile.CompanyId);
+                cmd.Parameters.AddWithValue("@createdat", DateTime.Now);
+                cmd.Parameters.AddWithValue("@type", jobProfile.Type);
+                cmd.Parameters.AddWithValue("@status", true);
 
-            return jobProfile;
+
+
+                Conn.Open();
+                cmd.ExecuteNonQuery();
+                Conn.Close();
+
+            }
+            catch (SqlException ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
 
         public void Delete(int id)
