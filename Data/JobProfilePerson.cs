@@ -48,6 +48,43 @@ namespace Bolsa.Data
             }
         }
 
+        public List<Entities.JobProfilePerson> GetApplications(int personId)
+        {
+            List<Entities.JobProfilePerson> applications = new List<Entities.JobProfilePerson>();
+
+            try
+            {
+                SqlCommand cmd = new SqlCommand("SELECT * FROM JobProfilePerson WHERE PersonsId = @personsid", Conn);
+                cmd.Parameters.AddWithValue("@personsid", personId);
+
+                Conn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    Entities.JobProfilePerson application = new Entities.JobProfilePerson();
+                    application.Id = dr.GetInt32(0);
+                    application.JobProfilesId = dr.GetInt32(1);
+                    application.PersonsId = dr.GetInt32(2);
+                    string observations = dr.GetString(3) ?? null;
+                    application.Observations = observations;
+                    application.Status = dr.GetString(4);
+
+
+                    applications.Add(application);
+                }
+
+                dr.Close();
+                Conn.Close();
+
+                return applications;
+            }
+            catch (SqlException ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
 
         public Entities.JobProfilePerson GetOne(int jobProfilesId, int personsId)
         {
