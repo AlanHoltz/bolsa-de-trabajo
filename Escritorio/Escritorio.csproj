@@ -17,10 +17,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="EditCompany.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="AddCompany.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="EditPerson.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Jobs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Companies.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Properties\Resources.Designer.cs">

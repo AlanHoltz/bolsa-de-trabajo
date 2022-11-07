@@ -18,6 +18,35 @@ namespace Bolsa.Business
             return dataCompany.GetOne(id);
         }
 
+        public void Insert(Entities.Company company)
+        {
+            Data.Company dataCompany = new Data.Company();
+            dataCompany.Add(company);
+        }
+
+        public void Edit(Entities.Company company)
+        {
+            Data.Company dataCompany = new Data.Company();
+            dataCompany.Edit(company);
+        }
+
+        public void Save(Entities.Company company)
+        {
+            if (company.Id != 0)
+            {
+                Edit(company);
+            }
+            else
+            {
+                Insert(company);
+            }
+        }
+
+        public void Delete(int id)
+        {
+            Data.Company dataCompany = new Data.Company();
+            dataCompany.Delete(id);
+        }
 
     }
 }
