@@ -68,6 +68,7 @@
             this.aplicacionesToolStripMenuItem.Name = "aplicacionesToolStripMenuItem";
             this.aplicacionesToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
             this.aplicacionesToolStripMenuItem.Text = "Aplicaciones";
+            this.aplicacionesToolStripMenuItem.Click += new System.EventHandler(this.aplicacionesToolStripMenuItem_Click);
             // 
             // tspProposals
             // 
@@ -87,6 +88,7 @@
             // 
             // tspPersonas
             // 
+
             this.tspPersonas.Name = "tspPersonas";
             this.tspPersonas.Size = new System.Drawing.Size(124, 22);
             this.tspPersonas.Text = "Personas";
@@ -113,6 +115,7 @@
             this.configuraciónToolStripMenuItem.Name = "configuraciónToolStripMenuItem";
             this.configuraciónToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.configuraciónToolStripMenuItem.Text = "Configuración";
+            this.configuraciónToolStripMenuItem.Click += new System.EventHandler(this.configuraciónToolStripMenuItem_Click);
             // 
             // salirToolStripMenuItem
             // 

@@ -11,13 +11,13 @@ using System.Windows.Forms;
 
 namespace Escritorio
 {
-    public partial class formJob : Form
+    public partial class frmJob : Form
     {
 
         public Bolsa.Entities.JobProfile jobProfile;
         public Bolsa.Entities.JobProfilePerson jobProfilePerson;
 
-        public formJob(int _id)
+        public frmJob(int _id)
         {
             InitializeComponent();
 
@@ -86,8 +86,11 @@ namespace Escritorio
         {
             Bolsa.Business.JobProfilePerson jobProfilePersonBusiness = new Bolsa.Business.JobProfilePerson();
 
+
             jobProfilePersonBusiness.Delete(jobProfilePerson.Id);
-            this.Refresh();
+
+            this.Dispose();
+
         }
 
         private void btnApply_Click(object sender, EventArgs e)
@@ -102,7 +105,8 @@ namespace Escritorio
 
             jobProfilePersonBusiness.Add(newJobProfilePerson);
 
-            this.Refresh();
+            this.Dispose();
         }
+
     }
 }

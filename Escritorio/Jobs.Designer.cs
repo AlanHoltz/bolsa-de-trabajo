@@ -78,7 +78,7 @@
             this.Controls.Add(this.dgvJobs);
             this.Name = "frmJobs";
             this.Text = "Persons";
-            this.Load += new System.EventHandler(this.Persons_Load);
+            this.Load += new System.EventHandler(this.Jobs_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvJobs)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

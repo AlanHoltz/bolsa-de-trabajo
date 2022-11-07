@@ -19,7 +19,7 @@ namespace Bolsa.Data
 
             try
             {
-                //"SELECT * FROM JobProfiles jp WHERE jp.Id NOT IN (SELECT JobProfilesId FROM JobProfilePerson WHERE PersonsId = @person)"
+
                 SqlCommand cmd = new SqlCommand("SELECT * FROM JobProfiles WHERE Status = 1", Conn);
 
                 Conn.Open();
@@ -39,6 +39,8 @@ namespace Bolsa.Data
                     jobProfile.CompanyId = dr.GetInt32(8);
                     jobProfile.CreatedAt = dr.GetDateTime(9);
                     jobProfile.Type = dr.GetString(10);
+                    jobProfile.Status = dr.GetBoolean(11);
+
 
                     jobProfiles.Add(jobProfile);
                 }
@@ -60,7 +62,7 @@ namespace Bolsa.Data
 
             try
             {
-                //"SELECT * FROM JobProfiles jp WHERE jp.Id NOT IN (SELECT JobProfilesId FROM JobProfilePerson WHERE PersonsId = @person)"
+
                 SqlCommand cmd = new SqlCommand("SELECT * FROM JobProfiles jp WHERE jp.Id NOT IN (SELECT JobProfilesId FROM JobProfilePerson WHERE PersonsId = @person)", Conn);
                 
                 cmd.Parameters.AddWithValue("@person", personId);
@@ -98,9 +100,9 @@ namespace Bolsa.Data
         }
 
 
-        public Entities.JobProfile GetOne(int personId, int jobProfileId)
+        public Entities.JobProfile GetOne(int jobProfileId)
         {
-            List<Entities.JobProfile> jobProfiles = GetAll(personId);
+            List<Entities.JobProfile> jobProfiles = GetAll();
 
             Entities.JobProfile jobProfile = jobProfiles.FirstOrDefault(jp => jp.Id.Equals(jobProfileId));
 

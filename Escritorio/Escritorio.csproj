@@ -26,7 +26,9 @@
     <Compile Update="EditPerson.cs">
       <SubType>Form</SubType>
     </Compile>
+
     <Compile Update="ListProposal.cs">
+
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Jobs.cs">
@@ -47,6 +49,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Reports\" />
   </ItemGroup>
 
 </Project>

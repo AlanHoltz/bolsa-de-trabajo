@@ -2,7 +2,7 @@
 
 namespace Escritorio
 {
-    partial class formJob
+    partial class frmJob
     {
         /// <summary>
         /// Required designer variable.

@@ -26,7 +26,7 @@ namespace Bolsa.Business
         {
             Data.JobProfile jobProfileData = new Data.JobProfile(); 
 
-            Entities.JobProfile jobProfile = jobProfileData.GetOne(personId, jobProfileId);
+            Entities.JobProfile jobProfile = jobProfileData.GetOne(jobProfileId);
 
             Data.Company companyData = new Data.Company();
 

@@ -53,6 +53,24 @@ namespace Escritorio
         {
             new frmPersons().ShowDialog();
         }
+
+
+        private void aplicacionesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new frmApplications().ShowDialog();
+        }
+
+        private void configuraciónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(Session.Type == "Person")
+            {
+                new frmEditPerson(Session.Id ?? -1).ShowDialog();
+            }
+            else
+            {
+
+            }
+
         private void tspPeople_Click(object sender, EventArgs e)
         {
             new frmPersons().ShowDialog();
